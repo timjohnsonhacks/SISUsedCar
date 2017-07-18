@@ -12,8 +12,10 @@ class SISUsedCarVC: UIViewController {
 
     let cellID = "SISUsedCarTVCell"
     let dataService = SISUsedCarDataService()
+    let imageService = SISUsedCarImageService()
     
     var content = [SISUsedCarCellContent]()
+    var contentMapping: [String : IndexPath] = [:] // stockNumber : IndexPath for image setting
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -43,9 +45,22 @@ class SISUsedCarVC: UIViewController {
             if let cars = cars {
                 
                 self.content.removeAll()
+                var index = 0
                 for c in cars {
-                    let carCellContent = SISUsedCarCellContent(usedCar: c)
+                    let carCellContent = SISUsedCarCellContent(usedCar: c, mainImage: nil)
                     self.content.append(carCellContent)
+                    self.contentMapping[c.stockNumber] = IndexPath(row: index, section: 0)
+                    index += 1
+                    
+                    self.imageService.mainImage(forStockNumber: c.stockNumber, completion: { (stockNumber, mainImage) in
+                        if let path = self.contentMapping[stockNumber],
+                            let mainImage = mainImage {
+                            DispatchQueue.main.async {
+                                self.content[path.row].mainImage = mainImage
+                                self.tableView.reloadRows(at: [path], with: .none)
+                            }
+                        }
+                    })
                 }
                 
                 DispatchQueue.main.async {
@@ -69,12 +84,17 @@ extension SISUsedCarVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SISUsedCarTVCell
-        let car = content[indexPath.row].usedCar
-        let yearMakeModel = "\(car.year) \(car.make) \(car.model)"
-        cell.configureText(
+        let car = content[indexPath.row]
+        let yearMakeModel = "\(car.usedCar.year) \(car.usedCar.make) \(car.usedCar.model)"
+        
+        cell.configure(
             yearMakeModel: yearMakeModel,
-            isSold: car.isSold ? "Sold" : "Available",
-            price: "$$$ " + (String(car.price)))
+            isSold: car.usedCar.isSold ? "Sold" : "Available",
+            price: "$$$ " + (String(car.usedCar.price)))
+        
+        if let mainImage = car.mainImage {
+            cell.configure(image: mainImage)
+        }
         
         return cell
     }

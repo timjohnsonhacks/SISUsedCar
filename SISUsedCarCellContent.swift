@@ -6,9 +6,10 @@
 //  Copyright © 2017 SouthernImportSpecialist. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct SISUsedCarCellContent {
     
     var usedCar: SISUsedCar
+    var mainImage: UIImage?
 }

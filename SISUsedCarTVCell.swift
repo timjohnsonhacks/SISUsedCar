@@ -17,12 +17,18 @@ class SISUsedCarTVCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        // car image view config
+        carImageView.contentMode = .scaleAspectFit
     }
 
-    func configureText(yearMakeModel: String, isSold: String, price: String) {
-        
+    func configure(yearMakeModel: String, isSold: String, price: String) {
         yearMakeModelLabel.text = yearMakeModel
         isSoldLabel.text = isSold
         priceLabel.text = price
+    }
+    
+    func configure(image: UIImage) {
+        carImageView.image = image
     }
 }

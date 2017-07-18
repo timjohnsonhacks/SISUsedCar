@@ -21,6 +21,7 @@
 		0B2B4C821F1E8FDD00F8648C /* SISUsedCarCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C811F1E8FDD00F8648C /* SISUsedCarCellContent.swift */; };
 		0B2B4C851F1E90E200F8648C /* SISUsedCarTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */; };
 		0B2B4C861F1E90E200F8648C /* SISUsedCarTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */; };
+		0B2B4C881F1EA33900F8648C /* SISUsedCarImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C871F1EA33900F8648C /* SISUsedCarImageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		0B2B4C811F1E8FDD00F8648C /* SISUsedCarCellContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarCellContent.swift; sourceTree = "<group>"; };
 		0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarTVCell.swift; sourceTree = "<group>"; };
 		0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarTVCell.xib; sourceTree = "<group>"; };
+		0B2B4C871F1EA33900F8648C /* SISUsedCarImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarImageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				0B2B4C7B1F1E8E6D00F8648C /* SISUsedCarDataService.swift */,
+				0B2B4C871F1EA33900F8648C /* SISUsedCarImageService.swift */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B2B4C801F1E8FA300F8648C /* SISUsedCarVC.swift in Sources */,
+				0B2B4C881F1EA33900F8648C /* SISUsedCarImageService.swift in Sources */,
 				0B2B4C851F1E90E200F8648C /* SISUsedCarTVCell.swift in Sources */,
 				0B2B4C7E1F1E8EA600F8648C /* SISUsedCar.swift in Sources */,
 				0B2B4C4F1F1E749F00F8648C /* SISUsedCar.xcdatamodeld in Sources */,
