@@ -15,6 +15,8 @@
 		0B2B4C541F1E749F00F8648C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B2B4C521F1E749F00F8648C /* LaunchScreen.storyboard */; };
 		0B2B4C5F1F1E749F00F8648C /* SISUsedCarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C5E1F1E749F00F8648C /* SISUsedCarTests.swift */; };
 		0B2B4C6A1F1E749F00F8648C /* SISUsedCarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C691F1E749F00F8648C /* SISUsedCarUITests.swift */; };
+		0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C7B1F1E8E6D00F8648C /* SISUsedCarDataService.swift */; };
+		0B2B4C7E1F1E8EA600F8648C /* SISUsedCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C7D1F1E8EA600F8648C /* SISUsedCar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		0B2B4C651F1E749F00F8648C /* SISUsedCarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SISUsedCarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B2B4C691F1E749F00F8648C /* SISUsedCarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SISUsedCarUITests.swift; sourceTree = "<group>"; };
 		0B2B4C6B1F1E749F00F8648C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B2B4C7B1F1E8E6D00F8648C /* SISUsedCarDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDataService.swift; sourceTree = "<group>"; };
+		0B2B4C7D1F1E8EA600F8648C /* SISUsedCar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,10 @@
 		0B2B4C3A1F1E749E00F8648C = {
 			isa = PBXGroup;
 			children = (
+				0B2B4C7A1F1E74C500F8648C /* Model */,
+				0B2B4C791F1E74BF00F8648C /* Views */,
+				0B2B4C781F1E74B100F8648C /* Networking */,
+				0B2B4C771F1E74AB00F8648C /* Controllers */,
 				0B2B4C451F1E749F00F8648C /* SISUsedCar */,
 				0B2B4C5D1F1E749F00F8648C /* SISUsedCarTests */,
 				0B2B4C681F1E749F00F8648C /* SISUsedCarUITests */,
@@ -126,6 +134,36 @@
 				0B2B4C6B1F1E749F00F8648C /* Info.plist */,
 			);
 			path = SISUsedCarUITests;
+			sourceTree = "<group>";
+		};
+		0B2B4C771F1E74AB00F8648C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		0B2B4C781F1E74B100F8648C /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0B2B4C7B1F1E8E6D00F8648C /* SISUsedCarDataService.swift */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		0B2B4C791F1E74BF00F8648C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0B2B4C7A1F1E74C500F8648C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0B2B4C7D1F1E8EA600F8648C /* SISUsedCar.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,9 +303,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B2B4C7E1F1E8EA600F8648C /* SISUsedCar.swift in Sources */,
 				0B2B4C4F1F1E749F00F8648C /* SISUsedCar.xcdatamodeld in Sources */,
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
+				0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
