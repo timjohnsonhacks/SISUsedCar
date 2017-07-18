@@ -17,6 +17,10 @@
 		0B2B4C6A1F1E749F00F8648C /* SISUsedCarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C691F1E749F00F8648C /* SISUsedCarUITests.swift */; };
 		0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C7B1F1E8E6D00F8648C /* SISUsedCarDataService.swift */; };
 		0B2B4C7E1F1E8EA600F8648C /* SISUsedCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C7D1F1E8EA600F8648C /* SISUsedCar.swift */; };
+		0B2B4C801F1E8FA300F8648C /* SISUsedCarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C7F1F1E8FA300F8648C /* SISUsedCarVC.swift */; };
+		0B2B4C821F1E8FDD00F8648C /* SISUsedCarCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C811F1E8FDD00F8648C /* SISUsedCarCellContent.swift */; };
+		0B2B4C851F1E90E200F8648C /* SISUsedCarTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */; };
+		0B2B4C861F1E90E200F8648C /* SISUsedCarTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,10 @@
 		0B2B4C6B1F1E749F00F8648C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B2B4C7B1F1E8E6D00F8648C /* SISUsedCarDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDataService.swift; sourceTree = "<group>"; };
 		0B2B4C7D1F1E8EA600F8648C /* SISUsedCar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCar.swift; sourceTree = "<group>"; };
+		0B2B4C7F1F1E8FA300F8648C /* SISUsedCarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarVC.swift; sourceTree = "<group>"; };
+		0B2B4C811F1E8FDD00F8648C /* SISUsedCarCellContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarCellContent.swift; sourceTree = "<group>"; };
+		0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarTVCell.swift; sourceTree = "<group>"; };
+		0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarTVCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +147,7 @@
 		0B2B4C771F1E74AB00F8648C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0B2B4C7F1F1E8FA300F8648C /* SISUsedCarVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -154,6 +163,8 @@
 		0B2B4C791F1E74BF00F8648C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */,
+				0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -162,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				0B2B4C7D1F1E8EA600F8648C /* SISUsedCar.swift */,
+				0B2B4C811F1E8FDD00F8648C /* SISUsedCarCellContent.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -277,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B2B4C541F1E749F00F8648C /* LaunchScreen.storyboard in Resources */,
+				0B2B4C861F1E90E200F8648C /* SISUsedCarTVCell.xib in Resources */,
 				0B2B4C511F1E749F00F8648C /* Assets.xcassets in Resources */,
 				0B2B4C4C1F1E749F00F8648C /* Main.storyboard in Resources */,
 			);
@@ -303,11 +316,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B2B4C801F1E8FA300F8648C /* SISUsedCarVC.swift in Sources */,
+				0B2B4C851F1E90E200F8648C /* SISUsedCarTVCell.swift in Sources */,
 				0B2B4C7E1F1E8EA600F8648C /* SISUsedCar.swift in Sources */,
 				0B2B4C4F1F1E749F00F8648C /* SISUsedCar.xcdatamodeld in Sources */,
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
 				0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */,
+				0B2B4C821F1E8FDD00F8648C /* SISUsedCarCellContent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
