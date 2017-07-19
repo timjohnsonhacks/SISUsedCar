@@ -8,44 +8,51 @@
 
 import Foundation
 
-class SISUsedCar {
+let defaultString = "default"
+let defaultInt = -1
+
+public class SISUsedCar {
     
-    let id: Int
-    let slug: String
-    let userId: Int
-    let year: String
-    let make: String
-    let model: String
-    let trim: String
-    let bodyStyle: String
-    let price: Int
-    let description: String
-    let transmission: String
-    let engine: String
-    let mileage: Int
-    let exteriorColor: String
-    let driveTrain_1: String
-    let driveTrain_2: String
-    let vin: String
-    let videoUrl: String
-    let interiorColor: String
-    let wheelBase: String
-    let doorCount: Int
-    let fuelType: String
-    let isUsed: Bool
-    let isSold: Bool
-    let isDeleted: Bool
-    let createdAt: String
-    let updatedAt: String
-    let stockNumber: String
+    public var id: Int = defaultInt
+    public var slug: String = defaultString
+    public var userId: Int = defaultInt
+    public var year: String = defaultString
+    public var make: String = defaultString
+    public var model: String = defaultString
+    public var trim: String = defaultString
+    public var bodyStyle: String = defaultString
+    public var price: Int = defaultInt
+    public var description: String = defaultString
+    public var transmission: String = defaultString
+    public var engine: String = defaultString
+    public var mileage: Int = defaultInt
+    public var exteriorColor: String = defaultString
+    public var driveTrain_1: String = defaultString
+    public var driveTrain_2: String = defaultString
+    public var vin: String = defaultString
+    public var videoUrl: String = defaultString
+    public var interiorColor: String = defaultString
+    public var wheelBase: String = defaultString
+    public var doorCount: Int = defaultInt
+    public var fuelType: String = defaultString
+    public var isUsed: Bool = false
+    public var isSold: Bool = false
+    public var isDeleted: Bool = false
+    public var createdAt: String = defaultString
+    public var updatedAt: String = defaultString
+    public var stockNumber: String = defaultString
     
-    let images: [SISUsedCarImage]
+    public let images: [SISUsedCarImage]
     
-    var shortDescription: String {
+    public var shortDescription: String {
         return "\(year) \(make) \(model), price: \(price), mileage: \(mileage), id: \(id) stock number: \(stockNumber)"
     }
     
-    init(id: Int, slug: String, userId: Int, year: String, make: String, model: String, trim: String, bodyStyle: String, price: Int, description: String, transmission: String, engine: String, mileage: Int, exteriorColor: String, driveTrain_1: String, driveTrain_2: String, vin: String, videoUrl: String, interiorColor: String, wheelBase: String, doorCount: Int, fuelType: String, isUsed: Bool, isSold: Bool, isDeleted: Bool, createdAt: String, updatedAt: String, stockNumber: String, images: [SISUsedCarImage]) {
+    public init(images: [SISUsedCarImage]) {
+        self.images = images
+    }
+    
+    public init(id: Int, slug: String, userId: Int, year: String, make: String, model: String, trim: String, bodyStyle: String, price: Int, description: String, transmission: String, engine: String, mileage: Int, exteriorColor: String, driveTrain_1: String, driveTrain_2: String, vin: String, videoUrl: String, interiorColor: String, wheelBase: String, doorCount: Int, fuelType: String, isUsed: Bool, isSold: Bool, isDeleted: Bool, createdAt: String, updatedAt: String, stockNumber: String, images: [SISUsedCarImage]) {
         
         self.id = id
         self.slug = slug

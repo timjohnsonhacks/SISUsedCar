@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:UsedCarPlayground.playground">
+   </FileRef>
+   <FileRef
       location = "container:SISUsedCar.xcodeproj">
    </FileRef>
 </Workspace>

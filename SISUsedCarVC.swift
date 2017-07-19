@@ -51,7 +51,7 @@ class SISUsedCarVC: UIViewController {
     }
     
     func getAll() {
-        dataService.getAll(completion: { (cars, _) in
+        dataService.GET_all(completion: { (cars, _) in
             
             if let cars = cars {
                 self.content = cars

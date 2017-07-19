@@ -8,19 +8,19 @@
 
 import Foundation
 
-class SISUsedCarDataService {
+public class SISUsedCarDataService {
     /*
      Class is designed to only run a single request at a time, cancelling the active task before beginning a new one
      */
     
-    let session = URLSession(configuration: .default)
+    public let session = URLSession(configuration: .default)
     
-    var task: URLSessionDataTask?
-    var predicate: String?
-    var results: [SISUsedCar]?
-    var errorMessage: String?
+    public var task: URLSessionDataTask?
+    public var predicate: String?
+    public var results: [SISUsedCar]?
+    public var errorMessage: String?
     
-    func getAll(completion: @escaping ([SISUsedCar]?, String?) -> Void) {
+    public func GET_all(completion: @escaping ([SISUsedCar]?, String?) -> Void) {
         
         guard let url = URL(string: "https://southernimportspecialist.com/api/") else {
             return

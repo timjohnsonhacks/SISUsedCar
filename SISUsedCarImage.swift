@@ -8,14 +8,14 @@
 
 import UIKit
 
-class SISUsedCarImage {
+public class SISUsedCarImage {
     
-    let fullPath: String
-    let orderId: Int
-    var image: UIImage?
-    var downloadAttemptFailed: Bool = false
+    public let fullPath: String
+    public let orderId: Int
+    public var image: UIImage?
+    public var downloadAttemptFailed: Bool = false
     
-    init(fullPath: String, orderId: Int) {
+    public init(fullPath: String, orderId: Int) {
         self.fullPath = fullPath
         self.orderId = orderId
     }

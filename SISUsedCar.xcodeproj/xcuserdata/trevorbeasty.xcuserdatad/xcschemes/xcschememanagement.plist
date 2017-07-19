@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>IntegratedPlaygroundFiles.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>SISUsedCar.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>0B2B4C641F1E749F00F8648C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0B2B4D051F1FD59C00F8648C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

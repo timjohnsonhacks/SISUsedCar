@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SISUsedCarImageService {
+public class SISUsedCarImageService {
     
-    let session = URLSession(configuration: .default)
+    public let session = URLSession(configuration: .default)
     
-    func GET_mainImage(forUsedCar usedCar: SISUsedCar, userInfo: [String:Any], completion: @escaping(Bool, [String:Any]) -> Void ) {
+    public func GET_mainImage(forUsedCar usedCar: SISUsedCar, userInfo: [String:Any], completion: @escaping(Bool, [String:Any]) -> Void ) {
         /* downloads main image and sets appropriate image on passed-in used car. Returns success and passed-in user info. Clients should provide user info to satisfy their own mapping needs */
         
         guard let string = usedCar.images.first?.fullPath,
