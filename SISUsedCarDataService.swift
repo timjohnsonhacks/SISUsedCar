@@ -72,6 +72,27 @@ class SISUsedCarDataService {
                             continue
                     }
                     
+                    guard let images = dict["images"] as? [[String:Any]] else {
+                        self.errorMessage = "invalid json 'images' key"
+                        continue
+                    }
+                    
+                    let baseImagePath = "https://southernimportspecialist.com/uploads/"
+                    /* could specify an initial array length based on the number of images and then place images in array occording to orderId */
+                    var usedCarImages = [SISUsedCarImage]()
+                    
+                    
+                    for image in images {
+                        guard let path = image["path"] as? String,
+                            let orderId = image["order_id"] as? Int else {
+                            self.errorMessage = "invalid json 'path' key"
+                            continue
+                        }
+                        let fullPath = baseImagePath + path
+                        let usedCarImage = SISUsedCarImage(fullPath: fullPath, orderId: orderId)
+                        usedCarImages.append(usedCarImage)
+                    }
+                        
                     let uc = SISUsedCar(id: id,
                                         slug: slug,
                                         userId: userId,
@@ -99,7 +120,8 @@ class SISUsedCarDataService {
                                         isDeleted: isDeleted,
                                         createdAt: createdAt,
                                         updatedAt: updatedAt,
-                                        stockNumber: stockNumber)
+                                        stockNumber: stockNumber,
+                                        images: usedCarImages)
                     
                     cars.append(uc)
                 }

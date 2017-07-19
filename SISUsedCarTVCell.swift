@@ -16,6 +16,7 @@ class SISUsedCarTVCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     
     weak var activityView: UIActivityIndicatorView?
+    weak var noImageLabel: UILabel?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,9 +32,8 @@ class SISUsedCarTVCell: UITableViewCell {
     }
     
     func configure(image: UIImage) {
-        if let activityView = activityView {
-            activityView.stopAnimating()
-        }
+        activityView?.stopAnimating()
+        noImageLabel?.isHidden = true
         carImageView.image = image
     }
     
@@ -42,16 +42,27 @@ class SISUsedCarTVCell: UITableViewCell {
             activityView.startAnimating()
         } else {
             let av = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-            av.translatesAutoresizingMaskIntoConstraints = false
-            carImageView.superview?.insertSubview(av, aboveSubview: carImageView)
-            
-            let attributes: [NSLayoutAttribute] = [.top, .bottom, .left, .right]
-            for attr in attributes {
-                let constraint = NSLayoutConstraint.init(item: av, attribute: attr, relatedBy: .equal, toItem: carImageView, attribute: attr, multiplier: 1.0, constant: 0.0)
-                carImageView.superview?.addConstraint(constraint)
-            }
-            
+            carImageView.insertSubviewAboveWithMatchingFrame(av)
+            activityView = av
             av.startAnimating()
+        }
+    }
+    
+    func showNoImageAvailable() {
+        activityView?.stopAnimating()
+        
+        if let noImageLabel = noImageLabel {
+            noImageLabel.isHidden = false
+        } else {
+            let label = UILabel()
+            label.text = "No Image Available"
+            label.textColor = UIColor.white
+            label.font = UIFont.boldSystemFont(ofSize: 20.0)
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
+            label.textAlignment = .center
+            carImageView.insertSubviewAboveWithMatchingFrame(label)
+            noImageLabel = label
         }
     }
     

@@ -14,26 +14,23 @@ class SISUsedCarVC: UIViewController {
     let dataService = SISUsedCarDataService()
     let imageService = SISUsedCarImageService()
     
-    var content = [SISUsedCarCellContent]()
-    var contentMapping: [String : IndexPath] = [:] // stockNumber : IndexPath for image setting upon asynchronous delivery
-    var duplicates: [String : [SISUsedCar]] = [:] // stockNumber : SISUsedCarCollection to find duplicate stock numbers
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    @IBAction func printImageStatus() {
-        print("cars with no images...")
-        for cont in content {
-            if cont.mainImage == nil {
-                print(cont.usedCar.shortDescription)
+    var content = [SISUsedCar]() {
+        didSet {
+            /* mapping depends on content, so configure mapping when content is set */
+            var newMapping: [Int:IndexPath] = [:]
+            var row: Int = 0
+            for cont in content {
+                let key: Int = cont.id
+                let value = IndexPath(row: row, section: 0)
+                newMapping[key] = value
+                row += 1
             }
-        }
-        print("content count \(content.count) mapping count: \(contentMapping.count)")
-        
-        print("listing duplicates...")
-        for (stockNumber, cars) in duplicates {
-            print("\(stockNumber) : \n\(cars[0]) \n\(cars[1])")
+            mapping = newMapping
         }
     }
+    var mapping: [Int : IndexPath] = [:] /*  usedCar.id : indexPath ; for cell updating */
+    
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - View Life Cycle
     
@@ -55,48 +52,41 @@ class SISUsedCarVC: UIViewController {
     
     func getAll() {
         dataService.getAll(completion: { (cars, _) in
+            
             if let cars = cars {
-                self.content.removeAll()
-                var index = 0
-                for c in cars {
-                    let carCellContent = SISUsedCarCellContent(usedCar: c, mainImage: nil)
-                    self.content.append(carCellContent)
-                    
-                    if let indexPath = self.contentMapping[c.stockNumber] {
-                        print("found duplicate stock number")
-                        let existingCar = self.content[indexPath.row].usedCar
-                        self.duplicates[c.stockNumber] = [existingCar, c]
-                    } else {
-                        self.contentMapping[c.stockNumber] = IndexPath(row: index, section: 0)
-                    }
-                    index += 1
-                }
+                self.content = cars
+                print("content count: \(self.content.count) \nmapping count: \(self.mapping.count)")
+                print(self.mapping)
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
                 
-                self.fetchMainImages()
+                self.fetchAllMainImages()
             }
         })
     }
     
-    func fetchMainImages() {
-        
-        for cont in content {
-            guard cont.mainImage == nil else {
+    func fetchAllMainImages() {
+        for car in content {
+            guard let ip = mapping[car.id] else {
                 continue
             }
-            let stockNum = cont.usedCar.stockNumber
+            let userInfo: [String:Any] = ["indexPath" : ip]
             
-            self.imageService.mainImage(forStockNumber: stockNum, completion: { (stockNum, mainImage) in
-                guard let indexPath = self.contentMapping[stockNum] else {
+            imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { (success, userInfo) in
+                guard let ip = userInfo["indexPath"] as? IndexPath else {
                     return
                 }
-                if let mainImage = mainImage {
-                    DispatchQueue.main.async {
-                        self.content[indexPath.row].mainImage = mainImage
-                        self.tableView.reloadRows(at: [indexPath], with: .none)
+                DispatchQueue.main.async {
+                    self.tableView.reloadRows(at: [ip], with: .none)
+                }
+                if success == false {
+                    print("image download not successful for car: \(car.shortDescription)")
+                    if let mainImageUrl = car.images.first?.fullPath {
+                        print("main image path: \(mainImageUrl)")
+                    } else {
+                        print("no main image url")
                     }
                 }
             })
@@ -120,20 +110,25 @@ extension SISUsedCarVC: UITableViewDataSource {
         cell.resetImageView()
         
         let car = content[indexPath.row]
-        let yearMakeModel = "\(car.usedCar.year) \(car.usedCar.make) \(car.usedCar.model)"
+        let yearMakeModel = "\(car.year) \(car.make) \(car.model)"
         
         cell.configure(
             yearMakeModel: yearMakeModel,
-            isSold: car.usedCar.isSold ? "Sold" : "Available",
-            price: "$$$ " + (String(car.usedCar.price)))
+            isSold: car.isSold ? "Sold" : "Available",
+            price: "$$$ " + (String(car.price)))
         
-        // load the image or show the activity indicator
-        if let mainImage = car.mainImage {
-            cell.configure(image: mainImage)
+        if let mainImage = car.images.first {
+            if let mainImage = mainImage.image {
+                cell.configure(image: mainImage)
+            } else if mainImage.downloadAttemptFailed == false {
+                cell.showActivityIndicator()
+            } else if mainImage.downloadAttemptFailed == true {
+                cell.showNoImageAvailable()
+            }
         } else {
-            cell.showActivityIndicator()
+            cell.showNoImageAvailable()
         }
-        
+ 
         return cell
     }
 }
