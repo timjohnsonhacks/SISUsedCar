@@ -20,6 +20,8 @@ public class SISUsedCarDataService {
     public var results: [SISUsedCar]?
     public var errorMessage: String?
     
+    public init() {}
+    
     public func GET_all(completion: @escaping ([SISUsedCar]?, String?) -> Void) {
         
         guard let url = URL(string: "https://southernimportspecialist.com/api/") else {
