@@ -28,6 +28,7 @@
 		0B2B4D0F1F1FD5C000F8648C /* SISUsedCarImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4CCC1F1F91F100F8648C /* SISUsedCarImage.swift */; };
 		0B2B4D101F1FD5C500F8648C /* SISUsedCarDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C7B1F1E8E6D00F8648C /* SISUsedCarDataService.swift */; };
 		0B2B4D111F1FD5C800F8648C /* SISUsedCarImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C871F1EA33900F8648C /* SISUsedCarImageService.swift */; };
+		0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		0B2B4D061F1FD59C00F8648C /* IntegratedPlaygroundFiles.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IntegratedPlaygroundFiles.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B2B4D081F1FD59C00F8648C /* IntegratedPlaygroundFiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegratedPlaygroundFiles.h; sourceTree = "<group>"; };
 		0B2B4D091F1FD59C00F8648C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				0B2B4C7F1F1E8FA300F8648C /* SISUsedCarVC.swift */,
+				0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				0B2B4C4F1F1E749F00F8648C /* SISUsedCar.xcdatamodeld in Sources */,
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
+				0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */,
 				0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -740,6 +744,7 @@
 				0B2B4D0C1F1FD59C00F8648C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

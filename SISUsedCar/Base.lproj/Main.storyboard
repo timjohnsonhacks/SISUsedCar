@@ -59,11 +59,45 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="n2A-r2-HSz" id="rgU-sO-L0V"/>
+                        <segue destination="o0x-HV-OOs" kind="show" identifier="showDetail" id="WEE-gP-Q7U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mX9-Ch-vtN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="150" y="-104"/>
+        </scene>
+        <!--Used Car DetailVC-->
+        <scene sceneID="t7U-8Y-snL">
+            <objects>
+                <viewController id="o0x-HV-OOs" customClass="SISUsedCarDetailVC" customModule="SISUsedCar" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4ks-fy-zda"/>
+                        <viewControllerLayoutGuide type="bottom" id="TYe-QV-v5e"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0O3-69-Wtm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PhY-K2-blR">
+                                <rect key="frame" x="166" y="323" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.92374175049999996" blue="0.33410692380000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="PhY-K2-blR" firstAttribute="centerX" secondItem="0O3-69-Wtm" secondAttribute="centerX" id="PuB-hg-OZT"/>
+                            <constraint firstItem="PhY-K2-blR" firstAttribute="centerY" secondItem="0O3-69-Wtm" secondAttribute="centerY" id="zpg-fI-6xS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="yearMakeModel" destination="PhY-K2-blR" id="we5-bI-pbb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="06m-8S-DGX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1012" y="-105"/>
         </scene>
     </scenes>
 </document>

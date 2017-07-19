@@ -29,6 +29,7 @@ class SISUsedCarVC: UIViewController {
         }
     }
     var mapping: [Int : IndexPath] = [:] /*  usedCar.id : indexPath ; for cell updating */
+    var selectedCar: SISUsedCar?
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -92,6 +93,13 @@ class SISUsedCarVC: UIViewController {
             })
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            let detailVC = segue.destination as! SISUsedCarDetailVC
+            detailVC.usedCar = selectedCar!
+        }
+    }
 }
 
 extension SISUsedCarVC: UITableViewDataSource {
@@ -137,5 +145,10 @@ extension SISUsedCarVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCar = content[indexPath.row]
+        performSegue(withIdentifier: "showDetail", sender: nil)
     }
 }
