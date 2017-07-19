@@ -50,7 +50,13 @@
                             <constraint firstAttribute="trailing" secondItem="n2A-r2-HSz" secondAttribute="trailing" id="ztR-ac-vQC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="LUg-Fn-7O0"/>
+                    <navigationItem key="navigationItem" id="LUg-Fn-7O0">
+                        <barButtonItem key="leftBarButtonItem" title="Status" id="qUB-k3-Lmj">
+                            <connections>
+                                <action selector="printImageStatus" destination="Vqj-v9-Lue" id="LcU-72-whu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="n2A-r2-HSz" id="rgU-sO-L0V"/>
                     </connections>

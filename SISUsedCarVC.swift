@@ -16,8 +16,24 @@ class SISUsedCarVC: UIViewController {
     
     var content = [SISUsedCarCellContent]()
     var contentMapping: [String : IndexPath] = [:] // stockNumber : IndexPath for image setting upon asynchronous delivery
+    var duplicates: [String : [SISUsedCar]] = [:] // stockNumber : SISUsedCarCollection to find duplicate stock numbers
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBAction func printImageStatus() {
+        print("cars with no images...")
+        for cont in content {
+            if cont.mainImage == nil {
+                print(cont.usedCar.shortDescription)
+            }
+        }
+        print("content count \(content.count) mapping count: \(contentMapping.count)")
+        
+        print("listing duplicates...")
+        for (stockNumber, cars) in duplicates {
+            print("\(stockNumber) : \n\(cars[0]) \n\(cars[1])")
+        }
+    }
     
     // MARK: - View Life Cycle
     
@@ -34,40 +50,57 @@ class SISUsedCarVC: UIViewController {
         tableView.register(cellNib, forCellReuseIdentifier: cellID)
         
         // initial car download
-        dataService.getAll(completion: { (cars, error) in
-            
-            print("service executing completion block...")
-            
-            if let error = error {
-                print(error)
-            }
-            
+        getAll()
+    }
+    
+    func getAll() {
+        dataService.getAll(completion: { (cars, _) in
             if let cars = cars {
-                
                 self.content.removeAll()
                 var index = 0
                 for c in cars {
                     let carCellContent = SISUsedCarCellContent(usedCar: c, mainImage: nil)
                     self.content.append(carCellContent)
-                    self.contentMapping[c.stockNumber] = IndexPath(row: index, section: 0)
-                    index += 1
                     
-//                    self.imageService.mainImage(forStockNumber: c.stockNumber, completion: { (stockNumber, mainImage) in
-//                        if let path = self.contentMapping[stockNumber],
-//                            let mainImage = mainImage {
-//                            DispatchQueue.main.async {
-//                                self.content[path.row].mainImage = mainImage
-//                                self.tableView.reloadRows(at: [path], with: .none)
-//                            }
-//                        }
-//                    })
+                    if let indexPath = self.contentMapping[c.stockNumber] {
+                        print("found duplicate stock number")
+                        let existingCar = self.content[indexPath.row].usedCar
+                        self.duplicates[c.stockNumber] = [existingCar, c]
+                    } else {
+                        self.contentMapping[c.stockNumber] = IndexPath(row: index, section: 0)
+                    }
+                    index += 1
                 }
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
+                
+                self.fetchMainImages()
             }
         })
+    }
+    
+    func fetchMainImages() {
+        
+        for cont in content {
+            guard cont.mainImage == nil else {
+                continue
+            }
+            let stockNum = cont.usedCar.stockNumber
+            
+            self.imageService.mainImage(forStockNumber: stockNum, completion: { (stockNum, mainImage) in
+                guard let indexPath = self.contentMapping[stockNum] else {
+                    return
+                }
+                if let mainImage = mainImage {
+                    DispatchQueue.main.async {
+                        self.content[indexPath.row].mainImage = mainImage
+                        self.tableView.reloadRows(at: [indexPath], with: .none)
+                    }
+                }
+            })
+        }
     }
 }
 
@@ -84,6 +117,8 @@ extension SISUsedCarVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SISUsedCarTVCell
+        cell.resetImageView()
+        
         let car = content[indexPath.row]
         let yearMakeModel = "\(car.usedCar.year) \(car.usedCar.make) \(car.usedCar.model)"
         

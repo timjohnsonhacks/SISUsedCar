@@ -54,4 +54,8 @@ class SISUsedCarTVCell: UITableViewCell {
             av.startAnimating()
         }
     }
+    
+    func resetImageView() {
+        carImageView.image = nil
+    }
 }
