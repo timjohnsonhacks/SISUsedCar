@@ -15,7 +15,7 @@ class SISUsedCarVC: UIViewController {
     let imageService = SISUsedCarImageService()
     
     var content = [SISUsedCarCellContent]()
-    var contentMapping: [String : IndexPath] = [:] // stockNumber : IndexPath for image setting
+    var contentMapping: [String : IndexPath] = [:] // stockNumber : IndexPath for image setting upon asynchronous delivery
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -52,15 +52,15 @@ class SISUsedCarVC: UIViewController {
                     self.contentMapping[c.stockNumber] = IndexPath(row: index, section: 0)
                     index += 1
                     
-                    self.imageService.mainImage(forStockNumber: c.stockNumber, completion: { (stockNumber, mainImage) in
-                        if let path = self.contentMapping[stockNumber],
-                            let mainImage = mainImage {
-                            DispatchQueue.main.async {
-                                self.content[path.row].mainImage = mainImage
-                                self.tableView.reloadRows(at: [path], with: .none)
-                            }
-                        }
-                    })
+//                    self.imageService.mainImage(forStockNumber: c.stockNumber, completion: { (stockNumber, mainImage) in
+//                        if let path = self.contentMapping[stockNumber],
+//                            let mainImage = mainImage {
+//                            DispatchQueue.main.async {
+//                                self.content[path.row].mainImage = mainImage
+//                                self.tableView.reloadRows(at: [path], with: .none)
+//                            }
+//                        }
+//                    })
                 }
                 
                 DispatchQueue.main.async {
@@ -92,8 +92,11 @@ extension SISUsedCarVC: UITableViewDataSource {
             isSold: car.usedCar.isSold ? "Sold" : "Available",
             price: "$$$ " + (String(car.usedCar.price)))
         
+        // load the image or show the activity indicator
         if let mainImage = car.mainImage {
             cell.configure(image: mainImage)
+        } else {
+            cell.showActivityIndicator()
         }
         
         return cell
@@ -103,6 +106,6 @@ extension SISUsedCarVC: UITableViewDataSource {
 extension SISUsedCarVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 150
     }
 }
