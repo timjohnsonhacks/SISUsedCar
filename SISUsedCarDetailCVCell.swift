@@ -15,6 +15,8 @@ class SISUsedCarDetailCVCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         imageView.contentMode = .scaleAspectFit
+        contentView.backgroundColor = UIColor.red
+        layoutMargins = .zero
     }
 
 }
