@@ -14,6 +14,8 @@
             <connections>
                 <outlet property="collectionAspectRatio" destination="861-h2-edK" id="bvA-0Q-Jhb"/>
                 <outlet property="imageCollection" destination="fFg-v8-e1Y" id="lya-ZE-kpH"/>
+                <outlet property="leftArrowButton" destination="PfJ-KY-8cY" id="wQp-aT-7dD"/>
+                <outlet property="rightArrowButton" destination="TBf-i1-Eck" id="qWw-G7-hgN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fFg-v8-e1Y">
-                    <rect key="frame" x="0.0" y="0.0" width="493" height="407.5"/>
+                    <rect key="frame" x="40" y="0.0" width="413" height="341.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="fFg-v8-e1Y" secondAttribute="height" multiplier="451:373" id="861-h2-edK"/>
@@ -35,16 +37,38 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PfJ-KY-8cY">
+                    <rect key="frame" x="5" y="155.5" width="30" height="30"/>
+                    <state key="normal" image="LeftPDF30"/>
+                    <connections>
+                        <action selector="didPressLeftArrowButtonWithSender:" destination="-1" eventType="touchUpInside" id="Eeu-za-aL9"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TBf-i1-Eck">
+                    <rect key="frame" x="458" y="155.5" width="30" height="30"/>
+                    <state key="normal" image="RightPDF30"/>
+                    <connections>
+                        <action selector="didPressRightArrowButtonWithSender:" destination="-1" eventType="touchUpInside" id="bs6-3v-cYC"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fFg-v8-e1Y" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9CB-IS-ub6"/>
-                <constraint firstAttribute="trailing" secondItem="fFg-v8-e1Y" secondAttribute="trailing" id="c1Y-tY-iog"/>
-                <constraint firstItem="fFg-v8-e1Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="c26-ez-9jh"/>
+                <constraint firstItem="TBf-i1-Eck" firstAttribute="top" secondItem="PfJ-KY-8cY" secondAttribute="top" id="G7b-KZ-SfY"/>
+                <constraint firstItem="PfJ-KY-8cY" firstAttribute="centerY" secondItem="fFg-v8-e1Y" secondAttribute="centerY" id="MWs-28-1Nb"/>
+                <constraint firstAttribute="trailing" secondItem="fFg-v8-e1Y" secondAttribute="trailing" constant="40" id="c1Y-tY-iog"/>
+                <constraint firstItem="fFg-v8-e1Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="40" id="c26-ez-9jh"/>
+                <constraint firstItem="PfJ-KY-8cY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="5" id="nui-s7-k8S"/>
+                <constraint firstAttribute="trailing" secondItem="TBf-i1-Eck" secondAttribute="trailing" constant="5" id="tNg-vX-lnN"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-102.5" y="-1.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="LeftPDF30" width="30" height="30"/>
+        <image name="RightPDF30" width="30" height="30"/>
+    </resources>
 </document>
