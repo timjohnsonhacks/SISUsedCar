@@ -10,13 +10,34 @@ import UIKit
 
 class SISUsedCarDetailCVCell: UICollectionViewCell {
     
-    @IBOutlet weak var imageView: UIImageView!
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    weak var imageView: UIImageView!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        /* create views programatically; xib is useless because it gives you no access to the contentView, which is the superview for normally displayed content */
+        let iv = UIImageView(image: nil)
+        contentView.addBoundsFillingSubview(iv)
+        imageView = iv
         imageView.contentMode = .scaleAspectFit
-        contentView.backgroundColor = UIColor.red
+        
         layoutMargins = .zero
     }
+
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+//    override func awakeFromNib() {
+//        super.awakeFromNib()
+//        
+//        /* create views programatically; xib is useless because it gives you no access to the contentView, which is the superview for normally displayed content */
+//        let iv = UIImageView(image: nil)
+//        contentView.addBoundsFillingSubview(iv)
+//        imageView = iv
+//        imageView.contentMode = .scaleAspectFit
+//        
+//        layoutMargins = .zero
+//    }
 
 }

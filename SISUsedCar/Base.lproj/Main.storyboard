@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -79,62 +78,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Z9D-ck-hd7">
-                                <rect key="frame" x="10" y="98" width="355" height="71"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="Z9D-ck-hd7" secondAttribute="height" multiplier="5:1" id="mwF-QL-S7D"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="mfa-w0-QQZ">
-                                    <size key="itemSize" width="220" height="149"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SISUsedCarDetailCVCell" id="g6e-6D-dOR" customClass="SISUsedCarDetailCVCell" customModule="SISUsedCar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-39" width="220" height="149"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="220" height="149"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KII-wT-UY9">
-                                                    <rect key="frame" x="0.0" y="0.0" width="220" height="149"/>
-                                                </imageView>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="KII-wT-UY9" firstAttribute="bottom" secondItem="g6e-6D-dOR" secondAttribute="bottom" id="G5M-7U-hWe"/>
-                                            <constraint firstItem="KII-wT-UY9" firstAttribute="top" secondItem="g6e-6D-dOR" secondAttribute="top" id="LIm-EY-Ohc"/>
-                                            <constraint firstAttribute="trailing" secondItem="KII-wT-UY9" secondAttribute="trailing" id="eP0-on-Iha"/>
-                                            <constraint firstItem="KII-wT-UY9" firstAttribute="leading" secondItem="g6e-6D-dOR" secondAttribute="leading" id="iwa-ma-EzQ"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="imageView" destination="KII-wT-UY9" id="wRL-96-Tdo"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year Make Model" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7o-6h-bPJ">
                                 <rect key="frame" x="105.5" y="69" width="164" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8r8-Zx-Req">
+                                <rect key="frame" x="0.0" y="93" width="375" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="Bu0-YE-Bab"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Z9D-ck-hd7" firstAttribute="leading" secondItem="0O3-69-Wtm" secondAttribute="leading" constant="10" id="LCs-n2-HI9"/>
+                            <constraint firstAttribute="trailing" secondItem="8r8-Zx-Req" secondAttribute="trailing" id="BNH-9E-lYe"/>
                             <constraint firstItem="h7o-6h-bPJ" firstAttribute="centerX" secondItem="0O3-69-Wtm" secondAttribute="centerX" id="Mvj-cU-RHe"/>
-                            <constraint firstAttribute="trailing" secondItem="Z9D-ck-hd7" secondAttribute="trailing" constant="10" id="USu-B3-NVb"/>
+                            <constraint firstItem="8r8-Zx-Req" firstAttribute="top" secondItem="h7o-6h-bPJ" secondAttribute="bottom" id="Q6j-nW-wtf"/>
                             <constraint firstItem="h7o-6h-bPJ" firstAttribute="top" secondItem="4ks-fy-zda" secondAttribute="bottom" constant="5" id="gW4-mp-YJb"/>
-                            <constraint firstItem="Z9D-ck-hd7" firstAttribute="top" secondItem="h7o-6h-bPJ" secondAttribute="bottom" constant="5" id="osW-y6-HZT"/>
+                            <constraint firstItem="8r8-Zx-Req" firstAttribute="leading" secondItem="0O3-69-Wtm" secondAttribute="leading" id="pm1-bz-w3x"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="collectionAspectRatio" destination="mwF-QL-S7D" id="T9J-vU-9EM"/>
-                        <outlet property="imageCollection" destination="Z9D-ck-hd7" id="NhU-b2-G7Y"/>
+                        <outlet property="detailImagesContainerView" destination="8r8-Zx-Req" id="jc5-Ar-H39"/>
                         <outlet property="yearMakeModel" destination="h7o-6h-bPJ" id="DiN-iR-De8"/>
                     </connections>
                 </viewController>
