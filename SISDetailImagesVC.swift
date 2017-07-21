@@ -17,8 +17,11 @@ class SISDetailImagesVC: UIViewController {
     
     let imageService = SISUsedCarImageService()
     let cellReuseId = "SISUsedCarDetailCVCell"
+    let threshholdSnappingVelocity: CGFloat = 150.0
     var usedCar: SISUsedCar
     var activeIndexPath: IndexPath!
+    var lastScrollCaptureXOffset: CGFloat?
+    var lastScrollCaptureDate: Date?
     
     init(usedCar: SISUsedCar) {
         self.usedCar = usedCar
@@ -58,6 +61,8 @@ class SISDetailImagesVC: UIViewController {
         imageCollection.delegate = self
         imageCollection.register(SISUsedCarDetailCVCell.self, forCellWithReuseIdentifier: cellReuseId)
         imageCollection.backgroundColor = UIColor.clear
+        imageCollection.showsHorizontalScrollIndicator = false
+        imageCollection.showsVerticalScrollIndicator = false
         
         /* probably need to make more elegant */
         activeIndexPath = IndexPath(row: 0, section: 0)
@@ -109,15 +114,32 @@ extension SISDetailImagesVC: UICollectionViewDataSource {
 extension SISDetailImagesVC: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var velocity: CGFloat?
+        if let lastXOffset = lastScrollCaptureXOffset, let lastDate = lastScrollCaptureDate {
+            let elapsedTime = Date().timeIntervalSince(lastDate)
+            velocity = (scrollView.contentOffset.x - lastXOffset) / CGFloat(elapsedTime)
+            print("velocity: \(velocity)")
+        }
+        lastScrollCaptureXOffset = scrollView.contentOffset.x
+        lastScrollCaptureDate = Date()
+        
         if let ip = imageCollection.indexPathForPrevalentCell() {
             activeIndexPath = ip
+            
+            if scrollView.isDecelerating == true, let velocity = velocity {
+                let positiveVelocity = velocity < 0 ? -1.0 * velocity : velocity
+                if positiveVelocity < threshholdSnappingVelocity {
+                    imageCollection.scrollToItem(at: activeIndexPath, at: .centeredHorizontally, animated: true)
+                }
+            }
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if let ip = imageCollection.indexPathForPrevalentCell() {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate == false, let ip = imageCollection.indexPathForPrevalentCell() {
             activeIndexPath = ip
             imageCollection.scrollToItem(at: ip, at: .centeredHorizontally, animated: true)
+            lastScrollCaptureDate = nil
         }
     }
 }
