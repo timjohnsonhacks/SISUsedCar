@@ -33,6 +33,7 @@
 		0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */; };
 		0B2B4D161F20386100F8648C /* SISUsedCarDetailCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */; };
 		0B2B4D191F20DB6600F8648C /* SISGlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4D181F20DB6600F8648C /* SISGlobalConstants.swift */; };
+		0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5F11F221FB3007A92F9 /* UICollectionView+Custom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailVC.swift; sourceTree = "<group>"; };
 		0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailCVCell.swift; sourceTree = "<group>"; };
 		0B2B4D181F20DB6600F8648C /* SISGlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISGlobalConstants.swift; sourceTree = "<group>"; };
+		0B2CA5F11F221FB3007A92F9 /* UICollectionView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Custom.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 		0B01A42C1F2112FD0041C0C9 /* Used Car Detail */ = {
 			isa = PBXGroup;
 			children = (
+				0B2CA5EE1F221F14007A92F9 /* UIKit Extensions */,
 				0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */,
 				0B01A42D1F2113340041C0C9 /* SISDetailImagesVC.swift */,
 				0B01A42E1F2113340041C0C9 /* SISDetailImagesVC.xib */,
@@ -239,6 +242,14 @@
 				0B2B4D091F1FD59C00F8648C /* Info.plist */,
 			);
 			path = IntegratedPlaygroundFiles;
+			sourceTree = "<group>";
+		};
+		0B2CA5EE1F221F14007A92F9 /* UIKit Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0B2CA5F11F221FB3007A92F9 /* UICollectionView+Custom.swift */,
+			);
+			name = "UIKit Extensions";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,6 +445,7 @@
 				0B2B4C4F1F1E749F00F8648C /* SISUsedCar.xcdatamodeld in Sources */,
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
+				0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */,
 				0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */,
 				0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */,
 			);

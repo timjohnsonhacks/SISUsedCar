@@ -108,6 +108,18 @@ extension SISDetailImagesVC: UICollectionViewDataSource {
 
 extension SISDetailImagesVC: UICollectionViewDelegate {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if let ip = imageCollection.indexPathForPrevalentCell() {
+            activeIndexPath = ip
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if let ip = imageCollection.indexPathForPrevalentCell() {
+            activeIndexPath = ip
+            imageCollection.scrollToItem(at: ip, at: .centeredHorizontally, animated: true)
+        }
+    }
 }
 
 extension SISDetailImagesVC: UICollectionViewDelegateFlowLayout {
