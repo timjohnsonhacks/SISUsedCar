@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -79,30 +80,59 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year Make Model" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h7o-6h-bPJ">
-                                <rect key="frame" x="105.5" y="69" width="164" height="24"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <rect key="frame" x="86" y="74" width="203" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8r8-Zx-Req">
-                                <rect key="frame" x="0.0" y="93" width="375" height="200"/>
+                                <rect key="frame" x="0.0" y="139.5" width="375" height="200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="200" id="Bu0-YE-Bab"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I1a-zj-DfK">
+                                <rect key="frame" x="0.0" y="339.5" width="375" height="327.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mileage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0L-LC-Cpy">
+                                <rect key="frame" x="187.5" y="109" width="171.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lr0-22-wpM">
+                                <rect key="frame" x="16" y="109" width="171.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="I1a-zj-DfK" firstAttribute="top" secondItem="8r8-Zx-Req" secondAttribute="bottom" id="BKg-lu-TDW"/>
                             <constraint firstAttribute="trailing" secondItem="8r8-Zx-Req" secondAttribute="trailing" id="BNH-9E-lYe"/>
+                            <constraint firstItem="8r8-Zx-Req" firstAttribute="top" secondItem="q0L-LC-Cpy" secondAttribute="bottom" constant="10" id="C00-32-PFA"/>
+                            <constraint firstItem="q0L-LC-Cpy" firstAttribute="top" secondItem="Lr0-22-wpM" secondAttribute="top" id="EMI-47-zzy"/>
+                            <constraint firstItem="q0L-LC-Cpy" firstAttribute="leading" secondItem="Lr0-22-wpM" secondAttribute="trailing" id="Inp-Vt-x0a"/>
+                            <constraint firstItem="Lr0-22-wpM" firstAttribute="top" secondItem="h7o-6h-bPJ" secondAttribute="bottom" constant="5" id="KgX-3l-DAq"/>
                             <constraint firstItem="h7o-6h-bPJ" firstAttribute="centerX" secondItem="0O3-69-Wtm" secondAttribute="centerX" id="Mvj-cU-RHe"/>
-                            <constraint firstItem="8r8-Zx-Req" firstAttribute="top" secondItem="h7o-6h-bPJ" secondAttribute="bottom" id="Q6j-nW-wtf"/>
-                            <constraint firstItem="h7o-6h-bPJ" firstAttribute="top" secondItem="4ks-fy-zda" secondAttribute="bottom" constant="5" id="gW4-mp-YJb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="q0L-LC-Cpy" secondAttribute="trailing" id="QxZ-SS-7RU"/>
+                            <constraint firstItem="I1a-zj-DfK" firstAttribute="leading" secondItem="0O3-69-Wtm" secondAttribute="leading" id="Z67-9f-k4m"/>
+                            <constraint firstItem="q0L-LC-Cpy" firstAttribute="width" secondItem="Lr0-22-wpM" secondAttribute="width" id="Zyv-oi-mhW"/>
+                            <constraint firstItem="Lr0-22-wpM" firstAttribute="leading" secondItem="0O3-69-Wtm" secondAttribute="leadingMargin" id="ejn-op-NzN"/>
+                            <constraint firstItem="h7o-6h-bPJ" firstAttribute="top" secondItem="4ks-fy-zda" secondAttribute="bottom" constant="10" id="gW4-mp-YJb"/>
                             <constraint firstItem="8r8-Zx-Req" firstAttribute="leading" secondItem="0O3-69-Wtm" secondAttribute="leading" id="pm1-bz-w3x"/>
+                            <constraint firstItem="TYe-QV-v5e" firstAttribute="top" secondItem="I1a-zj-DfK" secondAttribute="bottom" id="r7X-s5-mMl"/>
+                            <constraint firstAttribute="trailing" secondItem="I1a-zj-DfK" secondAttribute="trailing" id="uU4-rA-ZLb"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="detailImagesContainerView" destination="8r8-Zx-Req" id="jc5-Ar-H39"/>
+                        <outlet property="detailTextContainerView" destination="I1a-zj-DfK" id="rze-yQ-Kpq"/>
+                        <outlet property="mileageLabel" destination="q0L-LC-Cpy" id="1KU-7z-esH"/>
+                        <outlet property="priceLabel" destination="Lr0-22-wpM" id="v61-Dk-rKS"/>
                         <outlet property="yearMakeModel" destination="h7o-6h-bPJ" id="DiN-iR-De8"/>
                     </connections>
                 </viewController>

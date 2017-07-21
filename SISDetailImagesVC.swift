@@ -118,7 +118,6 @@ extension SISDetailImagesVC: UICollectionViewDelegate {
         if let lastXOffset = lastScrollCaptureXOffset, let lastDate = lastScrollCaptureDate {
             let elapsedTime = Date().timeIntervalSince(lastDate)
             velocity = (scrollView.contentOffset.x - lastXOffset) / CGFloat(elapsedTime)
-            print("velocity: \(velocity)")
         }
         lastScrollCaptureXOffset = scrollView.contentOffset.x
         lastScrollCaptureDate = Date()
