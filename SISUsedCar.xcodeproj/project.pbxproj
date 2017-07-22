@@ -24,7 +24,6 @@
 		0B2B4C861F1E90E200F8648C /* SISUsedCarTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */; };
 		0B2B4C881F1EA33900F8648C /* SISUsedCarImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C871F1EA33900F8648C /* SISUsedCarImageService.swift */; };
 		0B2B4CCD1F1F91F100F8648C /* SISUsedCarImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4CCC1F1F91F100F8648C /* SISUsedCarImage.swift */; };
-		0B2B4CD21F1FB0FE00F8648C /* SISAutoLayoutUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4CD11F1FB0FE00F8648C /* SISAutoLayoutUtility.swift */; };
 		0B2B4D0A1F1FD59C00F8648C /* IntegratedPlaygroundFiles.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B2B4D081F1FD59C00F8648C /* IntegratedPlaygroundFiles.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B2B4D0E1F1FD5BC00F8648C /* SISUsedCar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4C7D1F1E8EA600F8648C /* SISUsedCar.swift */; };
 		0B2B4D0F1F1FD5C000F8648C /* SISUsedCarImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4CCC1F1F91F100F8648C /* SISUsedCarImage.swift */; };
@@ -34,10 +33,9 @@
 		0B2B4D161F20386100F8648C /* SISUsedCarDetailCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */; };
 		0B2B4D191F20DB6600F8648C /* SISGlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2B4D181F20DB6600F8648C /* SISGlobalConstants.swift */; };
 		0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5F11F221FB3007A92F9 /* UICollectionView+Custom.swift */; };
-		0B2CA5F71F223747007A92F9 /* SISUsedCarDetailTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5F51F223747007A92F9 /* SISUsedCarDetailTextVC.swift */; };
-		0B2CA5F81F223747007A92F9 /* SISUsedCarDetailTextVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B2CA5F61F223747007A92F9 /* SISUsedCarDetailTextVC.xib */; };
 		0B2CA5FC1F223DB5007A92F9 /* Int+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */; };
 		0B2CA5FD1F22404D007A92F9 /* Int+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */; };
+		0B2CA5FF1F22A830007A92F9 /* UIView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +79,6 @@
 		0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarTVCell.xib; sourceTree = "<group>"; };
 		0B2B4C871F1EA33900F8648C /* SISUsedCarImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarImageService.swift; sourceTree = "<group>"; };
 		0B2B4CCC1F1F91F100F8648C /* SISUsedCarImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarImage.swift; sourceTree = "<group>"; };
-		0B2B4CD11F1FB0FE00F8648C /* SISAutoLayoutUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISAutoLayoutUtility.swift; sourceTree = "<group>"; };
 		0B2B4D061F1FD59C00F8648C /* IntegratedPlaygroundFiles.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IntegratedPlaygroundFiles.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B2B4D081F1FD59C00F8648C /* IntegratedPlaygroundFiles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntegratedPlaygroundFiles.h; sourceTree = "<group>"; };
 		0B2B4D091F1FD59C00F8648C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,9 +86,8 @@
 		0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailCVCell.swift; sourceTree = "<group>"; };
 		0B2B4D181F20DB6600F8648C /* SISGlobalConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISGlobalConstants.swift; sourceTree = "<group>"; };
 		0B2CA5F11F221FB3007A92F9 /* UICollectionView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Custom.swift"; sourceTree = "<group>"; };
-		0B2CA5F51F223747007A92F9 /* SISUsedCarDetailTextVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailTextVC.swift; sourceTree = "<group>"; };
-		0B2CA5F61F223747007A92F9 /* SISUsedCarDetailTextVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarDetailTextVC.xib; sourceTree = "<group>"; };
 		0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Custom.swift"; sourceTree = "<group>"; };
+		0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Custom.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +127,6 @@
 			children = (
 				0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */,
 				0B2CA5F41F2236A9007A92F9 /* Images */,
-				0B2CA5F31F2236A7007A92F9 /* Text */,
 			);
 			name = "Used Car Detail";
 			sourceTree = "<group>";
@@ -235,9 +230,9 @@
 		0B2B4CD01F1FB0DD00F8648C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				0B2B4CD11F1FB0FE00F8648C /* SISAutoLayoutUtility.swift */,
 				0B2B4D181F20DB6600F8648C /* SISGlobalConstants.swift */,
 				0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */,
+				0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -256,15 +251,6 @@
 			children = (
 			);
 			name = "UIKit Extensions";
-			sourceTree = "<group>";
-		};
-		0B2CA5F31F2236A7007A92F9 /* Text */ = {
-			isa = PBXGroup;
-			children = (
-				0B2CA5F51F223747007A92F9 /* SISUsedCarDetailTextVC.swift */,
-				0B2CA5F61F223747007A92F9 /* SISUsedCarDetailTextVC.xib */,
-			);
-			name = Text;
 			sourceTree = "<group>";
 		};
 		0B2CA5F41F2236A9007A92F9 /* Images */ = {
@@ -427,7 +413,6 @@
 				0B2B4C861F1E90E200F8648C /* SISUsedCarTVCell.xib in Resources */,
 				0B2B4C511F1E749F00F8648C /* Assets.xcassets in Resources */,
 				0B2B4C4C1F1E749F00F8648C /* Main.storyboard in Resources */,
-				0B2CA5F81F223747007A92F9 /* SISUsedCarDetailTextVC.xib in Resources */,
 				0B01A4301F2113340041C0C9 /* SISDetailImagesVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,6 +445,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B2CA5FF1F22A830007A92F9 /* UIView+Custom.swift in Sources */,
 				0B2B4C801F1E8FA300F8648C /* SISUsedCarVC.swift in Sources */,
 				0B2CA5FC1F223DB5007A92F9 /* Int+Custom.swift in Sources */,
 				0B2B4CCD1F1F91F100F8648C /* SISUsedCarImage.swift in Sources */,
@@ -469,13 +455,11 @@
 				0B01A42F1F2113340041C0C9 /* SISDetailImagesVC.swift in Sources */,
 				0B2B4C7E1F1E8EA600F8648C /* SISUsedCar.swift in Sources */,
 				0B2B4D161F20386100F8648C /* SISUsedCarDetailCVCell.swift in Sources */,
-				0B2B4CD21F1FB0FE00F8648C /* SISAutoLayoutUtility.swift in Sources */,
 				0B2B4C4F1F1E749F00F8648C /* SISUsedCar.xcdatamodeld in Sources */,
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
 				0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */,
 				0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */,
-				0B2CA5F71F223747007A92F9 /* SISUsedCarDetailTextVC.swift in Sources */,
 				0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

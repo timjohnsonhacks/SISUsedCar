@@ -1,15 +1,12 @@
 //
-//  SISAutoLayoutUtility.swift
+//  UIView+Custom.swift
 //  SISUsedCar
 //
-//  Created by Trevor Beasty on 7/19/17.
+//  Created by Trevor Beasty on 7/21/17.
 //  Copyright © 2017 SouthernImportSpecialist. All rights reserved.
 //
 
 import UIKit
-
-class SISAutoLayoutUtility {
-}
 
 extension UIView {
     
@@ -57,15 +54,11 @@ extension UIView {
             
             borderView.backgroundColor = color
         }
-        
     }
-}
-
-extension UIView {
     
     func addBorder(edge: UIRectEdge, thickness: CGFloat, color: UIColor) {
         let borderLayer = CALayer()
-
+        
         switch edge {
         case UIRectEdge.top:
             borderLayer.frame = CGRect(x: 0, y: 0, width: bounds.size.width, height: thickness)
@@ -75,4 +68,30 @@ extension UIView {
         borderLayer.backgroundColor = color.cgColor
         layer.addSublayer(borderLayer)
     }
+    
+    func insertWidthFillingStackedViews(_ views: [UIView], height: CGFloat) {
+        var mapping: [String: Any] = [:]
+        var last: (String, UIView)?
+        for (i, v) in views.enumerated() {
+            v.translatesAutoresizingMaskIntoConstraints = false
+            addSubview(v)
+            let name = "v\(i)"
+            mapping[name] = v
+            NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[\(name)]-0-|", options: [], metrics: nil, views: mapping))
+            if let last = last {
+                NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:[\(last.0)]-0-[\(name)(>=\(height))]", options: [], metrics: nil, views: mapping))
+            } else {
+                NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[\(name)(>=\(height))]", options: [], metrics: nil, views: mapping))
+            }
+            last = (name, v)
+        }
+    }
 }
+
+
+
+
+
+
+
+
