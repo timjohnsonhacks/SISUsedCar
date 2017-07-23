@@ -36,6 +36,7 @@
 		0B2CA5FC1F223DB5007A92F9 /* Int+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */; };
 		0B2CA5FD1F22404D007A92F9 /* Int+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */; };
 		0B2CA5FF1F22A830007A92F9 /* UIView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */; };
+		0B2CA6011F24F551007A92F9 /* SISFadeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA6001F24F551007A92F9 /* SISFadeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		0B2CA5F11F221FB3007A92F9 /* UICollectionView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Custom.swift"; sourceTree = "<group>"; };
 		0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Custom.swift"; sourceTree = "<group>"; };
 		0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Custom.swift"; sourceTree = "<group>"; };
+		0B2CA6001F24F551007A92F9 /* SISFadeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISFadeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 				0B2B4D181F20DB6600F8648C /* SISGlobalConstants.swift */,
 				0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */,
 				0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */,
+				0B2CA6001F24F551007A92F9 /* SISFadeView.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B2CA6011F24F551007A92F9 /* SISFadeView.swift in Sources */,
 				0B2CA5FF1F22A830007A92F9 /* UIView+Custom.swift in Sources */,
 				0B2B4C801F1E8FA300F8648C /* SISUsedCarVC.swift in Sources */,
 				0B2CA5FC1F223DB5007A92F9 /* Int+Custom.swift in Sources */,

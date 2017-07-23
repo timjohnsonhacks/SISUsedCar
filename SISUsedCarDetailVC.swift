@@ -16,7 +16,9 @@ class SISUsedCarDetailVC: UIViewController {
     @IBOutlet weak var isAvailableLabel: UILabel!
     
     weak var detailImagesChild: SISDetailImagesVC!
+    weak var fade: CAGradientLayer!
     var usedCar: SISUsedCar!
+    
     
     var detailItems: [(String, String)] {
         return [("price:", "$" + usedCar.price.commaDelimitedRepresentation()),
@@ -48,7 +50,13 @@ class SISUsedCarDetailVC: UIViewController {
         detailImagesVc.didMove(toParentViewController: self)
         
         // detail text
-        detailTextContainerView.insertWidthFillingStackedViews(detailTextView(), height: 40.0)
+        let fade = SISFadeView(
+            frame: .zero,
+            startPoint: CGPoint(x: 0.5, y: 0.6),
+            endPoint: CGPoint(x: 0.5, y: 1.0))
+        fade.backgroundColor = UIColor.clear
+        fade.insertWidthFillingStackedViews(detailTextView(), height: 25.0)
+        detailTextContainerView.addBoundsFillingSubview(fade)
     }
     
     func detailTextView() -> [UIView] {
