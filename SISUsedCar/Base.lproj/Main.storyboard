@@ -122,6 +122,7 @@
                         <outlet property="detailImagesContainerView" destination="8r8-Zx-Req" id="jc5-Ar-H39"/>
                         <outlet property="detailTextContainerView" destination="dh9-D2-gWN" id="hRc-Kg-y8d"/>
                         <outlet property="isAvailableLabel" destination="MeS-ei-lS1" id="xr4-Hk-dmg"/>
+                        <outlet property="textToCarConstraint" destination="Yfa-sO-B6H" id="Djs-G2-0N2"/>
                         <outlet property="yearMakeModel" destination="h7o-6h-bPJ" id="DiN-iR-De8"/>
                     </connections>
                 </viewController>

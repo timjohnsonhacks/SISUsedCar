@@ -14,28 +14,16 @@ class SISUsedCarDetailVC: UIViewController {
     @IBOutlet weak var detailTextContainerView: UIView!
     @IBOutlet weak var yearMakeModel: UILabel!
     @IBOutlet weak var isAvailableLabel: UILabel!
+    @IBOutlet weak var textToCarConstraint: NSLayoutConstraint!
     
     weak var detailImagesChild: SISDetailImagesVC!
+    weak var detailTextScrollView: SISDetailTextView!
     weak var fade: CAGradientLayer!
     var usedCar: SISUsedCar!
-    
-    
-    var detailItems: [(String, String)] {
-        return [("price:", "$" + usedCar.price.commaDelimitedRepresentation()),
-                ("mileage:", usedCar.mileage.commaDelimitedRepresentation()),
-                ("body style:", "really really really long string to test cause I like really really really long strings"),
-                ("engine:", usedCar.engine),
-                ("transmission:", usedCar.transmission),
-                ("drive train:", usedCar.driveTrain_1),
-                ("exterior:", usedCar.exteriorColor),
-                ("interior:", usedCar.interiorColor),
-                ("doors:", String(usedCar.doorCount)),
-                ("stock #:", usedCar.stockNumber),
-                ("vin #:", usedCar.vin),
-                ("fuel type:", usedCar.fuelType),
-                ("condition:", "default"),
-                ("owners:", "default")]
-    }
+    var lastConstraint: NSLayoutConstraint!
+    var currentConstraint: NSLayoutConstraint!
+    var detailTextIsCondensed: Bool = true
+    var expandedConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,50 +36,107 @@ class SISUsedCarDetailVC: UIViewController {
         addChildViewController(detailImagesVc)
         detailImagesContainerView.addBoundsFillingSubview(detailImagesVc.view)
         detailImagesVc.didMove(toParentViewController: self)
+        detailImagesChild = detailImagesVc
         
         // detail text
-        let fade = SISFadeView(
-            frame: .zero,
-            startPoint: CGPoint(x: 0.5, y: 0.6),
-            endPoint: CGPoint(x: 0.5, y: 1.0))
-        fade.backgroundColor = UIColor.clear
-        fade.insertWidthFillingStackedViews(detailTextView(), height: 25.0)
-        detailTextContainerView.addBoundsFillingSubview(fade)
+        let detailTextSV = SISDetailTextView(usedCar: usedCar)
+        detailTextContainerView.addBoundsFillingSubview(detailTextSV)
+        detailTextSV.isScrollEnabled = false
+        detailTextSV.contentOffset = CGPoint(x: 0.0, y: 0.0)
+        detailTextScrollView = detailTextSV
+        
+        // setup constraints
+        expandedConstraint = NSLayoutConstraint(item: detailTextScrollView,
+                                                attribute: .top,
+                                                relatedBy: .equal,
+                                                toItem: detailImagesChild.view,
+                                                attribute: .top,
+                                                multiplier: 1.0,
+                                                constant: 0.0)
+        currentConstraint = textToCarConstraint
+        lastConstraint = expandedConstraint
+        
+        // tap GR
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapDetailText(tap:)))
+        tap.numberOfTapsRequired = 1
+        tap.numberOfTouchesRequired = 1
+        detailTextSV.addGestureRecognizer(tap)
     }
     
-    func detailTextView() -> [UIView] {
-        var attributeViews = [UIView]()
-        for (name, value) in detailItems {
-            attributeViews.append(attributeView(name: name, value: value))
-        }
-        return attributeViews
+    func didTapDetailText(tap: UITapGestureRecognizer) {
+        toggleDetailTextState(toTextIsCondensed: !detailTextIsCondensed)
     }
     
-    func attributeView(name: String, value: String) -> UIView {
-        let view = UIView()
-        let nameLabel = UILabel()
-        let valueLabel = UILabel()
+    func toggleDetailTextState(toTextIsCondensed: Bool) {
         
-        let units = [(nameLabel, "name"), (valueLabel, "value")]
-        for (label, id) in units {
-            view.addSubview(label)
+        NSLayoutConstraint.activate([lastConstraint])
+        NSLayoutConstraint.deactivate([currentConstraint])
+        let last = lastConstraint
+        lastConstraint = currentConstraint
+        currentConstraint = last
+        
+        if toTextIsCondensed == true {
             
-            label.textAlignment = .left
-            label.font = UIFont.systemFont(ofSize: 17.0)
-            label.textColor = UIColor.black
-            label.lineBreakMode = .byWordWrapping
-            label.numberOfLines = 0
+            self.detailImagesContainerView.isHidden = false
             
-            label.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[\(id)]-0-|", options: [], metrics: nil, views: [id : label]))
+            UIView.animateKeyframes(
+                withDuration: 1.0,
+                delay: 0.0,
+                options: [],
+                animations: {
+     
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.0,
+                        relativeDuration: 0.7,
+                        animations: {
+                            self.view.layoutIfNeeded()
+                    })
+                
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.6,
+                        relativeDuration: 0.4,
+                        animations: {
+                            self.detailTextScrollView.fade.startPoint = CGPoint(x: 0.5, y: 0.6)
+                            self.detailImagesContainerView.alpha = 1.0
+                    })
+            },
+                completion: { _ in
+                    self.detailTextScrollView.isScrollEnabled = false
+                    self.detailTextIsCondensed = true
+            })
+            
+        } else if toTextIsCondensed == false {
+            
+            self.detailTextScrollView.fade.startPoint = CGPoint(x: 0.5, y: 1.0)
+            
+            UIView.animateKeyframes(
+                withDuration: 1.0,
+                delay: 0.0,
+                options: [],
+                animations: {
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.0,
+                        relativeDuration: 0.4,
+                        animations: {
+                            self.detailImagesContainerView.alpha = 0.0
+                    })
+                    
+                    UIView.addKeyframe(
+                        withRelativeStartTime: 0.3,
+                        relativeDuration: 0.7,
+                        animations: {
+                            self.view.layoutIfNeeded()
+                    })
+            },
+                completion: { _ in
+                    self.detailTextScrollView.isScrollEnabled = true
+                    self.detailImagesContainerView.isHidden = true
+                    self.detailTextIsCondensed = false
+            })
+            
         }
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[name(==value)]-10-[value]-0-|", options: [], metrics: nil, views: ["name" : nameLabel, "value" : valueLabel]))
-        
-        nameLabel.text = name
-        valueLabel.text = value
-        
-        return view
     }
+
 }
 
 

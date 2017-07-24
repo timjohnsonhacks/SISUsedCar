@@ -37,6 +37,8 @@
 		0B2CA5FD1F22404D007A92F9 /* Int+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */; };
 		0B2CA5FF1F22A830007A92F9 /* UIView+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */; };
 		0B2CA6011F24F551007A92F9 /* SISFadeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA6001F24F551007A92F9 /* SISFadeView.swift */; };
+		0B2CA6261F2538B7007A92F9 /* SISDetailTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA6251F2538B7007A92F9 /* SISDetailTextView.swift */; };
+		0B2CA6281F254729007A92F9 /* SISSmarScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA6271F254729007A92F9 /* SISSmarScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,8 @@
 		0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Custom.swift"; sourceTree = "<group>"; };
 		0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Custom.swift"; sourceTree = "<group>"; };
 		0B2CA6001F24F551007A92F9 /* SISFadeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISFadeView.swift; sourceTree = "<group>"; };
+		0B2CA6251F2538B7007A92F9 /* SISDetailTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISDetailTextView.swift; sourceTree = "<group>"; };
+		0B2CA6271F254729007A92F9 /* SISSmarScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISSmarScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */,
+				0B2CA6221F25387D007A92F9 /* Views */,
 				0B2CA5F41F2236A9007A92F9 /* Images */,
 			);
 			name = "Used Car Detail";
@@ -265,6 +270,15 @@
 				0B01A42E1F2113340041C0C9 /* SISDetailImagesVC.xib */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		0B2CA6221F25387D007A92F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B2CA6251F2538B7007A92F9 /* SISDetailTextView.swift */,
+				0B2CA6271F254729007A92F9 /* SISSmarScrollView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,7 +478,9 @@
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
 				0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */,
 				0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */,
+				0B2CA6261F2538B7007A92F9 /* SISDetailTextView.swift in Sources */,
 				0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */,
+				0B2CA6281F254729007A92F9 /* SISSmarScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
