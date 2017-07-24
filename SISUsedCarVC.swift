@@ -102,6 +102,8 @@ class SISUsedCarVC: UIViewController {
     }
 }
 
+// MARK: - Table View Data Source
+
 extension SISUsedCarVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -122,8 +124,9 @@ extension SISUsedCarVC: UITableViewDataSource {
         
         cell.configure(
             yearMakeModel: yearMakeModel,
-            isSold: car.isSold ? "Sold" : "Available",
-            price: "$$$ " + (String(car.price)))
+            isSold: car.isSold,
+            price: "$ " + car.price.commaDelimitedRepresentation(),
+            mileage: car.mileage.commaDelimitedRepresentation())
         
         if let mainImage = car.images.first {
             if let mainImage = mainImage.image {

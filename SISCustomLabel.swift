@@ -10,20 +10,20 @@ import UIKit
 
 class SISCustomLabel: UILabel {
     
-    let insets: UIEdgeInsets = UIEdgeInsetsMake(3.0, 6.0, 3.0, 6.0)
-
-//    override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
-//        return CGRect(x: horzInset,
-//                      y: vertInset,
-//                      width: bounds.size.width - 2.0 * horzInset,
-//                      height: bounds.size.height - 2.0 * vertInset)
-//    }
+    var insets: UIEdgeInsets
+    let defaultInsets = UIEdgeInsets(top: 3.0, left: 6.0, bottom: 3.0, right: 6.0)
+    
+    init(frame: CGRect, insets: UIEdgeInsets) {
+        self.insets = insets
+        super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        insets = defaultInsets
+        super.init(coder: aDecoder)
+    }
     
     override func drawText(in rect: CGRect) {
-//        let drawRect = CGRect(x: horzInset,
-//                              y: vertInset,
-//                              width: rect.size.width - 2.0 * horzInset,
-//                              height: rect.size.height - 2.0 * vertInset)
         let drawRect = UIEdgeInsetsInsetRect(rect, insets)
         super.drawText(in: drawRect)
     }

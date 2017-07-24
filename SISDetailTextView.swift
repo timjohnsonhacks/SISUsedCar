@@ -75,8 +75,9 @@ class SISDetailTextView: UIScrollView {
     
     func attributeView(name: String, value: String) -> UIView {
         let view = UIView()
-        let nameLabel = SISCustomLabel()
-        let valueLabel = SISCustomLabel()
+        let insets = UIEdgeInsets(top: 3.0, left: 6.0, bottom: 3.0, right: 3.0)
+        let nameLabel = SISCustomLabel(frame: .zero, insets: insets)
+        let valueLabel = SISCustomLabel(frame: .zero, insets: insets)
         
         nameLabel.font = UIFont.boldSystemFont(ofSize: 15)
         valueLabel.font = UIFont.systemFont(ofSize: 15)

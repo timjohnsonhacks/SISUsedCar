@@ -27,17 +27,4 @@ class SISUsedCarDetailCVCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError()
     }
-    
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        
-//        /* create views programatically; xib is useless because it gives you no access to the contentView, which is the superview for normally displayed content */
-//        let iv = UIImageView(image: nil)
-//        contentView.addBoundsFillingSubview(iv)
-//        imageView = iv
-//        imageView.contentMode = .scaleAspectFit
-//        
-//        layoutMargins = .zero
-//    }
-
 }

@@ -89,6 +89,7 @@ class SISUsedCarDetailVC: UIViewController {
                         withRelativeStartTime: 0.0,
                         relativeDuration: 0.7,
                         animations: {
+                            self.detailTextScrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
                             self.view.layoutIfNeeded()
                     })
                 
@@ -125,6 +126,7 @@ class SISUsedCarDetailVC: UIViewController {
                         withRelativeStartTime: 0.3,
                         relativeDuration: 0.7,
                         animations: {
+                            self.detailTextScrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
                             self.view.layoutIfNeeded()
                     })
             },

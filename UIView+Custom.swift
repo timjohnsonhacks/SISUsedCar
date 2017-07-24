@@ -86,6 +86,20 @@ extension UIView {
             last = (name, v)
         }
     }
+    
+    func addRoundedCornersMask(corners: UIRectCorner, radii: CGSize) {
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = bounds
+        
+        let roundedPath = UIBezierPath(roundedRect: bounds,
+                                      byRoundingCorners: corners,
+                                      cornerRadii: radii)
+        maskLayer.fillColor = UIColor.white.cgColor
+        maskLayer.backgroundColor = UIColor.clear.cgColor
+        maskLayer.path = roundedPath.cgPath
+        
+        layer.mask = maskLayer
+    }
 }
 
 
