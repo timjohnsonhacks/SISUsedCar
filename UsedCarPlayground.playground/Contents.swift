@@ -5,7 +5,6 @@ import PlaygroundSupport
 
 import IntegratedPlaygroundFiles
 
-// MARK: - Test Area
-let int: Int = 2346573464
+
 
 
