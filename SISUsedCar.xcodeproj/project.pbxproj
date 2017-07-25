@@ -144,6 +144,9 @@
 		0B01A42C1F2112FD0041C0C9 /* Used Car Detail */ = {
 			isa = PBXGroup;
 			children = (
+				0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */,
+				0B2CA5F41F2236A9007A92F9 /* Images */,
+				0B2CA6221F25387D007A92F9 /* Views */,
 			);
 			name = "Used Car Detail";
 			sourceTree = "<group>";
@@ -227,6 +230,10 @@
 		0B2B4C791F1E74BF00F8648C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */,
+				0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */,
+				0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */,
+				0B2CA62C1F2654A4007A92F9 /* CustomIsSoldLabel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -264,6 +271,7 @@
 		0B2CA5EE1F221F14007A92F9 /* UIKit Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0B2CA5F11F221FB3007A92F9 /* UICollectionView+Custom.swift */,
 			);
 			name = "UIKit Extensions";
 			sourceTree = "<group>";
@@ -272,7 +280,6 @@
 			isa = PBXGroup;
 			children = (
 				0B2CA5EE1F221F14007A92F9 /* UIKit Extensions */,
-				0B2CA5F11F221FB3007A92F9 /* UICollectionView+Custom.swift */,
 				0B01A42D1F2113340041C0C9 /* SISDetailImagesVC.swift */,
 				0B01A42E1F2113340041C0C9 /* SISDetailImagesVC.xib */,
 			);
@@ -282,6 +289,8 @@
 		0B2CA6221F25387D007A92F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0B2CA6251F2538B7007A92F9 /* SISDetailTextView.swift */,
+				0B2CA6271F254729007A92F9 /* SISSmarScrollView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -301,16 +310,7 @@
 			children = (
 				0B2B4C7F1F1E8FA300F8648C /* SISUsedCarVC.swift */,
 				0B2B4C791F1E74BF00F8648C /* Views */,
-				0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */,
-				0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */,
-				0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */,
-				0B2CA62C1F2654A4007A92F9 /* CustomIsSoldLabel.swift */,
 				0B01A42C1F2112FD0041C0C9 /* Used Car Detail */,
-				0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */,
-				0B2CA6221F25387D007A92F9 /* Views */,
-				0B2CA6251F2538B7007A92F9 /* SISDetailTextView.swift */,
-				0B2CA6271F254729007A92F9 /* SISSmarScrollView.swift */,
-				0B2CA5F41F2236A9007A92F9 /* Images */,
 			);
 			name = "Main Search";
 			sourceTree = "<group>";

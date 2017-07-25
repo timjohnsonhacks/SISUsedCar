@@ -33,12 +33,13 @@ class SISSearchPageButton: UIButton {
         super.init(frame: .zero)
         self.isSelected = isSelected
         
-        setTitle(String(titleNumber), for: .normal)
-        setTitle(String(titleNumber), for: .selected)
+        setTitle(String(titleNumber + 1), for: .normal)
+        setTitle(String(titleNumber + 1), for: .selected)
         setTitleColor(color_1, for: .normal)
         setTitleColor(color_2, for: .selected)
         titleLabel?.textAlignment = .center
         layer.borderWidth = 2.0
+        layer.borderColor = color_1.cgColor
     }
     
     required init?(coder aDecoder: NSCoder) {

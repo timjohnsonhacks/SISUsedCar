@@ -38,14 +38,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n2A-r2-HSz">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lc9-PG-4zR">
+                                <rect key="frame" x="10" y="617" width="355" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ReT-mY-imQ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2qY-AV-Z8D" firstAttribute="top" secondItem="n2A-r2-HSz" secondAttribute="bottom" id="ZLS-M8-4H8"/>
+                            <constraint firstItem="2qY-AV-Z8D" firstAttribute="top" secondItem="Lc9-PG-4zR" secondAttribute="bottom" id="WsH-sM-ywB"/>
+                            <constraint firstAttribute="trailing" secondItem="Lc9-PG-4zR" secondAttribute="trailing" constant="10" id="a1j-Ns-Zxd"/>
+                            <constraint firstItem="Lc9-PG-4zR" firstAttribute="top" secondItem="n2A-r2-HSz" secondAttribute="bottom" id="du9-2H-Y79"/>
                             <constraint firstItem="n2A-r2-HSz" firstAttribute="top" secondItem="jrw-iM-dlv" secondAttribute="bottom" id="ssq-xs-Mzu"/>
+                            <constraint firstItem="Lc9-PG-4zR" firstAttribute="leading" secondItem="ObX-R0-wPF" secondAttribute="leading" constant="10" id="uZx-9p-uL4"/>
                             <constraint firstItem="n2A-r2-HSz" firstAttribute="leading" secondItem="ObX-R0-wPF" secondAttribute="leading" id="vtL-EG-6SO"/>
                             <constraint firstAttribute="trailing" secondItem="n2A-r2-HSz" secondAttribute="trailing" id="ztR-ac-vQC"/>
                         </constraints>
@@ -58,13 +68,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchPageContainer" destination="Lc9-PG-4zR" id="i9k-9M-eG4"/>
                         <outlet property="tableView" destination="n2A-r2-HSz" id="rgU-sO-L0V"/>
                         <segue destination="o0x-HV-OOs" kind="show" identifier="showDetail" id="WEE-gP-Q7U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mX9-Ch-vtN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="150" y="-104"/>
+            <point key="canvasLocation" x="149.59999999999999" y="-104.7976011994003"/>
         </scene>
         <!--Used Car DetailVC-->
         <scene sceneID="t7U-8Y-snL">

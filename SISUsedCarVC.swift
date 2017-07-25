@@ -29,9 +29,9 @@ class SISUsedCarVC: UIViewController {
         }
     }
     var mapping: [Int : IndexPath] = [:] /*  usedCar.id : indexPath ; for cell updating */
-    let itemsPerSection: Int = 15
+    let itemsPerSection: Int = 5
     var activeContentIndex: Int = 0
-    let searchPageButtonSize = CGSize(width: 44.0, height: 44.0)
+    let searchPageButtonSize = CGSize(width: 30.0, height: 30.0)
     var selectedCar: SISUsedCar?
     var searchPageChildVc: SISSearchPageVC!
     
@@ -46,6 +46,7 @@ class SISUsedCarVC: UIViewController {
     }
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchPageContainer: UIView!
     
     // MARK: - View Life Cycle
     
@@ -61,15 +62,6 @@ class SISUsedCarVC: UIViewController {
         let cellNib = UINib(nibName: "SISUsedCarTVCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: cellID)
         
-        // add search page vc's view to footer
-        searchPageChildVc = SISSearchPageVC(
-            totalItemCount: content.count,
-            itemsPerSection: itemsPerSection,
-            buttonSize: searchPageButtonSize)
-        addChildViewController(searchPageChildVc)
-        tableView.tableFooterView = searchPageChildVc.view
-        searchPageChildVc.didMove(toParentViewController: self)
-        
         // initial car download
         getAll()
     }
@@ -81,10 +73,22 @@ class SISUsedCarVC: UIViewController {
                 self.content = cars
 
                 DispatchQueue.main.async {
+                    self.setupSearchPageStackTableFooter()
                     self.tableView.reloadData()
                 }
             }
         })
+    }
+    
+    func setupSearchPageStackTableFooter() {
+        // add search page vc's view to footer
+        searchPageChildVc = SISSearchPageVC(
+            totalItemCount: content.count,
+            itemsPerSection: itemsPerSection,
+            buttonSize: searchPageButtonSize)
+        addChildViewController(searchPageChildVc)
+        searchPageContainer.addBoundsFillingSubview(searchPageChildVc.view)
+        searchPageChildVc.didMove(toParentViewController: self)
     }
     
     func getMainImageForCar(_ car: SISUsedCar) {

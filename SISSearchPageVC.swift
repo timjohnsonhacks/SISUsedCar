@@ -13,11 +13,17 @@ class SISSearchPageVC: UIViewController {
     let totalItemCount: Int
     let itemsPerSection: Int
     let buttonSize: CGSize
+    let calmBlue = UIColor(
+        colorLiteralRed: 94.0 / 255.0,
+        green: 198.0 / 255.0,
+        blue: 255.0 / 255.0,
+        alpha: 1.0)
     weak var searchStack: SISSearchPageButtonStack!
     
     weak var buttonContainer: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewWidth: NSLayoutConstraint!
     
     init(totalItemCount: Int, itemsPerSection: Int, buttonSize: CGSize) {
         self.totalItemCount = totalItemCount
@@ -37,9 +43,9 @@ class SISSearchPageVC: UIViewController {
         let totalSections = totalItemCount / itemsPerSection + 1
         let ss = SISSearchPageButtonStack(
             totalSections: totalSections,
-            buttonSize: CGSize(width: 44.0, height: 44.0),
+            buttonSize: buttonSize,
             spacing: 2.0,
-            color_1: .black,
+            color_1: calmBlue,
             color_2: .white,
             borderWidth: 2.0,
             delegate: self)
@@ -49,8 +55,9 @@ class SISSearchPageVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if scrollView.bounds.size.width < searchStack.bounds.size.width {
+        if view.bounds.size.width < searchStack.naturalFrame.size.width {
             
+            scrollViewWidth.constant = view.bounds.size.width
             let naturalFrame = searchStack.naturalFrame
             searchStack.frame = searchStack.naturalFrame
             scrollView.contentSize = naturalFrame.size
@@ -58,7 +65,7 @@ class SISSearchPageVC: UIViewController {
             
         } else {
             
-            searchStack.center = scrollView.center
+            scrollViewWidth.constant = searchStack.naturalFrame.size.width
             scrollView.contentSize = scrollView.bounds.size
             scrollView.isScrollEnabled = false
             
