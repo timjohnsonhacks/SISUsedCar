@@ -48,6 +48,10 @@ public class SISUsedCar {
         return "\(year) \(make) \(model), price: \(price), mileage: \(mileage), id: \(id) stock number: \(stockNumber)"
     }
     
+    var yearMakeModel: String {
+        return "\(year) \(make) \(model)"
+    }
+    
     public init(images: [SISUsedCarImage]) {
         self.images = images
     }

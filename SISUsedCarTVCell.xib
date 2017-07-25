@@ -29,6 +29,7 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is Sold" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYQ-1J-MW1" customClass="CustomIsSoldLabel" customModule="SISUsedCar" customModuleProvider="target">
                         <rect key="frame" x="476" y="8" width="51" height="21"/>
+                        <color key="backgroundColor" red="0.28314797266096203" green="0.035868790838650397" blue="0.28706518665158376" alpha="0.0" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -55,7 +56,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.73746582767722479" green="0.082379860949177805" blue="0.18932170649512226" alpha="0.0" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.34049066742081457" green="0.31567375787900531" blue="0.051088529702321507" alpha="0.0" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Naz-Gn-nA0" firstAttribute="centerX" secondItem="9rc-e0-6an" secondAttribute="centerX" id="9yd-Kl-Bd9"/>
                             <constraint firstItem="LNj-fx-d6n" firstAttribute="centerX" secondItem="9rc-e0-6an" secondAttribute="centerX" id="XV1-Kv-xCh"/>
@@ -88,6 +89,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" red="0.059740461104971672" green="0.27186822761507101" blue="0.28492175716440427" alpha="0.0" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="S7n-ym-wmb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-20" id="1cQ-VZ-zhh"/>
                     <constraint firstItem="faO-w0-acb" firstAttribute="leading" secondItem="9rc-e0-6an" secondAttribute="trailing" id="5tc-Uf-uyh"/>

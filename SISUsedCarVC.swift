@@ -14,6 +14,9 @@ class SISUsedCarVC: UIViewController {
     let dataService = SISUsedCarDataService()
     let imageService = SISUsedCarImageService()
     
+    typealias FilteredCar = (car: SISUsedCar, attributedString: NSMutableAttributedString, score: Int)
+    var filteredContent = [FilteredCar]()
+    var shouldFetchImage: Bool = true
     var content = [SISUsedCar]() {
         didSet {
             /* mapping depends on content, so configure mapping when content is set */
@@ -34,6 +37,9 @@ class SISUsedCarVC: UIViewController {
     let searchPageButtonSize = CGSize(width: 30.0, height: 30.0)
     var selectedCar: SISUsedCar?
     weak var searchPageChildVc: SISSearchPageVC!
+    var searchController: UISearchController!
+    let highlightedAttributes: [String : Any] = [NSForegroundColorAttributeName : UIColor.yellow,
+                                                 NSFontAttributeName : UIFont.boldSystemFont(ofSize: 17)]
     
     var activeContentStartIndex: Int {
         return activeContentIndex * itemsPerSection
@@ -46,7 +52,6 @@ class SISUsedCarVC: UIViewController {
     }
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchPageContainer: UIView!
     
     // MARK: - View Life Cycle
     
@@ -62,8 +67,22 @@ class SISUsedCarVC: UIViewController {
         let cellNib = UINib(nibName: "SISUsedCarTVCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: cellID)
         
+        // search controller config
+        let sc = UISearchController(searchResultsController: nil)
+        searchController = sc
+        sc.searchResultsUpdater = self
+        sc.delegate = self
+        sc.obscuresBackgroundDuringPresentation = false
+        sc.dimsBackgroundDuringPresentation = false
+        sc.hidesNavigationBarDuringPresentation = true
+        tableView.tableHeaderView = sc.searchBar
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         // initial car download
-        getAll()
+        if content.count == 0 {
+            getAll()
+        }
     }
     
     func getAll() {
@@ -88,7 +107,10 @@ class SISUsedCarVC: UIViewController {
             buttonSize: searchPageButtonSize,
             delegate: self)
         addChildViewController(childVC)
-        searchPageContainer.addBoundsFillingSubview(childVC.view)
+        let container = UIView()
+        container.addBoundsFillingSubview(childVC.view)
+        tableView.tableFooterView = container
+        configureTableFooterViewFrame(isShowing: true)
         childVC.didMove(toParentViewController: self)
         searchPageChildVc = childVC
         childVC.giveButtonSelectedAppearance(titleNumber: activeContentIndex)
@@ -153,92 +175,36 @@ class SISUsedCarVC: UIViewController {
             detailVC.usedCar = selectedCar!
         }
     }
-}
-
-// MARK: - Table View Data Source
-
-extension SISUsedCarVC: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // make sure there is a full section to return. If not, return the partial count
-        let rows: Int
-        if activeContentIndex * (itemsPerSection + 1) < content.count {
-            rows = itemsPerSection
-        } else {
-            rows = content.count - activeContentIndex * itemsPerSection
-        }
-        return rows
-    }
-    
-    func mapIndexPath(_ ip: IndexPath) -> SISUsedCar {
-        let currentRow = ip.row
-        let correctedRow = activeContentIndex * itemsPerSection + currentRow
-        return content[correctedRow]
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SISUsedCarTVCell
-        cell.resetImageView()
-        
-        let car = mapIndexPath(indexPath)
-        let yearMakeModel = "\(car.year) \(car.make) \(car.model)"
-        
-        cell.configure(
-            yearMakeModel: yearMakeModel,
-            isSold: car.isSold,
-            price: "$ " + car.price.commaDelimitedRepresentation(),
-            mileage: car.mileage.commaDelimitedRepresentation())
-        
-        if let mainImage = car.images.first {
-            if let mainImage = mainImage.image {
-                cell.configure(image: mainImage)
-            } else if mainImage.downloadAttemptFailed == false {
-                cell.showActivityIndicator()
-                getMainImageForCar(
-                    car,
-                    indexPath: indexPath,
-                    requestContentIndex: activeContentIndex)
-            } else if mainImage.downloadAttemptFailed == true {
-                cell.showNoImageAvailable()
+    func numberOfRowsForActiveContentIndex(_ aci: Int) -> Int {
+        switch searchController.isActive {
+        case false:
+            if aci * (itemsPerSection + 1) < content.count {
+                return itemsPerSection
+            } else {
+                return content.count - aci * itemsPerSection
             }
-        } else {
-            cell.showNoImageAvailable()
+            
+        case true:
+            return filteredContent.count
         }
- 
-        return cell
+    }
+    
+    func configureTableFooterViewFrame(isShowing: Bool) {
+        switch isShowing {
+        case true:
+            tableView.tableFooterView?.frame = CGRect(
+                origin: .zero,
+                size: CGSize(width: tableView.bounds.size.width, height: 60))
+        case false:
+            tableView.tableFooterView?.frame = .zero
+        }
     }
 }
 
-// MARK: - Table View Delegate
 
-extension SISUsedCarVC: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedCar = content[indexPath.row]
-        performSegue(withIdentifier: "showDetail", sender: nil)
-    }
-}
 
-// MARK: - Search Page Button Delegate
 
-extension SISUsedCarVC: SISSearchPageButtonDelegate {
-    
-    func didTapButtonWith(titleNumber: Int) {
-        activeContentIndex = titleNumber
-        tableView.reloadData()
-        let scrollPath = IndexPath(row: 0, section: 0)
-        tableView.scrollToRow(at: scrollPath, at: .top, animated: true)
-        searchPageChildVc.giveButtonSelectedAppearance(titleNumber: titleNumber)
-    }
-}
 
 
 

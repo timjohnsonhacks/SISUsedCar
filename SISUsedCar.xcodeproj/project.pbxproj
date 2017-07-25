@@ -46,6 +46,10 @@
 		0B2CA6311F268166007A92F9 /* SISSearchPageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B2CA62F1F268166007A92F9 /* SISSearchPageVC.xib */; };
 		0B2CA6361F26830E007A92F9 /* SISSearchPageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA6351F26830E007A92F9 /* SISSearchPageButton.swift */; };
 		0B8887E11F27051B00238C90 /* SISSearchPageButtonStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887E01F27051B00238C90 /* SISSearchPageButtonStack.swift */; };
+		0B8887E31F27816700238C90 /* SISUsedCarVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887E21F27816700238C90 /* SISUsedCarVC+TableView.swift */; };
+		0B8887E51F2781A800238C90 /* SISUsedCarVC+SearchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887E41F2781A800238C90 /* SISUsedCarVC+SearchPage.swift */; };
+		0B8887E71F27837E00238C90 /* SISUsedCarVC+SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887E61F27837E00238C90 /* SISUsedCarVC+SearchController.swift */; };
+		0B8887E91F279F7C00238C90 /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887E81F279F7C00238C90 /* UIColor+Custom.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +111,10 @@
 		0B2CA62F1F268166007A92F9 /* SISSearchPageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISSearchPageVC.xib; sourceTree = "<group>"; };
 		0B2CA6351F26830E007A92F9 /* SISSearchPageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISSearchPageButton.swift; sourceTree = "<group>"; };
 		0B8887E01F27051B00238C90 /* SISSearchPageButtonStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISSearchPageButtonStack.swift; sourceTree = "<group>"; };
+		0B8887E21F27816700238C90 /* SISUsedCarVC+TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SISUsedCarVC+TableView.swift"; sourceTree = "<group>"; };
+		0B8887E41F2781A800238C90 /* SISUsedCarVC+SearchPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SISUsedCarVC+SearchPage.swift"; sourceTree = "<group>"; };
+		0B8887E61F27837E00238C90 /* SISUsedCarVC+SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SISUsedCarVC+SearchController.swift"; sourceTree = "<group>"; };
+		0B8887E81F279F7C00238C90 /* UIColor+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Custom.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +263,7 @@
 				0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */,
 				0B2CA6001F24F551007A92F9 /* SISFadeView.swift */,
 				0B2CA6291F2623C0007A92F9 /* SISCustomLabel.swift */,
+				0B8887E81F279F7C00238C90 /* UIColor+Custom.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -309,6 +318,9 @@
 			isa = PBXGroup;
 			children = (
 				0B2B4C7F1F1E8FA300F8648C /* SISUsedCarVC.swift */,
+				0B8887E21F27816700238C90 /* SISUsedCarVC+TableView.swift */,
+				0B8887E41F2781A800238C90 /* SISUsedCarVC+SearchPage.swift */,
+				0B8887E61F27837E00238C90 /* SISUsedCarVC+SearchController.swift */,
 				0B2B4C791F1E74BF00F8648C /* Views */,
 				0B01A42C1F2112FD0041C0C9 /* Used Car Detail */,
 			);
@@ -520,12 +532,16 @@
 				0B2B4D161F20386100F8648C /* SISUsedCarDetailCVCell.swift in Sources */,
 				0B2CA62D1F2654A4007A92F9 /* CustomIsSoldLabel.swift in Sources */,
 				0B2B4C4F1F1E749F00F8648C /* SISUsedCar.xcdatamodeld in Sources */,
+				0B8887E91F279F7C00238C90 /* UIColor+Custom.swift in Sources */,
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
 				0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */,
 				0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */,
+				0B8887E71F27837E00238C90 /* SISUsedCarVC+SearchController.swift in Sources */,
 				0B2CA6301F268166007A92F9 /* SISSearchPageVC.swift in Sources */,
+				0B8887E51F2781A800238C90 /* SISUsedCarVC+SearchPage.swift in Sources */,
 				0B2CA6261F2538B7007A92F9 /* SISDetailTextView.swift in Sources */,
+				0B8887E31F27816700238C90 /* SISUsedCarVC+TableView.swift in Sources */,
 				0B2CA62A1F2623C0007A92F9 /* SISCustomLabel.swift in Sources */,
 				0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */,
 				0B2CA6361F26830E007A92F9 /* SISSearchPageButton.swift in Sources */,

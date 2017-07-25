@@ -38,106 +38,106 @@ class SISUsedCarDetailVC: UIViewController {
         detailImagesVc.didMove(toParentViewController: self)
         detailImagesChild = detailImagesVc
         
-        // detail text
-        let detailTextSV = SISDetailTextView(usedCar: usedCar)
-        detailTextContainerView.addBoundsFillingSubview(detailTextSV)
-        detailTextSV.isScrollEnabled = false
-        detailTextSV.contentOffset = CGPoint(x: 0.0, y: 0.0)
-        detailTextScrollView = detailTextSV
-        
-        // setup constraints
-        expandedConstraint = NSLayoutConstraint(item: detailTextScrollView,
-                                                attribute: .top,
-                                                relatedBy: .equal,
-                                                toItem: detailImagesChild.view,
-                                                attribute: .top,
-                                                multiplier: 1.0,
-                                                constant: 0.0)
-        currentConstraint = textToCarConstraint
-        lastConstraint = expandedConstraint
-        
-        // tap GR
-        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapDetailText(tap:)))
-        tap.numberOfTapsRequired = 1
-        tap.numberOfTouchesRequired = 1
-        detailTextSV.addGestureRecognizer(tap)
+//        // detail text
+//        let detailTextSV = SISDetailTextView(usedCar: usedCar)
+//        detailTextContainerView.addBoundsFillingSubview(detailTextSV)
+//        detailTextSV.isScrollEnabled = false
+//        detailTextSV.contentOffset = CGPoint(x: 0.0, y: 0.0)
+//        detailTextScrollView = detailTextSV
+//        
+//        // setup constraints
+//        expandedConstraint = NSLayoutConstraint(item: detailTextScrollView,
+//                                                attribute: .top,
+//                                                relatedBy: .equal,
+//                                                toItem: detailImagesChild.view,
+//                                                attribute: .top,
+//                                                multiplier: 1.0,
+//                                                constant: 0.0)
+//        currentConstraint = textToCarConstraint
+//        lastConstraint = expandedConstraint
+//        
+//        // tap GR
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(didTapDetailText(tap:)))
+//        tap.numberOfTapsRequired = 1
+//        tap.numberOfTouchesRequired = 1
+//        detailTextSV.addGestureRecognizer(tap)
     }
     
-    func didTapDetailText(tap: UITapGestureRecognizer) {
-        toggleDetailTextState(toTextIsCondensed: !detailTextIsCondensed)
-    }
-    
-    func toggleDetailTextState(toTextIsCondensed: Bool) {
-        
-        NSLayoutConstraint.activate([lastConstraint])
-        NSLayoutConstraint.deactivate([currentConstraint])
-        let last = lastConstraint
-        lastConstraint = currentConstraint
-        currentConstraint = last
-        
-        if toTextIsCondensed == true {
-            
-            self.detailImagesContainerView.isHidden = false
-            
-            UIView.animateKeyframes(
-                withDuration: 1.0,
-                delay: 0.0,
-                options: [],
-                animations: {
-     
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.0,
-                        relativeDuration: 0.7,
-                        animations: {
-                            self.detailTextScrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
-                            self.view.layoutIfNeeded()
-                    })
-                
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.6,
-                        relativeDuration: 0.4,
-                        animations: {
-                            self.detailTextScrollView.fade.startPoint = CGPoint(x: 0.5, y: 0.6)
-                            self.detailImagesContainerView.alpha = 1.0
-                    })
-            },
-                completion: { _ in
-                    self.detailTextScrollView.isScrollEnabled = false
-                    self.detailTextIsCondensed = true
-            })
-            
-        } else if toTextIsCondensed == false {
-            
-            self.detailTextScrollView.fade.startPoint = CGPoint(x: 0.5, y: 1.0)
-            
-            UIView.animateKeyframes(
-                withDuration: 1.0,
-                delay: 0.0,
-                options: [],
-                animations: {
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.0,
-                        relativeDuration: 0.4,
-                        animations: {
-                            self.detailImagesContainerView.alpha = 0.0
-                    })
-                    
-                    UIView.addKeyframe(
-                        withRelativeStartTime: 0.3,
-                        relativeDuration: 0.7,
-                        animations: {
-                            self.detailTextScrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
-                            self.view.layoutIfNeeded()
-                    })
-            },
-                completion: { _ in
-                    self.detailTextScrollView.isScrollEnabled = true
-                    self.detailImagesContainerView.isHidden = true
-                    self.detailTextIsCondensed = false
-            })
-            
-        }
-    }
+//    func didTapDetailText(tap: UITapGestureRecognizer) {
+//        toggleDetailTextState(toTextIsCondensed: !detailTextIsCondensed)
+//    }
+//    
+//    func toggleDetailTextState(toTextIsCondensed: Bool) {
+//        
+//        NSLayoutConstraint.activate([lastConstraint])
+//        NSLayoutConstraint.deactivate([currentConstraint])
+//        let last = lastConstraint
+//        lastConstraint = currentConstraint
+//        currentConstraint = last
+//        
+//        if toTextIsCondensed == true {
+//            
+//            self.detailImagesContainerView.isHidden = false
+//            
+//            UIView.animateKeyframes(
+//                withDuration: 1.0,
+//                delay: 0.0,
+//                options: [],
+//                animations: {
+//     
+//                    UIView.addKeyframe(
+//                        withRelativeStartTime: 0.0,
+//                        relativeDuration: 0.7,
+//                        animations: {
+//                            self.detailTextScrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
+//                            self.view.layoutIfNeeded()
+//                    })
+//                
+//                    UIView.addKeyframe(
+//                        withRelativeStartTime: 0.6,
+//                        relativeDuration: 0.4,
+//                        animations: {
+//                            self.detailTextScrollView.fade.startPoint = CGPoint(x: 0.5, y: 0.6)
+//                            self.detailImagesContainerView.alpha = 1.0
+//                    })
+//            },
+//                completion: { _ in
+//                    self.detailTextScrollView.isScrollEnabled = false
+//                    self.detailTextIsCondensed = true
+//            })
+//            
+//        } else if toTextIsCondensed == false {
+//            
+//            self.detailTextScrollView.fade.startPoint = CGPoint(x: 0.5, y: 1.0)
+//            
+//            UIView.animateKeyframes(
+//                withDuration: 1.0,
+//                delay: 0.0,
+//                options: [],
+//                animations: {
+//                    UIView.addKeyframe(
+//                        withRelativeStartTime: 0.0,
+//                        relativeDuration: 0.4,
+//                        animations: {
+//                            self.detailImagesContainerView.alpha = 0.0
+//                    })
+//                    
+//                    UIView.addKeyframe(
+//                        withRelativeStartTime: 0.3,
+//                        relativeDuration: 0.7,
+//                        animations: {
+//                            self.detailTextScrollView.contentOffset = CGPoint(x: 0.0, y: 0.0)
+//                            self.view.layoutIfNeeded()
+//                    })
+//            },
+//                completion: { _ in
+//                    self.detailTextScrollView.isScrollEnabled = true
+//                    self.detailImagesContainerView.isHidden = true
+//                    self.detailTextIsCondensed = false
+//            })
+//            
+//        }
+//    }
 
 }
 

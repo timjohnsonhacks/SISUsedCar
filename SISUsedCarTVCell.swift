@@ -81,6 +81,19 @@ class SISUsedCarTVCell: UITableViewCell {
         }
     }
     
+    func configureWithAttributedText(yearMakeModel: NSAttributedString, isSold: Bool, price: String, mileage: String) {
+        yearMakeModelLabel.attributedText = yearMakeModel
+        priceLabel.text = price
+        mileageLabel.text = mileage
+        if isSold == true {
+            isSoldLabel.text = "Sold"
+            isSoldLabel.color = red
+        } else {
+            isSoldLabel.text = "Available"
+            isSoldLabel.color = green
+        }
+    }
+    
     func configure(image: UIImage) {
         activityView?.stopAnimating()
         noImageLabel?.isHidden = true
@@ -92,6 +105,7 @@ class SISUsedCarTVCell: UITableViewCell {
             activityView.startAnimating()
         } else {
             let av = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+            av.hidesWhenStopped = true
             carImageView.insertSubviewAboveWithMatchingFrame(av)
             activityView = av
             av.startAnimating()
@@ -118,6 +132,8 @@ class SISUsedCarTVCell: UITableViewCell {
     
     func resetImageView() {
         carImageView.image = nil
+        noImageLabel?.isHidden = true
+        activityView?.stopAnimating()
     }
     
     override func layoutSubviews() {
