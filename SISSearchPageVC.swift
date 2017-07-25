@@ -18,8 +18,9 @@ class SISSearchPageVC: UIViewController {
         green: 198.0 / 255.0,
         blue: 255.0 / 255.0,
         alpha: 1.0)
-    let delegate: SISSearchPageButtonDelegate
+    weak var delegate: SISSearchPageButtonDelegate?
     weak var searchStack: SISSearchPageButtonStack!
+    var lastSelectedTitleNumber: Int?
     
     weak var buttonContainer: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -51,7 +52,7 @@ class SISSearchPageVC: UIViewController {
             color_1: calmBlue,
             color_2: .white,
             borderWidth: 2.0,
-            delegate: delegate)
+            delegate: delegate!)
         scrollView.addSubview(ss)
         searchStack = ss
         scrollViewHeight.constant = ss.bounds.height
@@ -73,6 +74,14 @@ class SISSearchPageVC: UIViewController {
             scrollView.isScrollEnabled = false
             
         }
+    }
+    
+    func giveButtonSelectedAppearance(titleNumber: Int) {
+        if let lastSelectedTitleIndex = lastSelectedTitleNumber {
+            searchStack.buttons[lastSelectedTitleIndex].isSelected = false
+        }
+        searchStack.buttons[titleNumber].isSelected = true
+        lastSelectedTitleNumber = titleNumber
     }
 }
 

@@ -29,11 +29,11 @@ class SISUsedCarVC: UIViewController {
         }
     }
     var mapping: [Int : IndexPath] = [:] /*  usedCar.id : indexPath ; for cell updating */
-    let itemsPerSection: Int = 5
+    let itemsPerSection: Int = 10
     var activeContentIndex: Int = 0
     let searchPageButtonSize = CGSize(width: 30.0, height: 30.0)
     var selectedCar: SISUsedCar?
-    var searchPageChildVc: SISSearchPageVC!
+    weak var searchPageChildVc: SISSearchPageVC!
     
     var activeContentStartIndex: Int {
         return activeContentIndex * itemsPerSection
@@ -82,28 +82,29 @@ class SISUsedCarVC: UIViewController {
     
     func setupSearchPageStackTableFooter() {
         // add search page vc's view to footer
-        searchPageChildVc = SISSearchPageVC(
+        let childVC = SISSearchPageVC(
             totalItemCount: content.count,
             itemsPerSection: itemsPerSection,
             buttonSize: searchPageButtonSize,
             delegate: self)
-        addChildViewController(searchPageChildVc)
-        searchPageContainer.addBoundsFillingSubview(searchPageChildVc.view)
-        searchPageChildVc.didMove(toParentViewController: self)
+        addChildViewController(childVC)
+        searchPageContainer.addBoundsFillingSubview(childVC.view)
+        childVC.didMove(toParentViewController: self)
+        searchPageChildVc = childVC
+        childVC.giveButtonSelectedAppearance(titleNumber: activeContentIndex)
     }
     
-    func getMainImageForCar(_ car: SISUsedCar) {
-        guard let ip = mapping[car.id] else {
-            return
-        }
-        let userInfo: [String:Any] = ["indexPath" : ip]
+    func getMainImageForCar(_ car: SISUsedCar, indexPath: IndexPath, requestContentIndex: Int) {
+        let userInfo: [String:Any] = ["indexPath" : indexPath,
+                                      "requestContentIndex" : requestContentIndex]
         
         imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { (success, userInfo) in
-            guard let ip = userInfo["indexPath"] as? IndexPath else {
+            guard let ip = userInfo["indexPath"] as? IndexPath,
+                let requestContentIndex = userInfo["requestContentIndex"] as? Int else {
                 return
             }
             
-            if self.isActiveIndexPath(ip) == true {
+            if self.activeContentIndex == requestContentIndex {
                 DispatchQueue.main.async {
                     self.tableView.reloadRows(at: [ip], with: .none)
                 }
@@ -118,10 +119,6 @@ class SISUsedCarVC: UIViewController {
                 }
             }
         })
-    }
-    
-    func isActiveIndexPath(_ ip: IndexPath) -> Bool {
-        return ip.row >= activeContentStartIndex && ip.row <= activeContentEndIndex
     }
     
     func fetchAllMainImages() {
@@ -168,11 +165,13 @@ extension SISUsedCarVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // make sure there is a full section to return. If not, return the partial count
+        let rows: Int
         if activeContentIndex * (itemsPerSection + 1) < content.count {
-            return itemsPerSection
+            rows = itemsPerSection
         } else {
-            return content.count - activeContentIndex * itemsPerSection
+            rows = content.count - activeContentIndex * itemsPerSection
         }
+        return rows
     }
     
     func mapIndexPath(_ ip: IndexPath) -> SISUsedCar {
@@ -182,7 +181,6 @@ extension SISUsedCarVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SISUsedCarTVCell
         cell.resetImageView()
         
@@ -200,7 +198,10 @@ extension SISUsedCarVC: UITableViewDataSource {
                 cell.configure(image: mainImage)
             } else if mainImage.downloadAttemptFailed == false {
                 cell.showActivityIndicator()
-                getMainImageForCar(car)
+                getMainImageForCar(
+                    car,
+                    indexPath: indexPath,
+                    requestContentIndex: activeContentIndex)
             } else if mainImage.downloadAttemptFailed == true {
                 cell.showNoImageAvailable()
             }
@@ -231,7 +232,11 @@ extension SISUsedCarVC: UITableViewDelegate {
 extension SISUsedCarVC: SISSearchPageButtonDelegate {
     
     func didTapButtonWith(titleNumber: Int) {
-        print("did tap button with title number " + String(titleNumber + 1))
+        activeContentIndex = titleNumber
+        tableView.reloadData()
+        let scrollPath = IndexPath(row: 0, section: 0)
+        tableView.scrollToRow(at: scrollPath, at: .top, animated: true)
+        searchPageChildVc.giveButtonSelectedAppearance(titleNumber: titleNumber)
     }
 }
 

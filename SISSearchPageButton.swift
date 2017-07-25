@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SISSearchPageButtonDelegate {
+protocol SISSearchPageButtonDelegate: class {
     func didTapButtonWith(titleNumber: Int)
 }
 
@@ -18,7 +18,7 @@ class SISSearchPageButton: UIButton {
     let color_2: UIColor
     let titleNumber: Int
     let borderWidth: CGFloat
-    let delegate: SISSearchPageButtonDelegate
+    weak var delegate: SISSearchPageButtonDelegate?
     
     override var isSelected: Bool {
         didSet {
@@ -59,7 +59,7 @@ class SISSearchPageButton: UIButton {
     }
     
     func didTouchUpInside() {
-        delegate.didTapButtonWith(titleNumber: titleNumber)
+        delegate?.didTapButtonWith(titleNumber: titleNumber)
     }
     
 }
