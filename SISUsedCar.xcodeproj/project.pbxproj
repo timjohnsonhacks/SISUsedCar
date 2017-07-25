@@ -42,6 +42,10 @@
 		0B2CA62A1F2623C0007A92F9 /* SISCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA6291F2623C0007A92F9 /* SISCustomLabel.swift */; };
 		0B2CA62B1F262487007A92F9 /* SISCustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA6291F2623C0007A92F9 /* SISCustomLabel.swift */; };
 		0B2CA62D1F2654A4007A92F9 /* CustomIsSoldLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA62C1F2654A4007A92F9 /* CustomIsSoldLabel.swift */; };
+		0B2CA6301F268166007A92F9 /* SISSearchPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA62E1F268166007A92F9 /* SISSearchPageVC.swift */; };
+		0B2CA6311F268166007A92F9 /* SISSearchPageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B2CA62F1F268166007A92F9 /* SISSearchPageVC.xib */; };
+		0B2CA6361F26830E007A92F9 /* SISSearchPageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2CA6351F26830E007A92F9 /* SISSearchPageButton.swift */; };
+		0B8887E11F27051B00238C90 /* SISSearchPageButtonStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887E01F27051B00238C90 /* SISSearchPageButtonStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +103,10 @@
 		0B2CA6271F254729007A92F9 /* SISSmarScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISSmarScrollView.swift; sourceTree = "<group>"; };
 		0B2CA6291F2623C0007A92F9 /* SISCustomLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISCustomLabel.swift; sourceTree = "<group>"; };
 		0B2CA62C1F2654A4007A92F9 /* CustomIsSoldLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomIsSoldLabel.swift; sourceTree = "<group>"; };
+		0B2CA62E1F268166007A92F9 /* SISSearchPageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISSearchPageVC.swift; sourceTree = "<group>"; };
+		0B2CA62F1F268166007A92F9 /* SISSearchPageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISSearchPageVC.xib; sourceTree = "<group>"; };
+		0B2CA6351F26830E007A92F9 /* SISSearchPageButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISSearchPageButton.swift; sourceTree = "<group>"; };
+		0B8887E01F27051B00238C90 /* SISSearchPageButtonStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISSearchPageButtonStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,9 +144,6 @@
 		0B01A42C1F2112FD0041C0C9 /* Used Car Detail */ = {
 			isa = PBXGroup;
 			children = (
-				0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */,
-				0B2CA6221F25387D007A92F9 /* Views */,
-				0B2CA5F41F2236A9007A92F9 /* Images */,
 			);
 			name = "Used Car Detail";
 			sourceTree = "<group>";
@@ -204,9 +209,8 @@
 		0B2B4C771F1E74AB00F8648C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0B2B4C7F1F1E8FA300F8648C /* SISUsedCarVC.swift */,
-				0B2B4C791F1E74BF00F8648C /* Views */,
-				0B01A42C1F2112FD0041C0C9 /* Used Car Detail */,
+				0B2CA6331F2681DE007A92F9 /* Main Search */,
+				0B2CA6321F2681D6007A92F9 /* Search Page  */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -223,10 +227,6 @@
 		0B2B4C791F1E74BF00F8648C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */,
-				0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */,
-				0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */,
-				0B2CA62C1F2654A4007A92F9 /* CustomIsSoldLabel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -282,8 +282,44 @@
 		0B2CA6221F25387D007A92F9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0B2CA6321F2681D6007A92F9 /* Search Page  */ = {
+			isa = PBXGroup;
+			children = (
+				0B2CA62E1F268166007A92F9 /* SISSearchPageVC.swift */,
+				0B2CA62F1F268166007A92F9 /* SISSearchPageVC.xib */,
+				0B2CA6341F2682D1007A92F9 /* Views */,
+			);
+			name = "Search Page ";
+			sourceTree = "<group>";
+		};
+		0B2CA6331F2681DE007A92F9 /* Main Search */ = {
+			isa = PBXGroup;
+			children = (
+				0B2B4C7F1F1E8FA300F8648C /* SISUsedCarVC.swift */,
+				0B2B4C791F1E74BF00F8648C /* Views */,
+				0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */,
+				0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */,
+				0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */,
+				0B2CA62C1F2654A4007A92F9 /* CustomIsSoldLabel.swift */,
+				0B01A42C1F2112FD0041C0C9 /* Used Car Detail */,
+				0B2B4D121F1FECAF00F8648C /* SISUsedCarDetailVC.swift */,
+				0B2CA6221F25387D007A92F9 /* Views */,
 				0B2CA6251F2538B7007A92F9 /* SISDetailTextView.swift */,
 				0B2CA6271F254729007A92F9 /* SISSmarScrollView.swift */,
+				0B2CA5F41F2236A9007A92F9 /* Images */,
+			);
+			name = "Main Search";
+			sourceTree = "<group>";
+		};
+		0B2CA6341F2682D1007A92F9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B2CA6351F26830E007A92F9 /* SISSearchPageButton.swift */,
+				0B8887E01F27051B00238C90 /* SISSearchPageButtonStack.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -436,6 +472,7 @@
 				0B2B4C541F1E749F00F8648C /* LaunchScreen.storyboard in Resources */,
 				0B2B4C861F1E90E200F8648C /* SISUsedCarTVCell.xib in Resources */,
 				0B2B4C511F1E749F00F8648C /* Assets.xcassets in Resources */,
+				0B2CA6311F268166007A92F9 /* SISSearchPageVC.xib in Resources */,
 				0B2B4C4C1F1E749F00F8648C /* Main.storyboard in Resources */,
 				0B01A4301F2113340041C0C9 /* SISDetailImagesVC.xib in Resources */,
 			);
@@ -471,6 +508,7 @@
 			files = (
 				0B2CA6011F24F551007A92F9 /* SISFadeView.swift in Sources */,
 				0B2CA5FF1F22A830007A92F9 /* UIView+Custom.swift in Sources */,
+				0B8887E11F27051B00238C90 /* SISSearchPageButtonStack.swift in Sources */,
 				0B2B4C801F1E8FA300F8648C /* SISUsedCarVC.swift in Sources */,
 				0B2CA5FC1F223DB5007A92F9 /* Int+Custom.swift in Sources */,
 				0B2B4CCD1F1F91F100F8648C /* SISUsedCarImage.swift in Sources */,
@@ -486,9 +524,11 @@
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
 				0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */,
 				0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */,
+				0B2CA6301F268166007A92F9 /* SISSearchPageVC.swift in Sources */,
 				0B2CA6261F2538B7007A92F9 /* SISDetailTextView.swift in Sources */,
 				0B2CA62A1F2623C0007A92F9 /* SISCustomLabel.swift in Sources */,
 				0B2B4C7C1F1E8E6D00F8648C /* SISUsedCarDataService.swift in Sources */,
+				0B2CA6361F26830E007A92F9 /* SISSearchPageButton.swift in Sources */,
 				0B2CA6281F254729007A92F9 /* SISSmarScrollView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -29,7 +29,21 @@ class SISUsedCarVC: UIViewController {
         }
     }
     var mapping: [Int : IndexPath] = [:] /*  usedCar.id : indexPath ; for cell updating */
+    let itemsPerSection: Int = 15
+    var activeContentIndex: Int = 0
+    let searchPageButtonSize = CGSize(width: 44.0, height: 44.0)
     var selectedCar: SISUsedCar?
+    var searchPageChildVc: SISSearchPageVC!
+    
+    var activeContentStartIndex: Int {
+        return activeContentIndex * itemsPerSection
+    }
+    var activeContentEndIndex: Int {
+        return (activeContentIndex + 1) * itemsPerSection - 1
+    }
+    var activeContent: [SISUsedCar] {
+        return Array(content[activeContentStartIndex...activeContentEndIndex])
+    }
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -47,6 +61,15 @@ class SISUsedCarVC: UIViewController {
         let cellNib = UINib(nibName: "SISUsedCarTVCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: cellID)
         
+        // add search page vc's view to footer
+        searchPageChildVc = SISSearchPageVC(
+            totalItemCount: content.count,
+            itemsPerSection: itemsPerSection,
+            buttonSize: searchPageButtonSize)
+        addChildViewController(searchPageChildVc)
+        tableView.tableFooterView = searchPageChildVc.view
+        searchPageChildVc.didMove(toParentViewController: self)
+        
         // initial car download
         getAll()
     }
@@ -56,16 +79,44 @@ class SISUsedCarVC: UIViewController {
             
             if let cars = cars {
                 self.content = cars
-                print("content count: \(self.content.count) \nmapping count: \(self.mapping.count)")
-                print(self.mapping)
-                
+
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
-                
-                self.fetchAllMainImages()
             }
         })
+    }
+    
+    func getMainImageForCar(_ car: SISUsedCar) {
+        guard let ip = mapping[car.id] else {
+            return
+        }
+        let userInfo: [String:Any] = ["indexPath" : ip]
+        
+        imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { (success, userInfo) in
+            guard let ip = userInfo["indexPath"] as? IndexPath else {
+                return
+            }
+            
+            if self.isActiveIndexPath(ip) == true {
+                DispatchQueue.main.async {
+                    self.tableView.reloadRows(at: [ip], with: .none)
+                }
+            }
+ 
+            if success == false {
+                print("image download not successful for car: \(car.shortDescription)")
+                if let mainImageUrl = car.images.first?.fullPath {
+                    print("main image path: \(mainImageUrl)")
+                } else {
+                    print("no main image url")
+                }
+            }
+        })
+    }
+    
+    func isActiveIndexPath(_ ip: IndexPath) -> Bool {
+        return ip.row >= activeContentStartIndex && ip.row <= activeContentEndIndex
     }
     
     func fetchAllMainImages() {
@@ -111,7 +162,18 @@ extension SISUsedCarVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return content.count
+        // make sure there is a full section to return. If not, return the partial count
+        if activeContentIndex * (itemsPerSection + 1) < content.count {
+            return itemsPerSection
+        } else {
+            return content.count - activeContentIndex * itemsPerSection
+        }
+    }
+    
+    func mapIndexPath(_ ip: IndexPath) -> SISUsedCar {
+        let currentRow = ip.row
+        let correctedRow = activeContentIndex * itemsPerSection + currentRow
+        return content[correctedRow]
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -119,7 +181,7 @@ extension SISUsedCarVC: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SISUsedCarTVCell
         cell.resetImageView()
         
-        let car = content[indexPath.row]
+        let car = mapIndexPath(indexPath)
         let yearMakeModel = "\(car.year) \(car.make) \(car.model)"
         
         cell.configure(
@@ -133,6 +195,7 @@ extension SISUsedCarVC: UITableViewDataSource {
                 cell.configure(image: mainImage)
             } else if mainImage.downloadAttemptFailed == false {
                 cell.showActivityIndicator()
+                getMainImageForCar(car)
             } else if mainImage.downloadAttemptFailed == true {
                 cell.showNoImageAvailable()
             }
@@ -143,6 +206,8 @@ extension SISUsedCarVC: UITableViewDataSource {
         return cell
     }
 }
+
+// MARK: - Table View Delegate
 
 extension SISUsedCarVC: UITableViewDelegate {
     
