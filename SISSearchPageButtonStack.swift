@@ -8,15 +8,10 @@
 
 import UIKit
 
-protocol MasterPageControllerProtocol {
-    
-}
-
 class SISSearchPageButtonStack: UIStackView {
 
     let totalSections: Int
     let buttonSize: CGSize
-    let delegate: MasterPageControllerProtocol
     let color_1: UIColor
     let color_2: UIColor
     var buttons = [SISSearchPageButton]()
@@ -29,12 +24,11 @@ class SISSearchPageButtonStack: UIStackView {
                 height: buttonSize.height)
     }
     
-    init(totalSections: Int, buttonSize: CGSize, spacing: CGFloat, color_1: UIColor = .black, color_2: UIColor = .white, borderWidth: CGFloat, delegate: MasterPageControllerProtocol) {
+    init(totalSections: Int, buttonSize: CGSize, spacing: CGFloat, color_1: UIColor = .black, color_2: UIColor = .white, borderWidth: CGFloat, delegate: SISSearchPageButtonDelegate) {
         self.totalSections = totalSections
         self.buttonSize = buttonSize
         self.color_1 = color_1
         self.color_2 = color_2
-        self.delegate = delegate
         super.init(frame: .zero)
         
         self.spacing = 8.0
@@ -49,7 +43,8 @@ class SISSearchPageButtonStack: UIStackView {
                 color_2: color_2,
                 titleNumber: i,
                 borderWidth: borderWidth,
-                isSelected: false)
+                isSelected: false,
+                delegate: delegate)
             buttons.append(newButton)
             addArrangedSubview(newButton)
         }

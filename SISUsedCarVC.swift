@@ -85,7 +85,8 @@ class SISUsedCarVC: UIViewController {
         searchPageChildVc = SISSearchPageVC(
             totalItemCount: content.count,
             itemsPerSection: itemsPerSection,
-            buttonSize: searchPageButtonSize)
+            buttonSize: searchPageButtonSize,
+            delegate: self)
         addChildViewController(searchPageChildVc)
         searchPageContainer.addBoundsFillingSubview(searchPageChildVc.view)
         searchPageChildVc.didMove(toParentViewController: self)
@@ -224,3 +225,22 @@ extension SISUsedCarVC: UITableViewDelegate {
         performSegue(withIdentifier: "showDetail", sender: nil)
     }
 }
+
+// MARK: - Search Page Button Delegate
+
+extension SISUsedCarVC: SISSearchPageButtonDelegate {
+    
+    func didTapButtonWith(titleNumber: Int) {
+        print("did tap button with title number " + String(titleNumber + 1))
+    }
+}
+
+
+
+
+
+
+
+
+
+

@@ -18,6 +18,7 @@ class SISSearchPageVC: UIViewController {
         green: 198.0 / 255.0,
         blue: 255.0 / 255.0,
         alpha: 1.0)
+    let delegate: SISSearchPageButtonDelegate
     weak var searchStack: SISSearchPageButtonStack!
     
     weak var buttonContainer: UIView!
@@ -25,10 +26,11 @@ class SISSearchPageVC: UIViewController {
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollViewWidth: NSLayoutConstraint!
     
-    init(totalItemCount: Int, itemsPerSection: Int, buttonSize: CGSize) {
+    init(totalItemCount: Int, itemsPerSection: Int, buttonSize: CGSize, delegate: SISSearchPageButtonDelegate) {
         self.totalItemCount = totalItemCount
         self.itemsPerSection = itemsPerSection
         self.buttonSize = buttonSize
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,6 +40,7 @@ class SISSearchPageVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.showsHorizontalScrollIndicator = false
         
         // create button view / setup scroll view
         let totalSections = totalItemCount / itemsPerSection + 1
@@ -48,7 +51,7 @@ class SISSearchPageVC: UIViewController {
             color_1: calmBlue,
             color_2: .white,
             borderWidth: 2.0,
-            delegate: self)
+            delegate: delegate)
         scrollView.addSubview(ss)
         searchStack = ss
         scrollViewHeight.constant = ss.bounds.height
@@ -73,9 +76,6 @@ class SISSearchPageVC: UIViewController {
     }
 }
 
-extension SISSearchPageVC: MasterPageControllerProtocol {
-    
-}
 
 
 
