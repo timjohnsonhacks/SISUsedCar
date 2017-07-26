@@ -16,10 +16,6 @@ extension SISUsedCarVC: UISearchResultsUpdating {
     }
     
     func filterContentForSearchText(_ searchText: String) {
-        /* a new AccordianTableViewContentProtocol object will need to be created for every existing object in the current content array. If any detailTitle includes the search text, include it.  If any sectionTitle contains the search text OR any of its detailTitles contain the search text, include it  */
-        
-        /* WHEN NO SEARCH TEXT HAS BEEN ENTERED, THE FILTERED CONTENT SHOULD CONTAIN THE COMBINED NAMES IN ALPHABETICAL ORDER */
-        
         var filteredCars = [FilteredCar]()
         for car in content {
             let searchWords = words(forText: searchText)

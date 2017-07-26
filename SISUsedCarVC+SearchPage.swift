@@ -59,6 +59,10 @@ extension SISUsedCarVC: UISearchControllerDelegate {
     }
 }
 
+extension SISUsedCarVC: UISearchBarDelegate {
+    
+}
+
 
 
 

@@ -47,7 +47,7 @@ class SISSearchPageButton: UIButton {
         layer.borderWidth = 2.0
         layer.borderColor = color_1.cgColor
         layer.masksToBounds = true
-        layer.cornerRadius = 2.0
+        layer.cornerRadius = 4.0
         
         // tap GR
         addTarget(self, action: #selector(didTouchUpInside), for: .touchUpInside)

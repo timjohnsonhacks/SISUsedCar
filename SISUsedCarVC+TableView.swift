@@ -106,7 +106,9 @@ extension SISUsedCarVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedCar = content[indexPath.row]
-        performSegue(withIdentifier: "showDetail", sender: nil)
+        let selectedCar = content[indexPath.row]
+        let vc = SISUsedCarDetailImagesMasterVC(usedCar: selectedCar)
+        show(vc, sender: self)
+        //        performSegue(withIdentifier: "showDetail", sender: nil)
     }
 }

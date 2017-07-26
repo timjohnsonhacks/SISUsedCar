@@ -34,7 +34,7 @@ class SISUsedCarVC: UIViewController {
     var mapping: [Int : IndexPath] = [:] /*  usedCar.id : indexPath ; for cell updating */
     let itemsPerSection: Int = 10
     var activeContentIndex: Int = 0
-    let searchPageButtonSize = CGSize(width: 30.0, height: 30.0)
+    let searchPageButtonSize = CGSize(width: 44.0, height: 44.0)
     var selectedCar: SISUsedCar?
     weak var searchPageChildVc: SISSearchPageVC!
     var searchController: UISearchController!
@@ -72,6 +72,7 @@ class SISUsedCarVC: UIViewController {
         searchController = sc
         sc.searchResultsUpdater = self
         sc.delegate = self
+        sc.searchBar.delegate = self
         sc.obscuresBackgroundDuringPresentation = false
         sc.dimsBackgroundDuringPresentation = false
         sc.hidesNavigationBarDuringPresentation = true
@@ -171,6 +172,7 @@ class SISUsedCarVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
+            searchController.isActive = false
             let detailVC = segue.destination as! SISUsedCarDetailVC
             detailVC.usedCar = selectedCar!
         }
@@ -193,9 +195,11 @@ class SISUsedCarVC: UIViewController {
     func configureTableFooterViewFrame(isShowing: Bool) {
         switch isShowing {
         case true:
-            tableView.tableFooterView?.frame = CGRect(
+             let rect = CGRect(
                 origin: .zero,
-                size: CGSize(width: tableView.bounds.size.width, height: 60))
+                size: CGSize(width: tableView.bounds.size.width, height: 70))
+//             print("rect for table footer view: \(rect)")
+             tableView.tableFooterView?.frame = rect
         case false:
             tableView.tableFooterView?.frame = .zero
         }

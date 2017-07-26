@@ -50,6 +50,14 @@
 		0B8887E51F2781A800238C90 /* SISUsedCarVC+SearchPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887E41F2781A800238C90 /* SISUsedCarVC+SearchPage.swift */; };
 		0B8887E71F27837E00238C90 /* SISUsedCarVC+SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887E61F27837E00238C90 /* SISUsedCarVC+SearchController.swift */; };
 		0B8887E91F279F7C00238C90 /* UIColor+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887E81F279F7C00238C90 /* UIColor+Custom.swift */; };
+		0B8887F01F27E24100238C90 /* SISUsedCarMasterDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887EE1F27E24100238C90 /* SISUsedCarMasterDetailVC.swift */; };
+		0B8887F11F27E24100238C90 /* SISUsedCarMasterDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B8887EF1F27E24100238C90 /* SISUsedCarMasterDetailVC.xib */; };
+		0B8887F41F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887F21F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.swift */; };
+		0B8887F51F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B8887F31F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.xib */; };
+		0B8887F81F27E44800238C90 /* SISUsedCarDetailLargeImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887F61F27E44800238C90 /* SISUsedCarDetailLargeImageVC.swift */; };
+		0B8887F91F27E44800238C90 /* SISUsedCarDetailLargeImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B8887F71F27E44800238C90 /* SISUsedCarDetailLargeImageVC.xib */; };
+		0B8887FC1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887FA1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift */; };
+		0B8887FD1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B8887FB1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +123,14 @@
 		0B8887E41F2781A800238C90 /* SISUsedCarVC+SearchPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SISUsedCarVC+SearchPage.swift"; sourceTree = "<group>"; };
 		0B8887E61F27837E00238C90 /* SISUsedCarVC+SearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SISUsedCarVC+SearchController.swift"; sourceTree = "<group>"; };
 		0B8887E81F279F7C00238C90 /* UIColor+Custom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Custom.swift"; sourceTree = "<group>"; };
+		0B8887EE1F27E24100238C90 /* SISUsedCarMasterDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarMasterDetailVC.swift; sourceTree = "<group>"; };
+		0B8887EF1F27E24100238C90 /* SISUsedCarMasterDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarMasterDetailVC.xib; sourceTree = "<group>"; };
+		0B8887F21F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailImagesMasterVC.swift; sourceTree = "<group>"; };
+		0B8887F31F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarDetailImagesMasterVC.xib; sourceTree = "<group>"; };
+		0B8887F61F27E44800238C90 /* SISUsedCarDetailLargeImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailLargeImageVC.swift; sourceTree = "<group>"; };
+		0B8887F71F27E44800238C90 /* SISUsedCarDetailLargeImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarDetailLargeImageVC.xib; sourceTree = "<group>"; };
+		0B8887FA1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailSmallImagesVC.swift; sourceTree = "<group>"; };
+		0B8887FB1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarDetailSmallImagesVC.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,8 +236,10 @@
 		0B2B4C771F1E74AB00F8648C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0B2CA6331F2681DE007A92F9 /* Main Search */,
+				0B01A42C1F2112FD0041C0C9 /* Used Car Detail */,
+				0B8887EA1F27E16F00238C90 /* DetailSearch */,
 				0B2CA6321F2681D6007A92F9 /* Search Page  */,
+				0B2CA6331F2681DE007A92F9 /* Main Search */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -240,7 +258,6 @@
 			children = (
 				0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */,
 				0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */,
-				0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */,
 				0B2CA62C1F2654A4007A92F9 /* CustomIsSoldLabel.swift */,
 			);
 			name = Views;
@@ -322,7 +339,6 @@
 				0B8887E41F2781A800238C90 /* SISUsedCarVC+SearchPage.swift */,
 				0B8887E61F27837E00238C90 /* SISUsedCarVC+SearchController.swift */,
 				0B2B4C791F1E74BF00F8648C /* Views */,
-				0B01A42C1F2112FD0041C0C9 /* Used Car Detail */,
 			);
 			name = "Main Search";
 			sourceTree = "<group>";
@@ -332,6 +348,78 @@
 			children = (
 				0B2CA6351F26830E007A92F9 /* SISSearchPageButton.swift */,
 				0B8887E01F27051B00238C90 /* SISSearchPageButtonStack.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0B8887EA1F27E16F00238C90 /* DetailSearch */ = {
+			isa = PBXGroup;
+			children = (
+				0B8887ED1F27E21200238C90 /* Master */,
+				0B8887EC1F27E1CD00238C90 /* Text */,
+				0B8887EB1F27E1C400238C90 /* Images */,
+			);
+			name = DetailSearch;
+			sourceTree = "<group>";
+		};
+		0B8887EB1F27E1C400238C90 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				0B8888011F27E97C00238C90 /* Views */,
+				0B8888001F27E46F00238C90 /* Master */,
+				0B8887FF1F27E46D00238C90 /* Large Image */,
+				0B8887FE1F27E46900238C90 /* Small Images */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		0B8887EC1F27E1CD00238C90 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Text;
+			sourceTree = "<group>";
+		};
+		0B8887ED1F27E21200238C90 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				0B8887EE1F27E24100238C90 /* SISUsedCarMasterDetailVC.swift */,
+				0B8887EF1F27E24100238C90 /* SISUsedCarMasterDetailVC.xib */,
+			);
+			name = Master;
+			sourceTree = "<group>";
+		};
+		0B8887FE1F27E46900238C90 /* Small Images */ = {
+			isa = PBXGroup;
+			children = (
+				0B8887FA1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift */,
+				0B8887FB1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib */,
+			);
+			name = "Small Images";
+			sourceTree = "<group>";
+		};
+		0B8887FF1F27E46D00238C90 /* Large Image */ = {
+			isa = PBXGroup;
+			children = (
+				0B8887F61F27E44800238C90 /* SISUsedCarDetailLargeImageVC.swift */,
+				0B8887F71F27E44800238C90 /* SISUsedCarDetailLargeImageVC.xib */,
+			);
+			name = "Large Image";
+			sourceTree = "<group>";
+		};
+		0B8888001F27E46F00238C90 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				0B8887F21F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.swift */,
+				0B8887F31F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.xib */,
+			);
+			name = Master;
+			sourceTree = "<group>";
+		};
+		0B8888011F27E97C00238C90 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -483,8 +571,12 @@
 			files = (
 				0B2B4C541F1E749F00F8648C /* LaunchScreen.storyboard in Resources */,
 				0B2B4C861F1E90E200F8648C /* SISUsedCarTVCell.xib in Resources */,
+				0B8887F91F27E44800238C90 /* SISUsedCarDetailLargeImageVC.xib in Resources */,
 				0B2B4C511F1E749F00F8648C /* Assets.xcassets in Resources */,
+				0B8887F51F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.xib in Resources */,
+				0B8887F11F27E24100238C90 /* SISUsedCarMasterDetailVC.xib in Resources */,
 				0B2CA6311F268166007A92F9 /* SISSearchPageVC.xib in Resources */,
+				0B8887FD1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib in Resources */,
 				0B2B4C4C1F1E749F00F8648C /* Main.storyboard in Resources */,
 				0B01A4301F2113340041C0C9 /* SISDetailImagesVC.xib in Resources */,
 			);
@@ -524,6 +616,8 @@
 				0B2B4C801F1E8FA300F8648C /* SISUsedCarVC.swift in Sources */,
 				0B2CA5FC1F223DB5007A92F9 /* Int+Custom.swift in Sources */,
 				0B2B4CCD1F1F91F100F8648C /* SISUsedCarImage.swift in Sources */,
+				0B8887F01F27E24100238C90 /* SISUsedCarMasterDetailVC.swift in Sources */,
+				0B8887FC1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift in Sources */,
 				0B2B4C881F1EA33900F8648C /* SISUsedCarImageService.swift in Sources */,
 				0B2B4D191F20DB6600F8648C /* SISGlobalConstants.swift in Sources */,
 				0B2B4C851F1E90E200F8648C /* SISUsedCarTVCell.swift in Sources */,
@@ -536,7 +630,9 @@
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
 				0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */,
+				0B8887F41F27E27C00238C90 /* SISUsedCarDetailImagesMasterVC.swift in Sources */,
 				0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */,
+				0B8887F81F27E44800238C90 /* SISUsedCarDetailLargeImageVC.swift in Sources */,
 				0B8887E71F27837E00238C90 /* SISUsedCarVC+SearchController.swift in Sources */,
 				0B2CA6301F268166007A92F9 /* SISSearchPageVC.swift in Sources */,
 				0B8887E51F2781A800238C90 /* SISUsedCarVC+SearchPage.swift in Sources */,
