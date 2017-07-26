@@ -109,6 +109,18 @@ extension SISUsedCarVC: UITableViewDelegate {
         let selectedCar = content[indexPath.row]
         let vc = SISUsedCarDetailMasterVC(usedCar: selectedCar)
         navigationController?.pushViewController(vc, animated: true)
-        //        performSegue(withIdentifier: "showDetail", sender: nil)
+//        let v = UINib(nibName: "SISDetailTextView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! SISDetailTextView
+//        v.configure(usedCar: selectedCar)
+//        view.addBoundsFillingSubview(v)
     }
 }
+
+
+
+
+
+
+
+
+
+

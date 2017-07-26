@@ -8,11 +8,12 @@
 
 import UIKit
 
-class SISDetailTextView: UIScrollView {
-
-    let usedCar: SISUsedCar
-    var masterSubview: UIView!
-    var fade: CAGradientLayer!
+class SISDetailTextView: UIView {
+    
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var attributesContainer: UIView!
+    
+    private var usedCar: SISUsedCar!
     
     var detailItems: [(String, String)] {
         return [("price:", "$" + usedCar.price.commaDelimitedRepresentation()),
@@ -31,41 +32,27 @@ class SISDetailTextView: UIScrollView {
                 ("owners:", "default")]
     }
     
-    init(usedCar: SISUsedCar) {
-        self.usedCar = usedCar
-        super.init(frame: .zero)
-        
-        // subview instantiation and layout
-        masterSubview = UIView()
-        let label = UILabel()
-        let detailContainer = UIView()
-        let mapping: [String : UIView] = ["label" : label,
-                                       "detailC" : detailContainer]
-        
-        label.text = usedCar.description
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        detailContainer.insertWidthFillingStackedViews(detailTextViews(), height: 25.0)
-        
-        for (name, v) in mapping {
-            masterSubview.addSubview(v)
-            v.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[\(name)]-0-|", options: [], metrics: nil, views: mapping))
-        }
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[label]-10-[detailC]-0-|", options: [], metrics: nil, views: mapping))
-        addSubview(masterSubview)
-        
-        // fade
-        let f = CAGradientLayer()
-        f.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
-        f.startPoint = CGPoint(x: 0.5, y: 0.6)
-        f.endPoint = CGPoint(x: 0.5, y: 1.0)
-        layer.mask = f
-        fade = f
+    override init(frame: CGRect) {
+        fatalError()
     }
     
-    func detailTextViews() -> [UIView] {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    func configure(usedCar: SISUsedCar) {
+        self.usedCar = usedCar
+        
+        // subview config
+        descriptionLabel.text = usedCar.description
+        descriptionLabel.font = UIFont.systemFont(ofSize: 15.0)
+        descriptionLabel.lineBreakMode = .byWordWrapping
+        descriptionLabel.numberOfLines = 0
+        
+        attributesContainer.insertWidthFillingStackedViews(detailTextViews(), height: 25.0)
+    }
+    
+    private func detailTextViews() -> [UIView] {
         var attributeViews = [UIView]()
         for (name, value) in detailItems {
             attributeViews.append(attributeView(name: name, value: value))
@@ -73,7 +60,7 @@ class SISDetailTextView: UIScrollView {
         return attributeViews
     }
     
-    func attributeView(name: String, value: String) -> UIView {
+    private func attributeView(name: String, value: String) -> UIView {
         let view = UIView()
         let insets = UIEdgeInsets(top: 3.0, left: 6.0, bottom: 3.0, right: 3.0)
         let nameLabel = SISCustomLabel(frame: .zero, insets: insets)
@@ -96,27 +83,11 @@ class SISDetailTextView: UIScrollView {
             label.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[\(id)]-0-|", options: [], metrics: nil, views: [id : label]))
         }
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[name(==value)]-0-[value]-10-|", options: [], metrics: nil, views: ["name" : nameLabel, "value" : valueLabel]))
+        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[name(==value)]-0-[value]-20-|", options: [], metrics: nil, views: ["name" : nameLabel, "value" : valueLabel]))
         
         nameLabel.text = name
         valueLabel.text = value
         
         return view
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // subviews
-        masterSubview.frame = CGRect(x: 0, y: 0, width: bounds.size.width, height: 800)
-        contentSize = masterSubview.bounds.size
-        
-        // fade 
-        fade.frame = bounds
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
 }

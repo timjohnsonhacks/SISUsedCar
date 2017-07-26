@@ -198,7 +198,6 @@ class SISUsedCarVC: UIViewController {
              let rect = CGRect(
                 origin: .zero,
                 size: CGSize(width: tableView.bounds.size.width, height: 70))
-//             print("rect for table footer view: \(rect)")
              tableView.tableFooterView?.frame = rect
         case false:
             tableView.tableFooterView?.frame = .zero

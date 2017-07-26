@@ -24,6 +24,8 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
     @IBOutlet weak var isSoldLabel: CustomIsSoldLabel!
     @IBOutlet weak var contactUsButton: UIButton!
     weak var gradient: SISGradientBackgroundView!
+    weak var imageContainer: SISDetailImageLayoutView!
+    weak var detailTextContainer: UIView!
     
     let usedCar: SISUsedCar
     var largeImageChild: SISUsedCarDetailLargeImageVC!
@@ -68,11 +70,19 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
             aspectRatio: SISGlobalConstants.defaultAspectRatio,
             smallHeight: 60.0)
         contentContainer.addBoundsFillingSubview(dynamicContainer)
+        imageContainer = dynamicContainer
         
         largeImageVC.didMove(toParentViewController: self)
         smallImagesVC.didMove(toParentViewController: self)
         largeImageChild = largeImageVC
         smallImagesChild = smallImagesVC
+        
+        // detail text
+        let dtc = UINib(nibName: "SISDetailTextView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! SISDetailTextView
+        dtc.configure(usedCar: usedCar)
+        contentContainer.addBoundsFillingSubview(dtc)
+        detailTextContainer = dtc
+        view.bringSubview(toFront: dtc)
         
         // basic label config
         yearMakeModelLabel.text = usedCar.yearMakeModel
@@ -90,6 +100,9 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
         let sc = UISegmentedControl(items: ["Images", "Detail"])
         sc.selectedSegmentIndex = 0
         navigationItem.titleView = sc
+        
+        // temporary
+        imageContainer.isHidden = true
     }
     
     // MARK: - Detail Large Image Delegate
