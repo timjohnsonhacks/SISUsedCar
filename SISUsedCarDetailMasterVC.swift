@@ -17,7 +17,7 @@ protocol DetailSmallImageProtocol {
     func updateCollectionViewOffset(percentageTranslation: CGFloat)
 }
 
-class SISUsedCarDetailImagesMasterVC: UIViewController, DetailImagesMasterProtocol {
+class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
     
     @IBOutlet weak var largeImageContainer: UIView!
     @IBOutlet weak var smallImagesContainer: UIView!
