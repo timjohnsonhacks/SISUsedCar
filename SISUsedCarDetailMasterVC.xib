@@ -5,15 +5,18 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11762"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SISUsedCarDetailImagesMasterVC" customModule="SISUsedCar" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SISUsedCarDetailMasterVC" customModule="SISUsedCar" customModuleProvider="target">
             <connections>
+                <outlet property="contactUsButton" destination="GHD-8c-6Cx" id="Kfm-fS-syC"/>
+                <outlet property="isSoldLabel" destination="NPo-MS-5kH" id="Ahy-ZP-t8W"/>
                 <outlet property="largeImageContainer" destination="t8b-KS-nlz" id="2He-sx-aCZ"/>
                 <outlet property="smallImagesContainer" destination="fDh-0d-lCf" id="owq-cQ-hNJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="yearMakeModelLabel" destination="rhK-yW-cV0" id="mfn-UY-S3N"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -22,28 +25,54 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t8b-KS-nlz">
-                    <rect key="frame" x="0.0" y="200" width="375" height="350"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="0.0" y="62" width="375" height="350"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="350" id="Sua-p1-Fqp"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDh-0d-lCf">
-                    <rect key="frame" x="0.0" y="550" width="375" height="60"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="0.0" y="412" width="375" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="Dsm-VS-Lkx"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year Model Make" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhK-yW-cV0">
+                    <rect key="frame" x="121.5" y="31" width="132" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHD-8c-6Cx">
+                    <rect key="frame" x="10" y="627" width="355" height="30"/>
+                    <state key="normal" title="Contact Us"/>
+                    <connections>
+                        <action selector="didPressContactUsButton:" destination="-1" eventType="touchUpInside" id="ljo-ZR-lgQ"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is Sold" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPo-MS-5kH" customClass="CustomIsSoldLabel" customModule="SISUsedCar" customModuleProvider="target">
+                    <rect key="frame" x="319" y="5" width="51" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fDh-0d-lCf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="0Mh-vI-3Y4"/>
                 <constraint firstAttribute="trailing" secondItem="fDh-0d-lCf" secondAttribute="trailing" id="3jp-f9-dkY"/>
+                <constraint firstItem="NPo-MS-5kH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="5" id="4xV-cy-uF4"/>
+                <constraint firstAttribute="trailing" secondItem="NPo-MS-5kH" secondAttribute="trailing" constant="5" id="A2R-xc-8GN"/>
                 <constraint firstItem="t8b-KS-nlz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JAB-Kr-P3j"/>
                 <constraint firstAttribute="trailing" secondItem="t8b-KS-nlz" secondAttribute="trailing" id="MDv-Uj-bfY"/>
                 <constraint firstItem="fDh-0d-lCf" firstAttribute="top" secondItem="t8b-KS-nlz" secondAttribute="bottom" id="Qxi-Dx-AQd"/>
-                <constraint firstItem="t8b-KS-nlz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="200" id="Xkr-Of-ENM"/>
+                <constraint firstAttribute="bottom" secondItem="GHD-8c-6Cx" secondAttribute="bottom" constant="10" id="hik-Lj-j9Y"/>
+                <constraint firstItem="t8b-KS-nlz" firstAttribute="top" secondItem="rhK-yW-cV0" secondAttribute="bottom" constant="10" id="nDd-U9-lJh"/>
+                <constraint firstItem="GHD-8c-6Cx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="sCx-fq-bkW"/>
+                <constraint firstItem="rhK-yW-cV0" firstAttribute="top" secondItem="NPo-MS-5kH" secondAttribute="bottom" constant="5" id="sEN-AB-QiC"/>
+                <constraint firstItem="rhK-yW-cV0" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="tJY-dX-JRf"/>
+                <constraint firstAttribute="trailing" secondItem="GHD-8c-6Cx" secondAttribute="trailing" constant="10" id="urB-Ii-pyd"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="133" y="1"/>

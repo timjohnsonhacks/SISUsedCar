@@ -31,7 +31,7 @@
                     </collectionViewFlowLayout>
                 </collectionView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="XfT-8R-Jvp" secondAttribute="bottom" id="2mq-kb-prY"/>
                 <constraint firstAttribute="trailing" secondItem="XfT-8R-Jvp" secondAttribute="trailing" id="EiP-Ot-Ehd"/>

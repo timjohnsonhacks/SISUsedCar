@@ -13,11 +13,6 @@ class SISSearchPageVC: UIViewController {
     let totalItemCount: Int
     let itemsPerSection: Int
     let buttonSize: CGSize
-    let calmBlue = UIColor(
-        colorLiteralRed: 94.0 / 255.0,
-        green: 198.0 / 255.0,
-        blue: 255.0 / 255.0,
-        alpha: 1.0)
     weak var delegate: SISSearchPageButtonDelegate?
     weak var searchStack: SISSearchPageButtonStack!
     var lastSelectedTitleNumber: Int?
@@ -49,7 +44,7 @@ class SISSearchPageVC: UIViewController {
             totalSections: totalSections,
             buttonSize: buttonSize,
             spacing: 2.0,
-            color_1: calmBlue,
+            color_1: SISGlobalConstants.calmBlue,
             color_2: .white,
             borderWidth: 2.0,
             delegate: delegate!)

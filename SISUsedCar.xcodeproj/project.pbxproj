@@ -56,6 +56,7 @@
 		0B8887F91F27E44800238C90 /* SISUsedCarDetailLargeImageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B8887F71F27E44800238C90 /* SISUsedCarDetailLargeImageVC.xib */; };
 		0B8887FC1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887FA1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift */; };
 		0B8887FD1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B8887FB1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib */; };
+		0BD25FBA1F28D529007081E5 /* SISGradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD25FB91F28D529007081E5 /* SISGradientBackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		0B8887F71F27E44800238C90 /* SISUsedCarDetailLargeImageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarDetailLargeImageVC.xib; sourceTree = "<group>"; };
 		0B8887FA1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailSmallImagesVC.swift; sourceTree = "<group>"; };
 		0B8887FB1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarDetailSmallImagesVC.xib; sourceTree = "<group>"; };
+		0BD25FB91F28D529007081E5 /* SISGradientBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISGradientBackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 		0B2B4C3A1F1E749E00F8648C = {
 			isa = PBXGroup;
 			children = (
+				0BD25FB81F28D502007081E5 /* Views */,
 				0B2B4CD01F1FB0DD00F8648C /* Utilities */,
 				0B2B4C7A1F1E74C500F8648C /* Model */,
 				0B2B4C781F1E74B100F8648C /* Networking */,
@@ -410,6 +413,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		0BD25FB81F28D502007081E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0BD25FB91F28D529007081E5 /* SISGradientBackgroundView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -613,6 +624,7 @@
 				0B8887E91F279F7C00238C90 /* UIColor+Custom.swift in Sources */,
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
+				0BD25FBA1F28D529007081E5 /* SISGradientBackgroundView.swift in Sources */,
 				0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */,
 				0B8887F41F27E27C00238C90 /* SISUsedCarDetailMasterVC.swift in Sources */,
 				0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */,

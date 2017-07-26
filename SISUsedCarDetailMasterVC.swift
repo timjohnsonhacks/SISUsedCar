@@ -21,7 +21,11 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
     
     @IBOutlet weak var largeImageContainer: UIView!
     @IBOutlet weak var smallImagesContainer: UIView!
-
+    @IBOutlet weak var yearMakeModelLabel: UILabel!
+    @IBOutlet weak var isSoldLabel: CustomIsSoldLabel!
+    @IBOutlet weak var contactUsButton: UIButton!
+    weak var gradient: SISGradientBackgroundView!
+    
     let usedCar: SISUsedCar
     var largeImageChild: SISUsedCarDetailLargeImageVC!
     var smallImagesChild: SISUsedCarDetailSmallImagesVC!
@@ -34,9 +38,23 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    @IBAction func didPressContactUsButton(_ sender: Any) {
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // view config
+        edgesForExtendedLayout = []
+        
+        let gl = CAGradientLayer()
+        gl.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gl.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gl.colors = [UIColor.white.cgColor, UIColor.lightGray.cgColor]
+        let gbv = SISGradientBackgroundView(frame: .zero, gradient: gl)
+        view.addBoundsFillingSubview(gbv)
+        view.sendSubview(toBack: gbv)
+        gradient = gbv
         
         // large image child vc
         let largeImageVC = SISUsedCarDetailLargeImageVC(usedCar: usedCar, delegate: self)
@@ -51,6 +69,17 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
         smallImagesContainer.addBoundsFillingSubview(smallImagesVC.view)
         smallImagesVC.didMove(toParentViewController: self)
         smallImagesChild = smallImagesVC
+        
+        // basic label config
+        yearMakeModelLabel.text = usedCar.yearMakeModel
+        yearMakeModelLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        yearMakeModelLabel.textAlignment = .center
+        
+        isSoldLabel.isSold = usedCar.isSold
+        
+        contactUsButton.backgroundColor = SISGlobalConstants.calmBlue
+        contactUsButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20.0)
+        contactUsButton.setTitleColor(.white, for: .normal)
     }
     
     // MARK: - Detail Large Image Delegate
