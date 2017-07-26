@@ -102,7 +102,7 @@ extension SISUsedCarDetailLargeImageVC: UICollectionViewDelegateFlowLayout {
         }
         
         let cellSize: CGSize
-        let scaleFactor: CGFloat = 0.9
+        let scaleFactor: CGFloat = 0.95
         if imageAspectRatio > containerAspectRatio {
             
             let width = containerSize.width * scaleFactor
@@ -127,7 +127,7 @@ extension SISUsedCarDetailLargeImageVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 16.0
+        return 40.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

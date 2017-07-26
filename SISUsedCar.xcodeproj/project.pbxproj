@@ -57,6 +57,7 @@
 		0B8887FC1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B8887FA1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift */; };
 		0B8887FD1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B8887FB1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib */; };
 		0BD25FBA1F28D529007081E5 /* SISGradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD25FB91F28D529007081E5 /* SISGradientBackgroundView.swift */; };
+		0BD25FBC1F28DC74007081E5 /* SISDetailImageLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD25FBB1F28DC74007081E5 /* SISDetailImageLayoutView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,7 @@
 		0B8887FA1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISUsedCarDetailSmallImagesVC.swift; sourceTree = "<group>"; };
 		0B8887FB1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISUsedCarDetailSmallImagesVC.xib; sourceTree = "<group>"; };
 		0BD25FB91F28D529007081E5 /* SISGradientBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISGradientBackgroundView.swift; sourceTree = "<group>"; };
+		0BD25FBB1F28DC74007081E5 /* SISDetailImageLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISDetailImageLayoutView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -409,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				0B2B4D141F20386100F8648C /* SISUsedCarDetailCVCell.swift */,
+				0BD25FBB1F28DC74007081E5 /* SISDetailImageLayoutView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				0B2B4D161F20386100F8648C /* SISUsedCarDetailCVCell.swift in Sources */,
 				0B2CA62D1F2654A4007A92F9 /* CustomIsSoldLabel.swift in Sources */,
 				0B2B4C4F1F1E749F00F8648C /* SISUsedCar.xcdatamodeld in Sources */,
+				0BD25FBC1F28DC74007081E5 /* SISDetailImageLayoutView.swift in Sources */,
 				0B8887E91F279F7C00238C90 /* UIColor+Custom.swift in Sources */,
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,

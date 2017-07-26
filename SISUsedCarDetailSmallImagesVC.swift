@@ -54,6 +54,8 @@ class SISUsedCarDetailSmallImagesVC: UIViewController, DetailSmallImageProtocol 
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isScrollEnabled = false
+        collectionView.layer.borderColor = UIColor.darkGray.cgColor
+        collectionView.layer.borderWidth = 1.0
         let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.scrollDirection = .horizontal
     }
