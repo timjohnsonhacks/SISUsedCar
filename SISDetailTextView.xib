@@ -12,15 +12,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SISDetailTextView" customModule="SISUsedCar" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="400" height="557"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" placeholderIntrinsicWidth="240" placeholderIntrinsicHeight="200" translatesAutoresizingMaskIntoConstraints="NO" id="eji-tU-a6H">
-                    <rect key="frame" x="0.0" y="41" width="400" height="200"/>
+                    <rect key="frame" x="0.0" y="41" width="375" height="200"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xDS-Bs-DOg">
-                    <rect key="frame" x="10" y="10" width="380" height="21"/>
+                    <rect key="frame" x="10" y="10" width="355" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -36,7 +36,6 @@
                 <constraint firstItem="xDS-Bs-DOg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="xjq-dY-VTx"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="attributesContainer" destination="eji-tU-a6H" id="yMG-rf-bRR"/>
                 <outlet property="descriptionLabel" destination="xDS-Bs-DOg" id="w9c-db-Jlb"/>

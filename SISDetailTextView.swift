@@ -90,4 +90,32 @@ class SISDetailTextView: UIView {
         
         return view
     }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+//        print("size passed to size that fits: \(size)")
+        if let sv = superview {
+//            print("super view size in sizeThatFits: \(sv.bounds.size)")
+            frame = CGRect(
+                x: 0.0,
+                y: 0.0,
+                width: sv.bounds.size.width,
+                height: 10000)
+            layoutIfNeeded()
+//            print("----- view frame: \(frame)")
+//            print("upper subview frame: \(descriptionLabel.frame)")
+//            print("lowest subview frame: \(attributesContainer.frame)")
+            return CGSize(
+                width: sv.bounds.size.width,
+                height: attributesContainer.frame.origin.y + 600)
+            
+        }
+        return super.sizeThatFits(size)
+    }
 }
+
+
+
+
+
+
+

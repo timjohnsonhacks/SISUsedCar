@@ -25,7 +25,8 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
     @IBOutlet weak var contactUsButton: UIButton!
     weak var gradient: SISGradientBackgroundView!
     weak var imageContainer: SISDetailImageLayoutView!
-    weak var detailTextContainer: UIView!
+    weak var detailContainer: UIScrollView!
+    weak var detailView: SISDetailTextView!
     
     let usedCar: SISUsedCar
     var largeImageChild: SISUsedCarDetailLargeImageVC!
@@ -80,9 +81,14 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
         // detail text
         let dtc = UINib(nibName: "SISDetailTextView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! SISDetailTextView
         dtc.configure(usedCar: usedCar)
-        contentContainer.addBoundsFillingSubview(dtc)
-        detailTextContainer = dtc
-        view.bringSubview(toFront: dtc)
+        let sv = UIScrollView(frame: .zero)
+        sv.contentSize = .zero
+        sv.addSubview(dtc)
+        contentContainer.addBoundsFillingSubview(sv)
+        contentContainer.bringSubview(toFront: sv)
+        detailContainer = sv
+        detailView = dtc
+        detailContainer.isHidden = true
         
         // basic label config
         yearMakeModelLabel.text = usedCar.yearMakeModel
@@ -99,10 +105,32 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
         // segmented control config
         let sc = UISegmentedControl(items: ["Images", "Detail"])
         sc.selectedSegmentIndex = 0
+        sc.addTarget(self, action: #selector(segmentedControlValueDidChange(sender:)), for: .valueChanged)
         navigationItem.titleView = sc
-        
-        // temporary
-        imageContainer.isHidden = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        /* TEMPORARY FIX */
+        let rect = CGRect(
+            x: 0.0,
+            y: 0.0,
+            width: detailContainer.bounds.width,
+            height: 1000)
+        detailView.frame = rect
+        detailContainer.contentSize = rect.size
+    }
+    
+    func segmentedControlValueDidChange(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            detailContainer.isHidden = true
+            imageContainer.isHidden = false
+        case 1:
+            detailContainer.isHidden = false
+            imageContainer.isHidden = true
+        default:
+            break
+        }
     }
     
     // MARK: - Detail Large Image Delegate
