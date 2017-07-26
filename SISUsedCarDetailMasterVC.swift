@@ -40,8 +40,6 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    @IBAction func didPressContactUsButton(_ sender: Any) {
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -130,6 +128,39 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
             imageContainer.isHidden = true
         default:
             break
+        }
+    }
+    
+    // MARK: - Contact Us
+    
+    @IBAction func didPressContactUsButton(_ sender: Any) {
+        
+        let ac = UIAlertController(
+            title: "Contact Us",
+            message: "Thanks for your interest! Please choose your method of contact:",
+            preferredStyle: .alert)
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: .cancel,
+            handler: nil)
+        let phoneCallAction = UIAlertAction(
+            title: "Call",
+            style: .default,
+            handler: { action in
+                self.callPhoneNumber(SISGlobalConstants.southerImportSpecialistPhoneNumber)
+        })
+        ac.addAction(phoneCallAction)
+        ac.addAction(cancelAction)
+        present(ac, animated: true, completion: nil)
+    }
+    
+    func callPhoneNumber(_ phoneNumber: String) {
+        if let phoneCallURL = URL(string: "tel://\(phoneNumber)") {
+            
+            let application: UIApplication = UIApplication.shared
+            if (application.canOpenURL(phoneCallURL)) {
+                application.open(phoneCallURL, options: [:], completionHandler: nil)
+            }
         }
     }
     
