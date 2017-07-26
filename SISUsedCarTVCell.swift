@@ -22,18 +22,6 @@ class SISUsedCarTVCell: UITableViewCell {
     weak var activityView: UIActivityIndicatorView?
     weak var gradient: CAGradientLayer!
     weak var noImageLabel: UILabel?
-    
-    let red = UIColor(
-        colorLiteralRed: 188.0 / 255.0,
-        green: 21.0 / 255.0,
-        blue: 48.0 / 255.0,
-        alpha: 1.0)
-    
-    let green = UIColor(
-        colorLiteralRed: 34.0 / 255.0,
-        green: 176.0 / 255.0,
-        blue: 19.0 / 255.0,
-        alpha: 1.0)
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -72,26 +60,14 @@ class SISUsedCarTVCell: UITableViewCell {
         yearMakeModelLabel.text = yearMakeModel
         priceLabel.text = price
         mileageLabel.text = mileage
-        if isSold == true {
-            isSoldLabel.text = "Sold"
-            isSoldLabel.color = red
-        } else {
-            isSoldLabel.text = "Available"
-            isSoldLabel.color = green
-        }
+        isSoldLabel.isSold = isSold
     }
     
     func configureWithAttributedText(yearMakeModel: NSAttributedString, isSold: Bool, price: String, mileage: String) {
         yearMakeModelLabel.attributedText = yearMakeModel
         priceLabel.text = price
         mileageLabel.text = mileage
-        if isSold == true {
-            isSoldLabel.text = "Sold"
-            isSoldLabel.color = red
-        } else {
-            isSoldLabel.text = "Available"
-            isSoldLabel.color = green
-        }
+        isSoldLabel.isSold = isSold
     }
     
     func configure(image: UIImage) {

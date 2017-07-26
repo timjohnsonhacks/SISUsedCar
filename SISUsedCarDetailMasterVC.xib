@@ -22,14 +22,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t8b-KS-nlz">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
+                    <rect key="frame" x="0.0" y="200" width="375" height="350"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="350" id="Sua-p1-Fqp"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDh-0d-lCf">
-                    <rect key="frame" x="0.0" y="350" width="375" height="60"/>
+                    <rect key="frame" x="0.0" y="550" width="375" height="60"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="Dsm-VS-Lkx"/>
@@ -43,7 +43,7 @@
                 <constraint firstItem="t8b-KS-nlz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="JAB-Kr-P3j"/>
                 <constraint firstAttribute="trailing" secondItem="t8b-KS-nlz" secondAttribute="trailing" id="MDv-Uj-bfY"/>
                 <constraint firstItem="fDh-0d-lCf" firstAttribute="top" secondItem="t8b-KS-nlz" secondAttribute="bottom" id="Qxi-Dx-AQd"/>
-                <constraint firstItem="t8b-KS-nlz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Xkr-Of-ENM"/>
+                <constraint firstItem="t8b-KS-nlz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="200" id="Xkr-Of-ENM"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="133" y="1"/>

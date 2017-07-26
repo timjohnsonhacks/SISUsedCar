@@ -10,14 +10,31 @@ import UIKit
 
 class CustomIsSoldLabel: UILabel {
     
+    let red = UIColor(
+        colorLiteralRed: 188.0 / 255.0,
+        green: 21.0 / 255.0,
+        blue: 48.0 / 255.0,
+        alpha: 1.0)
+    
+    let green = UIColor(
+        colorLiteralRed: 34.0 / 255.0,
+        green: 176.0 / 255.0,
+        blue: 19.0 / 255.0,
+        alpha: 1.0)
+    
+    var isSold: Bool = false {
+        didSet {
+            text = isSold == true ? "Sold" : "Available"
+            textColor = color
+            resetPartialBorder()
+        }
+    }
     var scaleFactor: CGFloat = 1.3
     var cornerRadii: CGSize = CGSize(width: 8.0, height: 8.0)
     var thickness: CGFloat = 2.0
     var partialBorder: CAShapeLayer?
-    var color: UIColor = .black {
-        didSet {
-            textColor = color
-        }
+    var color: UIColor {
+        return isSold == true ? red : green
     }
     
     override init(frame: CGRect) {
