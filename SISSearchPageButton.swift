@@ -9,14 +9,14 @@
 import UIKit
 
 protocol SISSearchPageButtonDelegate: class {
-    func didTapButtonWith(titleNumber: Int)
+    func didTapButtonWith(pageNumber: Int)
 }
 
 class SISSearchPageButton: UIButton {
 
     let color_1: UIColor
     let color_2: UIColor
-    let titleNumber: Int
+    let pageNumber: Int
     let borderWidth: CGFloat
     weak var delegate: SISSearchPageButtonDelegate?
     
@@ -30,17 +30,17 @@ class SISSearchPageButton: UIButton {
         }
     }
     
-    init(color_1: UIColor, color_2: UIColor, titleNumber: Int, borderWidth: CGFloat, isSelected: Bool, delegate: SISSearchPageButtonDelegate) {
+    init(color_1: UIColor, color_2: UIColor, pageNumber: Int, borderWidth: CGFloat, isSelected: Bool, delegate: SISSearchPageButtonDelegate) {
         self.color_1 = color_1
         self.color_2 = color_2
-        self.titleNumber = titleNumber
+        self.pageNumber = pageNumber
         self.borderWidth = borderWidth
         self.delegate = delegate
         super.init(frame: .zero)
         self.isSelected = isSelected
         
-        setTitle(String(titleNumber + 1), for: .normal)
-        setTitle(String(titleNumber + 1), for: .selected)
+        setTitle(String(pageNumber + 1), for: .normal)
+        setTitle(String(pageNumber + 1), for: .selected)
         setTitleColor(color_1, for: .normal)
         setTitleColor(color_2, for: .selected)
         titleLabel?.textAlignment = .center
@@ -59,7 +59,7 @@ class SISSearchPageButton: UIButton {
     }
     
     func didTouchUpInside() {
-        delegate?.didTapButtonWith(titleNumber: titleNumber)
+        delegate?.didTapButtonWith(pageNumber: pageNumber)
     }
     
 }

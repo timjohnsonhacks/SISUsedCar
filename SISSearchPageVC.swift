@@ -10,21 +10,20 @@ import UIKit
 
 class SISSearchPageVC: UIViewController {
 
-    let totalItemCount: Int
-    let itemsPerSection: Int
-    let buttonSize: CGSize
-    weak var delegate: SISSearchPageButtonDelegate?
-    weak var searchStack: SISSearchPageButtonStack!
-    var lastSelectedTitleNumber: Int?
+    private var totalItemCount: Int
+    private var itemsPerPage: Int
+    private var buttonSize: CGSize
+    private weak var delegate: SISSearchPageButtonDelegate?
+    private weak var searchStack: SISSearchPageButtonStack!
+    private var lastSelectedPageNumber: Int?
     
-    weak var buttonContainer: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollViewWidth: NSLayoutConstraint!
     
-    init(totalItemCount: Int, itemsPerSection: Int, buttonSize: CGSize, delegate: SISSearchPageButtonDelegate) {
+    init(totalItemCount: Int, itemsPerPage: Int, buttonSize: CGSize, delegate: SISSearchPageButtonDelegate) {
         self.totalItemCount = totalItemCount
-        self.itemsPerSection = itemsPerSection
+        self.itemsPerPage = itemsPerPage
         self.buttonSize = buttonSize
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
@@ -37,20 +36,10 @@ class SISSearchPageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.showsHorizontalScrollIndicator = false
-        
-        // create button view / setup scroll view
-        let totalSections = totalItemCount / itemsPerSection + 1
-        let ss = SISSearchPageButtonStack(
-            totalSections: totalSections,
-            buttonSize: buttonSize,
-            spacing: 2.0,
-            color_1: SISGlobalConstants.calmBlue,
-            color_2: .white,
-            borderWidth: 2.0,
-            delegate: delegate!)
-        scrollView.addSubview(ss)
-        searchStack = ss
-        scrollViewHeight.constant = ss.bounds.height
+        configure(
+            totalItemCount: totalItemCount,
+            itemsPerPage: itemsPerPage)
+        scrollViewWidth.constant = 0.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -71,12 +60,32 @@ class SISSearchPageVC: UIViewController {
         }
     }
     
-    func giveButtonSelectedAppearance(titleNumber: Int) {
-        if let lastSelectedTitleIndex = lastSelectedTitleNumber {
-            searchStack.buttons[lastSelectedTitleIndex].isSelected = false
+    public func giveButtonSelectedAppearance(pageNumber: Int) {
+        if let lastSelectedPageNumber = lastSelectedPageNumber {
+            searchStack.buttons[lastSelectedPageNumber].isSelected = false
         }
-        searchStack.buttons[titleNumber].isSelected = true
-        lastSelectedTitleNumber = titleNumber
+        searchStack.buttons[pageNumber].isSelected = true
+        lastSelectedPageNumber = pageNumber
+    }
+    
+    public func configure(totalItemCount: Int, itemsPerPage: Int) {
+        searchStack?.removeFromSuperview()
+        // create button view / setup scroll view
+        let totalSections = totalItemCount / itemsPerPage + 1
+        print("total sections: \(totalSections)")
+        let ss = SISSearchPageButtonStack(
+            totalSections: totalSections,
+            buttonSize: buttonSize,
+            spacing: 2.0,
+            color_1: SISGlobalConstants.calmBlue,
+            color_2: .white,
+            borderWidth: 2.0,
+            delegate: delegate!)
+        scrollView.addSubview(ss)
+        scrollViewHeight.constant = ss.bounds.height
+        searchStack = ss
+        self.totalItemCount = totalItemCount
+        self.itemsPerPage = itemsPerPage
     }
 }
 

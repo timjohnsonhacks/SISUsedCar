@@ -20,7 +20,10 @@ extension SISUsedCarVC: UITableViewDataSource {
         switch searchController.isActive {
         case true:
             // filtered search
-            return filteredContent.count
+            return numberOfRows(
+                forPageIndex: filteredContentActivePage,
+                itemsPerPage: filteredContentItemsPerPage,
+                totalItemCount: filteredContent.count)
             
         case false:
             // general, unfiltered search
@@ -41,7 +44,7 @@ extension SISUsedCarVC: UITableViewDataSource {
             // filtered search
             let index = mappedIndex(
                 forPageIndex: filteredContentActivePage,
-                itemsPerPage: filteredContent.count,
+                itemsPerPage: filteredContentItemsPerPage,
                 indexPath: indexPath)
             let filteredCar = filteredContent[index]
             car = filteredCar.car
@@ -72,12 +75,14 @@ extension SISUsedCarVC: UITableViewDataSource {
             if let mainImage = mainImage.image {
                 cell.configure(image: mainImage)
                 
-            } else if mainImage.downloadAttemptFailed == false {
-                cell.showActivityIndicator()
-                getMainImageForCar(car)
-            
             } else {
-                cell.showNoImageAvailable()
+                if mainImage.downloadAttemptFailed == false {
+                    cell.showActivityIndicator()
+                    getMainImageForCar(car)
+                    
+                } else {
+                    cell.showNoImageAvailable()
+                }
             }
         }
         

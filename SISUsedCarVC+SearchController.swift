@@ -10,9 +10,12 @@ import UIKit
 
 extension SISUsedCarVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        // update filtered content
         if let text = searchController.searchBar.text {
             filterContentForSearchText(text)
         }
+        // update the search page controller
+        configureSearchPage(forFiltered: true)
     }
     
     func filterContentForSearchText(_ searchText: String) {

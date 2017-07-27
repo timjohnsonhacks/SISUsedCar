@@ -41,7 +41,7 @@ class SISSearchPageButtonStack: UIStackView {
             let newButton = SISSearchPageButton(
                 color_1: color_1,
                 color_2: color_2,
-                titleNumber: i,
+                pageNumber: i,
                 borderWidth: borderWidth,
                 isSelected: false,
                 delegate: delegate)

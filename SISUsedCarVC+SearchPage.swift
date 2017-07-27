@@ -12,7 +12,7 @@ import UIKit
 
 extension SISUsedCarVC: SISSearchPageButtonDelegate {
     
-    func didTapButtonWith(titleNumber: Int) {
+    func didTapButtonWith(pageNumber: Int) {
 //        if titleNumber == searchPageChildVc.lastSelectedTitleNumber! || searchController.isActive == true { return }
 //
 //        shouldFetchImage = false
@@ -49,23 +49,25 @@ extension SISUsedCarVC: SISSearchPageButtonDelegate {
 
 extension SISUsedCarVC: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
-        searchPageChildVc.view.isHidden = false
+        // will show general, unfiltered search following dismissal
+        configureSearchPage(forFiltered: false)
     }
     
     func willPresentSearchController(_ searchController: UISearchController) {
-        searchPageChildVc.view.isHidden = true
+        // will show iltered search following dismissal
+        configureSearchPage(forFiltered: true)
     }
 }
 
 extension SISUsedCarVC: UISearchBarDelegate {
+    // methods used to facillitate restoration of search bar text following detail scene presentation and dismissal
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("search text: \(searchText)")
         searchBarRestorationText = searchText
-        print("search bar restoration search text: \(searchBarRestorationText)")
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBarRestorationText = nil
+        configureSearchPage(forFiltered: false)
     }
 }
 

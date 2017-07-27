@@ -14,7 +14,7 @@ class SISUsedCarVC: UIViewController {
     
     // associated views and controllers
     @IBOutlet weak var tableView: UITableView!
-    weak var searchPageChildVc: SISSearchPageVC!
+    weak var searchPageChild: SISSearchPageVC?
     var searchController: UISearchController!
 
     // general constants
@@ -37,19 +37,8 @@ class SISUsedCarVC: UIViewController {
     var filteredContentActivePage: Int = 0
     let filteredContentItemsPerPage: Int = 10
     
-    var shouldFetchImage: Bool = true
-    var selectedCar: SISUsedCar?
+    // search bar restoration
     var searchBarRestorationText: String?
-    
-//    var activeContentStartIndex: Int {
-//        return activeContentIndex * itemsPerSection
-//    }
-//    var activeContentEndIndex: Int {
-//        return (activeContentIndex + 1) * itemsPerSection - 1
-//    }
-//    var activeContent: [SISUsedCar] {
-//        return Array(allContent[activeContentStartIndex...activeContentEndIndex])
-//    }
     
     // MARK: - View Life Cycle
     
@@ -83,102 +72,43 @@ class SISUsedCarVC: UIViewController {
                 DispatchQueue.main.async {
                     //                    self.setupSearchPageStackTableFooter()
                     self.tableView.reloadData()
+                    
+                    // search page child config
+                    let childVC = SISSearchPageVC(
+                        totalItemCount: self.allContent.count,
+                        itemsPerPage: self.allContentItemsPerPage,
+                        buttonSize: self.searchPageButtonSize,
+                        delegate: self)
+                    self.addChildViewController(childVC)
+                    let container = UIView(frame: CGRect(
+                        origin: .zero,
+                        size: CGSize(width: self.tableView.bounds.size.width, height: 70)))
+                    container.addBoundsFillingSubview(childVC.view)
+                    self.tableView.tableFooterView = container
+                    childVC.didMove(toParentViewController: self)
+                    self.searchPageChild = childVC
+                    childVC.giveButtonSelectedAppearance(pageNumber: self.allContentActivePage)
                 }
             }
         })
     }
-    
-//    func setupSearchPageStackTableFooter() {
-//        // add search page vc's view to footer
-//        let childVC = SISSearchPageVC(
-//            totalItemCount: allContent.count,
-//            itemsPerSection: itemsPerSection,
-//            buttonSize: searchPageButtonSize,
-//            delegate: self)
-//        addChildViewController(childVC)
-//        let container = UIView(frame: CGRect(
-//            origin: .zero,
-//            size: CGSize(width: tableView.bounds.size.width, height: 70)))
-//        container.addBoundsFillingSubview(childVC.view)
-//        tableView.tableFooterView = container
-//        childVC.didMove(toParentViewController: self)
-//        searchPageChildVc = childVC
-//        childVC.giveButtonSelectedAppearance(titleNumber: activeContentIndex)
-//    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        print("view did appear search bar restoration search text: \(searchBarRestorationText)")
-        // initial car download
-//        if allContent.count == 0 {
-//            getAll()
-//        }
         
+    override func viewDidAppear(_ animated: Bool) {
         // search bar restoration
         if let text = searchBarRestorationText {
             searchController.searchBar.text = text
         }
+        // configure search bar
+        configureSearchPage(forFiltered: false)
     }
     
     // MARK: - Networking
     
-    func getAll() {
-        dataService.GET_all(completion: { (cars, _) in
-            if let cars = cars {
-                self.allContent = cars
-
-                DispatchQueue.main.async {
-//                    self.setupSearchPageStackTableFooter()
-                    self.tableView.reloadData()
-                }
-            }
-        })
-    }
-
-    
     func getMainImageForCar(_ car: SISUsedCar) {
         let userInfo: [String:Any] = [:]
-        imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { info in
-        })
+        imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { _ in })
     }
     
-//    func fetchAllMainImages() {
-//        for car in content {
-////            guard let ip = mapping[car.id] else {
-////                continue
-////            }
-//            let ip = IndexPath(row: 0, section: 0)
-//            let userInfo: [String:Any] = ["indexPath" : ip]
-//            
-//            imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { (success, userInfo) in
-//                guard let ip = userInfo["indexPath"] as? IndexPath else {
-//                    return
-//                }
-//                DispatchQueue.main.async {
-//                    self.tableView.reloadRows(at: [ip], with: .none)
-//                }
-//                if success == false {
-//                    print("image download not successful for car: \(car.shortDescription)")
-//                    if let mainImageUrl = car.images.first?.fullPath {
-//                        print("main image path: \(mainImageUrl)")
-//                    } else {
-//                        print("no main image url")
-//                    }
-//                }
-//            })
-//        }
-//    }
-    
-    // MARK: - General
-    
-//    func activelyDisplayedCars() -> [(SISUsedCar, IndexPath)] {
-//        /* get all visible cells from the table view.  Return a tuple containing the used car and associated index path. This method is to be used primarily to facillitate networking completion calls - if the cell is visible, then update its image. Otherwise, table view data source methods will automatically display the downloaded image when dequeuing cells */
-//        for cell in tableView.visibleCells {
-//            guard let cell = cell as? SISUsedCarTVCell else {
-//                continue
-//            }
-//            
-//        }
-//    }
     // MARK: - Table View Helpers
     
     func numberOfRows(forPageIndex pageIndex: Int, itemsPerPage: Int, totalItemCount totalCount: Int) -> Int {
@@ -191,6 +121,26 @@ class SISUsedCarVC: UIViewController {
     
     func mappedIndex(forPageIndex pageIndex: Int, itemsPerPage: Int, indexPath: IndexPath) -> Int {
         return pageIndex * itemsPerPage + indexPath.row
+    }
+    
+    // MARK: - Search Page Convenience
+    func configureSearchPage(forFiltered filtered: Bool) {
+        switch filtered {
+        case true:
+            searchPageChild?.configure(
+                totalItemCount: filteredContent.count,
+                itemsPerPage: filteredContentItemsPerPage)
+            searchPageChild?.view.isHidden = filteredContent.count == 0 ? true : false
+            
+        case false:
+            searchPageChild?.configure(
+                totalItemCount: allContent.count,
+                itemsPerPage: allContentItemsPerPage)
+            searchPageChild?.view.isHidden = false
+        }
+        searchPageChild?.giveButtonSelectedAppearance(pageNumber: 0)
+        allContentActivePage = 0
+        filteredContentActivePage = 0
     }
 }
 
