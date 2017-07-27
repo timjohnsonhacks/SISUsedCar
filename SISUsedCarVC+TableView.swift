@@ -28,7 +28,6 @@ extension SISUsedCarVC: UITableViewDataSource {
                 forPageIndex: allContentActivePage,
                 itemsPerPage: allContentItemsPerPage,
                 totalItemCount: allContent.count)
-            
         }
     }
     
@@ -68,6 +67,7 @@ extension SISUsedCarVC: UITableViewDataSource {
                 mileage: car.mileage.commaDelimitedRepresentation())
         }
 
+        /* if there is an image, show it. If the download has not yet been attempted, attempt it. If the download has already been attempted and failed, show the error view in the cell */
         if let mainImage = car.images.first {
             if let mainImage = mainImage.image {
                 cell.configure(image: mainImage)
@@ -80,6 +80,8 @@ extension SISUsedCarVC: UITableViewDataSource {
                 cell.showNoImageAvailable()
             }
         }
+        
+        return cell
     }
 }
 
@@ -92,16 +94,28 @@ extension SISUsedCarVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        searchController.isActive = false
-        searchPageChildVc.view.isHidden = false
-        presentControllerForIndexPath(indexPath)
+        let car: SISUsedCar
+        switch searchController.isActive {
+        case true:
+            // filtered search
+            let index = mappedIndex(
+                forPageIndex: filteredContentActivePage,
+                itemsPerPage: filteredContent.count,
+                indexPath: indexPath)
+            car = filteredContent[index].car
+            
+        case false:
+            // general, unfiltered search
+            let index = mappedIndex(
+                forPageIndex: allContentActivePage,
+                itemsPerPage: allContentItemsPerPage,
+                indexPath: indexPath)
+            car = allContent[index]
+        }
         
-    }
-    
-    func presentControllerForIndexPath(_ indexPath: IndexPath) {
-        let selectedCar = content[indexPath.row]
-        let vc = SISUsedCarDetailMasterVC(usedCar: selectedCar)
-        navigationController?.pushViewController(vc, animated: true)
+        searchController.isActive = false
+        let detailVC = SISUsedCarDetailMasterVC(usedCar: car)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

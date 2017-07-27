@@ -36,9 +36,9 @@ class SISUsedCarDetailLargeImageVC: UIViewController {
         super.viewDidLoad()
 
         // get all images
-        var userInfo: [String:Any] = [:]
-        imageService.GET_allImages(forUsedCar: usedCar, userInfo: &userInfo, completion: { (success, userInfo) in
-            guard let row = userInfo["order"] as? Int else {
+        let userInfo: [String:Any] = [:]
+        imageService.GET_allImages(forUsedCar: usedCar, userInfo: userInfo, completion: { info in
+            guard let row = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
                 return
             }
             let ip = IndexPath(row: row, section: 0)

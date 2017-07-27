@@ -41,15 +41,15 @@ class SISUsedCarVC: UIViewController {
     var selectedCar: SISUsedCar?
     var searchBarRestorationText: String?
     
-    var activeContentStartIndex: Int {
-        return activeContentIndex * itemsPerSection
-    }
-    var activeContentEndIndex: Int {
-        return (activeContentIndex + 1) * itemsPerSection - 1
-    }
-    var activeContent: [SISUsedCar] {
-        return Array(allContent[activeContentStartIndex...activeContentEndIndex])
-    }
+//    var activeContentStartIndex: Int {
+//        return activeContentIndex * itemsPerSection
+//    }
+//    var activeContentEndIndex: Int {
+//        return (activeContentIndex + 1) * itemsPerSection - 1
+//    }
+//    var activeContent: [SISUsedCar] {
+//        return Array(allContent[activeContentStartIndex...activeContentEndIndex])
+//    }
     
     // MARK: - View Life Cycle
     
@@ -88,23 +88,23 @@ class SISUsedCarVC: UIViewController {
         })
     }
     
-    func setupSearchPageStackTableFooter() {
-        // add search page vc's view to footer
-        let childVC = SISSearchPageVC(
-            totalItemCount: allContent.count,
-            itemsPerSection: itemsPerSection,
-            buttonSize: searchPageButtonSize,
-            delegate: self)
-        addChildViewController(childVC)
-        let container = UIView(frame: CGRect(
-            origin: .zero,
-            size: CGSize(width: tableView.bounds.size.width, height: 70)))
-        container.addBoundsFillingSubview(childVC.view)
-        tableView.tableFooterView = container
-        childVC.didMove(toParentViewController: self)
-        searchPageChildVc = childVC
-        childVC.giveButtonSelectedAppearance(titleNumber: activeContentIndex)
-    }
+//    func setupSearchPageStackTableFooter() {
+//        // add search page vc's view to footer
+//        let childVC = SISSearchPageVC(
+//            totalItemCount: allContent.count,
+//            itemsPerSection: itemsPerSection,
+//            buttonSize: searchPageButtonSize,
+//            delegate: self)
+//        addChildViewController(childVC)
+//        let container = UIView(frame: CGRect(
+//            origin: .zero,
+//            size: CGSize(width: tableView.bounds.size.width, height: 70)))
+//        container.addBoundsFillingSubview(childVC.view)
+//        tableView.tableFooterView = container
+//        childVC.didMove(toParentViewController: self)
+//        searchPageChildVc = childVC
+//        childVC.giveButtonSelectedAppearance(titleNumber: activeContentIndex)
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
         print("view did appear search bar restoration search text: \(searchBarRestorationText)")
