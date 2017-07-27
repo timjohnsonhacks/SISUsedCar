@@ -40,6 +40,8 @@ extension SISUsedCarVC: UISearchResultsUpdating {
             
         }
         
+        print("number of matches for search text: \(filteredCars.count)")
+        
         filteredCars.sort(by: { (member1, member2) -> Bool in
             return member1.score > member2.score
         })

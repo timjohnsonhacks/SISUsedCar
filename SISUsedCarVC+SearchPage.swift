@@ -13,38 +13,67 @@ import UIKit
 extension SISUsedCarVC: SISSearchPageButtonDelegate {
     
     func didTapButtonWith(pageNumber: Int) {
-//        if titleNumber == searchPageChildVc.lastSelectedTitleNumber! || searchController.isActive == true { return }
-//
-//        shouldFetchImage = false
-//        tableView.beginUpdates()
-//        activeContentIndex = titleNumber
-//        let insertPaths = allPathsForActiveContentIndex(titleNumber)
-//        let deletePaths = allPathsForActiveContentIndex(searchPageChildVc.lastSelectedTitleNumber!)
-//        tableView.insertRows(
-//            at: insertPaths,
-//            with: titleNumber > searchPageChildVc.lastSelectedTitleNumber! ? .right : .left)
-//        tableView.deleteRows(at: deletePaths, with: .fade)
-//        tableView.endUpdates()
-//        
-//        searchPageChildVc.giveButtonSelectedAppearance(titleNumber: titleNumber)
-//        
+        if pageNumber == searchPageChild?.lastSelectedPageNumber {
+            return
+        }
+        // table view updates
+        tableView.beginUpdates()
+        
+        let insertPaths = indexPaths(forPageIndex: pageNumber)
+        let currentPage = searchController.isActive == true ? filteredContentActivePage : allContentActivePage
+        let deletePaths = indexPaths(forPageIndex: currentPage)
+        tableView.insertRows(
+            at: insertPaths,
+            with: pageNumber > currentPage ? .right : .left)
+        tableView.deleteRows(
+            at: deletePaths,
+            with: .fade)
+        
+        switch searchController.isActive {
+        case true:
+            filteredContentActivePage = pageNumber
+            
+        case false:
+            allContentActivePage = pageNumber
+        }
+        
+        tableView.endUpdates()
+        
+        // update selected state of search page child
+        searchPageChild?.giveButtonSelectedAppearance(pageNumber: pageNumber)
+
+        
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
 ////            let scrollPath = IndexPath(row: 0, section: 0)
 ////            self.tableView.scrollToRow(at: scrollPath, at: .top, animated: true)
 //        })
     }
     
-//    func allPathsForActiveContentIndex(_ aci: Int) -> [IndexPath] {
-//        var paths = [IndexPath]()
-//        for i in 0..<numberOfRowsForActiveContentIndex(aci) {
-//            paths.append(
-//                IndexPath(
-//                    row: i,
-//                    section: 0)
-//            )
-//        }
-//        return paths
-//    }
+    private func indexPaths(forPageIndex page: Int) -> [IndexPath] {
+        let itemsPerPage: Int
+        let totalItemCount: Int
+        switch searchController.isActive {
+        case true:
+            // filtered search
+            itemsPerPage = filteredContentItemsPerPage
+            totalItemCount = filteredContent.count
+            
+        case false:
+            // general, unfiltered search
+            itemsPerPage = allContentItemsPerPage
+            totalItemCount = allContent.count
+        }
+        let rowCount = numberOfRows(
+            forPageIndex: page,
+            itemsPerPage: itemsPerPage,
+            totalItemCount: totalItemCount)
+        var paths = [IndexPath]()
+        for i in 0..<rowCount {
+            let path = IndexPath(row: i, section: 0)
+            paths.append(path)
+        }
+        return paths
+    }
 }
 
 extension SISUsedCarVC: UISearchControllerDelegate {

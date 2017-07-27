@@ -112,11 +112,15 @@ class SISUsedCarVC: UIViewController {
     // MARK: - Table View Helpers
     
     func numberOfRows(forPageIndex pageIndex: Int, itemsPerPage: Int, totalItemCount totalCount: Int) -> Int {
-        if pageIndex * (itemsPerPage + 1) < totalCount {
-            return itemsPerPage
+        let itemCount: Int
+        if (pageIndex + 1) * itemsPerPage <= totalCount {
+            itemCount = itemsPerPage
         } else {
-            return totalCount - pageIndex * itemsPerPage
+            itemCount = totalCount - pageIndex * itemsPerPage
         }
+        print("total items: \(totalCount); items per page: \(itemsPerPage)")
+        print("page \(pageIndex); item count: \(itemCount)")
+        return itemCount
     }
     
     func mappedIndex(forPageIndex pageIndex: Int, itemsPerPage: Int, indexPath: IndexPath) -> Int {

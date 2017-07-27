@@ -15,7 +15,7 @@ class SISSearchPageVC: UIViewController {
     private var buttonSize: CGSize
     private weak var delegate: SISSearchPageButtonDelegate?
     private weak var searchStack: SISSearchPageButtonStack!
-    private var lastSelectedPageNumber: Int?
+    private(set) public var lastSelectedPageNumber: Int?
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
@@ -43,6 +43,10 @@ class SISSearchPageVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        configureLayout()
+    }
+    
+    private func configureLayout() {
         if view.bounds.size.width < searchStack.naturalFrame.size.width {
             
             scrollViewWidth.constant = view.bounds.size.width
@@ -86,6 +90,9 @@ class SISSearchPageVC: UIViewController {
         searchStack = ss
         self.totalItemCount = totalItemCount
         self.itemsPerPage = itemsPerPage
+        
+        // layout
+        configureLayout()
     }
 }
 
