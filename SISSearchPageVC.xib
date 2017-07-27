@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsp-aB-9HG">
-                    <rect key="frame" x="38.5" y="10" width="200" height="100"/>
+                    <rect key="frame" x="38.5" y="21" width="200" height="100"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="100" id="WTf-wO-ip0"/>
                         <constraint firstAttribute="width" constant="200" id="u9E-zx-607"/>
@@ -32,7 +32,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="hsp-aB-9HG" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="NKO-7T-axN"/>
+                <constraint firstItem="hsp-aB-9HG" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="NKC-vl-IiH"/>
                 <constraint firstItem="hsp-aB-9HG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="vUv-MY-giG"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

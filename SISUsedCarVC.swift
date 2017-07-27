@@ -17,6 +17,9 @@ class SISUsedCarVC: UIViewController {
     @IBOutlet weak var searchPageContainer: UIView!
     weak var searchPageChild: SISSearchPageVC?
     var searchController: UISearchController!
+    
+    // keyboard management
+    @IBOutlet weak var keyboardConstraint: NSLayoutConstraint!
 
     // general constants
     let cellID = "SISUsedCarTVCell"
@@ -66,6 +69,19 @@ class SISUsedCarVC: UIViewController {
         sc.hidesNavigationBarDuringPresentation = true
         tableView.tableHeaderView = sc.searchBar
         
+        // keyboard notification config
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(notification:)),
+            name: .UIKeyboardWillShow,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(notification:)),
+            name: .UIKeyboardWillHide,
+            object: nil)
+
         // initial networking
         dataService.GET_all(completion: { (cars, _) in
             if let cars = cars {
@@ -137,6 +153,46 @@ class SISUsedCarVC: UIViewController {
                 itemsPerPage: allContentItemsPerPage)
             searchPageChild?.giveButtonSelectedAppearance(pageNumber: allContentActivePage)
         }
+    }
+    
+    // MARK: - Keyboard / View Layout Management
+    func keyboardWillShow(notification: Notification) {
+        guard
+            let finishRect = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect,
+            let animationCurveConstant = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber,
+            let animationDuration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
+                return
+        }
+        let vertDispl: CGFloat = finishRect.height
+        keyboardConstraint.constant = vertDispl
+        
+        let animationOption = UIViewAnimationOptions(rawValue: UInt(animationCurveConstant))
+        UIView.animate(
+            withDuration: TimeInterval(animationDuration),
+            delay: 0.0,
+            options: animationOption,
+            animations: {
+                self.view.layoutIfNeeded()
+        },
+            completion: nil)
+    }
+    
+    func keyboardWillHide(notification: Notification) {
+        guard
+            let animationCurveConstant = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber,
+            let animationDuration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
+                return
+        }
+        keyboardConstraint.constant = 0.0
+        let animationOption = UIViewAnimationOptions(rawValue: UInt(animationCurveConstant))
+        UIView.animate(
+            withDuration: TimeInterval(animationDuration),
+            delay: 0.0,
+            options: animationOption,
+            animations: {
+                self.view.layoutIfNeeded()
+        },
+            completion: nil)
     }
 }
 

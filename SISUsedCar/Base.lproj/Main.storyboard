@@ -62,6 +62,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="LUg-Fn-7O0"/>
                     <connections>
+                        <outlet property="keyboardConstraint" destination="idK-Ce-xOR" id="iyZ-ZF-MZ5"/>
                         <outlet property="searchPageContainer" destination="Rrj-Gu-jUp" id="S4C-rg-uGO"/>
                         <outlet property="tableView" destination="n2A-r2-HSz" id="rgU-sO-L0V"/>
                         <segue destination="o0x-HV-OOs" kind="show" identifier="showDetail" id="WEE-gP-Q7U"/>
