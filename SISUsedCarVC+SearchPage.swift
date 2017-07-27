@@ -42,11 +42,11 @@ extension SISUsedCarVC: SISSearchPageButtonDelegate {
         // update selected state of search page child
         searchPageChild?.giveButtonSelectedAppearance(pageNumber: pageNumber)
 
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-////            let scrollPath = IndexPath(row: 0, section: 0)
-////            self.tableView.scrollToRow(at: scrollPath, at: .top, animated: true)
-//        })
+        let delay: TimeInterval = 0.3
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+            let scrollPath = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: scrollPath, at: .top, animated: true)
+        })
     }
     
     private func indexPaths(forPageIndex page: Int) -> [IndexPath] {
