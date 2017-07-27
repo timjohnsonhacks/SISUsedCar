@@ -17,83 +17,69 @@ extension SISUsedCarVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfRowsForActiveContentIndex(activeContentIndex)
-    }
-    
-    func mapIndexPath(_ ip: IndexPath) -> SISUsedCar {
-        let currentRow = ip.row
-        let correctedRow = activeContentIndex * itemsPerSection + currentRow
-        return content[correctedRow]
+        switch searchController.isActive {
+        case true:
+            // filtered search
+            return filteredContent.count
+            
+        case false:
+            // general, unfiltered search
+            return numberOfRows(
+                forPageIndex: allContentActivePage,
+                itemsPerPage: allContentItemsPerPage,
+                totalItemCount: allContent.count)
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SISUsedCarTVCell
         cell.resetImageView()
-        
+ 
+        let car: SISUsedCar
         switch searchController.isActive {
-        case false:
-            let car = mapIndexPath(indexPath)
-            let yearMakeModel = "\(car.year) \(car.make) \(car.model)"
+        case true:
+            // filtered search
+            let index = mappedIndex(
+                forPageIndex: filteredContentActivePage,
+                itemsPerPage: filteredContent.count,
+                indexPath: indexPath)
+            let filteredCar = filteredContent[index]
+            car = filteredCar.car
             
-            cell.configure(
-                yearMakeModel: yearMakeModel,
+            cell.configureWithAttributedText(
+                yearMakeModel: filteredCar.attributedString,
                 isSold: car.isSold,
                 price: "$ " + car.price.commaDelimitedRepresentation(),
                 mileage: car.mileage.commaDelimitedRepresentation())
-            
-            if let mainImage = car.images.first {
-                if let mainImage = mainImage.image {
-                    
-                    cell.configure(image: mainImage)
-                    
-                } else if mainImage.downloadAttemptFailed == false {
-                    
-                    cell.showActivityIndicator()
-                    if shouldFetchImage == true {
-                        getMainImageForCar(
-                            car,
-                            indexPath: indexPath,
-                            requestContentIndex: activeContentIndex)
-                    }
-             
-                } else if mainImage.downloadAttemptFailed == true {
-                    
-                    cell.showNoImageAvailable()
-                    
-                }
-            } else {
-                cell.showNoImageAvailable()
-            }
-            
-        case true:
-            let car = filteredContent[indexPath.row]
-            
-            cell.configureWithAttributedText(
-                yearMakeModel: car.attributedString,
-                isSold: car.car.isSold,
-                price: "$ " + car.car.price.commaDelimitedRepresentation(),
-                mileage: car.car.mileage.commaDelimitedRepresentation())
-            
-            if let mainImage = car.car.images.first {
-                if let mainImage = mainImage.image {
-                    cell.configure(image: mainImage)
-                } else if mainImage.downloadAttemptFailed == false {
-                    cell.showActivityIndicator()
-                    if shouldFetchImage == true {
-                        getMainImageForCar(
-                            car.car,
-                            indexPath: indexPath,
-                            requestContentIndex: activeContentIndex)
-                    }
+        
+        case false:
+            // general, unfiltered search
+            let index = mappedIndex(
+                forPageIndex: allContentActivePage,
+                itemsPerPage: allContentItemsPerPage,
+                indexPath: indexPath)
+            car = allContent[index]
 
-                } else if mainImage.downloadAttemptFailed == true {
-                    cell.showNoImageAvailable()
-                }
+            cell.configure(
+                yearMakeModel: car.yearMakeModel,
+                isSold: car.isSold,
+                price: "$ " + car.price.commaDelimitedRepresentation(),
+                mileage: car.mileage.commaDelimitedRepresentation())
+        }
+
+        if let mainImage = car.images.first {
+            if let mainImage = mainImage.image {
+                cell.configure(image: mainImage)
+                
+            } else if mainImage.downloadAttemptFailed == false {
+                cell.showActivityIndicator()
+                getMainImageForCar(car)
+            
             } else {
                 cell.showNoImageAvailable()
             }
         }
-        return cell
     }
 }
 

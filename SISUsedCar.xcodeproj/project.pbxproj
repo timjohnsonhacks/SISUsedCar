@@ -59,6 +59,7 @@
 		0BD25FBA1F28D529007081E5 /* SISGradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD25FB91F28D529007081E5 /* SISGradientBackgroundView.swift */; };
 		0BD25FBC1F28DC74007081E5 /* SISDetailImageLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD25FBB1F28DC74007081E5 /* SISDetailImageLayoutView.swift */; };
 		0BD25FBE1F28E80D007081E5 /* SISDetailTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BD25FBD1F28E80D007081E5 /* SISDetailTextView.xib */; };
+		0BFA12281F2A179800C8B85E /* SISDownloadImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFA12271F2A179800C8B85E /* SISDownloadImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		0BD25FB91F28D529007081E5 /* SISGradientBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISGradientBackgroundView.swift; sourceTree = "<group>"; };
 		0BD25FBB1F28DC74007081E5 /* SISDetailImageLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISDetailImageLayoutView.swift; sourceTree = "<group>"; };
 		0BD25FBD1F28E80D007081E5 /* SISDetailTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISDetailTextView.xib; sourceTree = "<group>"; };
+		0BFA12271F2A179800C8B85E /* SISDownloadImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISDownloadImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 				0B2B4C831F1E90E200F8648C /* SISUsedCarTVCell.swift */,
 				0B2B4C841F1E90E200F8648C /* SISUsedCarTVCell.xib */,
 				0B2CA62C1F2654A4007A92F9 /* CustomIsSoldLabel.swift */,
+				0BFA12271F2A179800C8B85E /* SISDownloadImageView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -621,6 +624,7 @@
 				0B2B4CCD1F1F91F100F8648C /* SISUsedCarImage.swift in Sources */,
 				0B8887FC1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.swift in Sources */,
 				0B2B4C881F1EA33900F8648C /* SISUsedCarImageService.swift in Sources */,
+				0BFA12281F2A179800C8B85E /* SISDownloadImageView.swift in Sources */,
 				0B2B4D191F20DB6600F8648C /* SISGlobalConstants.swift in Sources */,
 				0BA52DD41F28F43900DE250B /* SISSmartScrollView.swift in Sources */,
 				0B2B4C851F1E90E200F8648C /* SISUsedCarTVCell.swift in Sources */,
