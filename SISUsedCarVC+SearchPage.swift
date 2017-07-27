@@ -19,6 +19,8 @@ extension SISUsedCarVC: SISSearchPageButtonDelegate {
         // table view updates
         tableView.beginUpdates()
         
+        tableView.contentOffset = .zero
+        
         let insertPaths = indexPaths(forPageIndex: pageNumber)
         let currentPage = searchController.isActive == true ? filteredContentActivePage : allContentActivePage
         let deletePaths = indexPaths(forPageIndex: currentPage)
@@ -41,12 +43,6 @@ extension SISUsedCarVC: SISSearchPageButtonDelegate {
         
         // update selected state of search page child
         searchPageChild?.giveButtonSelectedAppearance(pageNumber: pageNumber)
-
-        let delay: TimeInterval = 0.3
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
-            let scrollPath = IndexPath(row: 0, section: 0)
-            self.tableView.scrollToRow(at: scrollPath, at: .top, animated: true)
-        })
     }
     
     private func indexPaths(forPageIndex page: Int) -> [IndexPath] {
