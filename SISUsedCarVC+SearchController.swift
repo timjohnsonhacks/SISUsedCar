@@ -15,7 +15,9 @@ extension SISUsedCarVC: UISearchResultsUpdating {
             filterContentForSearchText(text)
         }
         // update the search page controller
-        configureSearchPage(forFiltered: true)
+        if searchController.isActive == true {
+            configureSearchPage(forFiltered: true)
+        }
     }
     
     func filterContentForSearchText(_ searchText: String) {
@@ -39,8 +41,6 @@ extension SISUsedCarVC: UISearchResultsUpdating {
             }
             
         }
-        
-        print("number of matches for search text: \(filteredCars.count)")
         
         filteredCars.sort(by: { (member1, member2) -> Bool in
             return member1.score > member2.score

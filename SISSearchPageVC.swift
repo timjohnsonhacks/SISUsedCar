@@ -65,6 +65,9 @@ class SISSearchPageVC: UIViewController {
     }
     
     public func giveButtonSelectedAppearance(pageNumber: Int) {
+        if totalItemCount == 0 {
+            return
+        }
         if let lastSelectedPageNumber = lastSelectedPageNumber {
             searchStack.buttons[lastSelectedPageNumber].isSelected = false
         }
@@ -74,9 +77,9 @@ class SISSearchPageVC: UIViewController {
     
     public func configure(totalItemCount: Int, itemsPerPage: Int) {
         searchStack?.removeFromSuperview()
+        lastSelectedPageNumber = nil
         // create button view / setup scroll view
-        let totalSections = totalItemCount / itemsPerPage + 1
-        print("total sections: \(totalSections)")
+        let totalSections = totalItemCount == 0 ? 0 : (totalItemCount - 1) / itemsPerPage + 1
         let ss = SISSearchPageButtonStack(
             totalSections: totalSections,
             buttonSize: buttonSize,

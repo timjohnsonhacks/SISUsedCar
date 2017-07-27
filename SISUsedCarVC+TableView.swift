@@ -105,7 +105,7 @@ extension SISUsedCarVC: UITableViewDelegate {
             // filtered search
             let index = mappedIndex(
                 forPageIndex: filteredContentActivePage,
-                itemsPerPage: filteredContent.count,
+                itemsPerPage: filteredContentItemsPerPage,
                 indexPath: indexPath)
             car = filteredContent[index].car
             

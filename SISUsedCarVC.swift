@@ -14,6 +14,7 @@ class SISUsedCarVC: UIViewController {
     
     // associated views and controllers
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchPageContainer: UIView!
     weak var searchPageChild: SISSearchPageVC?
     var searchController: UISearchController!
 
@@ -70,7 +71,6 @@ class SISUsedCarVC: UIViewController {
             if let cars = cars {
                 self.allContent = cars
                 DispatchQueue.main.async {
-                    //                    self.setupSearchPageStackTableFooter()
                     self.tableView.reloadData()
                     
                     // search page child config
@@ -80,11 +80,7 @@ class SISUsedCarVC: UIViewController {
                         buttonSize: self.searchPageButtonSize,
                         delegate: self)
                     self.addChildViewController(childVC)
-                    let container = UIView(frame: CGRect(
-                        origin: .zero,
-                        size: CGSize(width: self.tableView.bounds.size.width, height: 70)))
-                    container.addBoundsFillingSubview(childVC.view)
-                    self.tableView.tableFooterView = container
+                    self.searchPageContainer.addBoundsFillingSubview(childVC.view)
                     childVC.didMove(toParentViewController: self)
                     self.searchPageChild = childVC
                     childVC.giveButtonSelectedAppearance(pageNumber: self.allContentActivePage)
@@ -118,8 +114,6 @@ class SISUsedCarVC: UIViewController {
         } else {
             itemCount = totalCount - pageIndex * itemsPerPage
         }
-        print("total items: \(totalCount); items per page: \(itemsPerPage)")
-        print("page \(pageIndex); item count: \(itemCount)")
         return itemCount
     }
     
@@ -134,17 +128,15 @@ class SISUsedCarVC: UIViewController {
             searchPageChild?.configure(
                 totalItemCount: filteredContent.count,
                 itemsPerPage: filteredContentItemsPerPage)
-            searchPageChild?.view.isHidden = filteredContent.count == 0 ? true : false
+            searchPageChild?.giveButtonSelectedAppearance(pageNumber: 0)
+            filteredContentActivePage = 0
             
         case false:
             searchPageChild?.configure(
                 totalItemCount: allContent.count,
                 itemsPerPage: allContentItemsPerPage)
-            searchPageChild?.view.isHidden = false
+            searchPageChild?.giveButtonSelectedAppearance(pageNumber: allContentActivePage)
         }
-        searchPageChild?.giveButtonSelectedAppearance(pageNumber: 0)
-        allContentActivePage = 0
-        filteredContentActivePage = 0
     }
 }
 
