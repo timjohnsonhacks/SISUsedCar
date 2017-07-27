@@ -67,7 +67,8 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
             largeImageContainer: largeImageVC.view,
             smallImageContainer: smallImagesVC.view,
             aspectRatio: SISGlobalConstants.defaultAspectRatio,
-            smallHeight: 60.0)
+            smallHeight: 80.0,
+            largeSmallVerticalSpacing: 40.0)
         contentContainer.addBoundsFillingSubview(dynamicContainer)
         imageContainer = dynamicContainer
         
@@ -118,17 +119,36 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
         detailContainer.contentSize = rect.size
     }
     
+    // MARK: - Segmented Control
+    
     func segmentedControlValueDidChange(sender: UISegmentedControl) {
+        let option: UIViewAnimationOptions
         switch sender.selectedSegmentIndex {
         case 0:
-            detailContainer.isHidden = true
-            imageContainer.isHidden = false
+            option = .transitionFlipFromRight
         case 1:
-            detailContainer.isHidden = false
-            imageContainer.isHidden = true
+            option = .transitionFlipFromLeft
         default:
-            break
+            return
         }
+        UIView.transition(
+            with: contentContainer,
+            duration: 0.5,
+            options: [option],
+            animations: {
+                switch sender.selectedSegmentIndex {
+                case 0:
+                    self.detailContainer.isHidden = true
+                    self.imageContainer.isHidden = false
+                case 1:
+                    self.detailContainer.isHidden = false
+                    self.imageContainer.isHidden = true
+                default:
+                    return
+                }
+
+        },
+            completion: nil)
     }
     
     // MARK: - Contact Us

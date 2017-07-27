@@ -13,7 +13,7 @@ import UIKit
 extension SISUsedCarVC: SISSearchPageButtonDelegate {
     
     func didTapButtonWith(titleNumber: Int) {
-        if titleNumber == searchPageChildVc.lastSelectedTitleNumber! { return }
+        if titleNumber == searchPageChildVc.lastSelectedTitleNumber! || searchController.isActive == true { return }
 
         shouldFetchImage = false
         tableView.beginUpdates()
@@ -50,17 +50,23 @@ extension SISUsedCarVC: SISSearchPageButtonDelegate {
 extension SISUsedCarVC: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
         searchPageChildVc.view.isHidden = false
-        configureTableFooterViewFrame(isShowing: true)
     }
     
     func willPresentSearchController(_ searchController: UISearchController) {
         searchPageChildVc.view.isHidden = true
-        configureTableFooterViewFrame(isShowing: false)
     }
 }
 
 extension SISUsedCarVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("search text: \(searchText)")
+        searchBarRestorationText = searchText
+        print("search bar restoration search text: \(searchBarRestorationText)")
+    }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBarRestorationText = nil
+    }
 }
 
 

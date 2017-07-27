@@ -2,14 +2,18 @@
 
 import UIKit
 import PlaygroundSupport
-
 import IntegratedPlaygroundFiles
 
-let original: [Int] = [1,2,3]
-let transformed = original.map( {
-    return IndexPath(row: $0, section: 0)
+PlaygroundPage.current.needsIndefiniteExecution
+
+let service = SISUsedCarDataService()
+service.GET_all(completion: { cars, error in
+    if let cars = cars {
+        let car = cars[0]
+        print(car.shortDescription)
+    }
+    PlaygroundPage.current.finishExecution()
 })
-transformed
 
 
 
