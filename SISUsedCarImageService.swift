@@ -11,7 +11,7 @@ import UIKit
 public class SISUsedCarImageService {
     
     enum InfoKeys: String {
-        case success, usedCar, imageIndex, userInfo
+        case success, usedCar, imageIndex, userInfo, image
     }
     
     private let session = URLSession(configuration: .default)
@@ -65,6 +65,7 @@ public class SISUsedCarImageService {
             if let data = data, let image = UIImage(data: data) {
                 imageContainer.image = image
                 imageContainer.downloadAttemptFailed = false
+                returnDict[InfoKeys.image.rawValue] = image
                 returnDict[InfoKeys.success.rawValue] = true
                 
             } else {

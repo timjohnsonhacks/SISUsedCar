@@ -30,6 +30,7 @@ class SISUsedCarVC: UIViewController {
     // networking
     let dataService = SISUsedCarDataService()
     let imageService = SISUsedCarImageService()
+    var cellCarMapping: [SISUsedCarTVCell : SISUsedCar] = [:]
     
     // general, unfiltered search
     var allContent = [SISUsedCar]()
@@ -116,9 +117,33 @@ class SISUsedCarVC: UIViewController {
     
     // MARK: - Networking
     
-    func getMainImageForCar(_ car: SISUsedCar) {
+    func getMainImageForCar(_ car: SISUsedCar, cell: SISUsedCarTVCell) {
+        /* add the associated values to cellCarMapping. Upon completion, update the cell's image if it is currently displaying the associated car. This will only ever be the case if the networking call completes before the cell in enqueued  */
+        cellCarMapping[cell] = car
         let userInfo: [String:Any] = [:]
-        imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { _ in })
+        imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { info in
+            print("----------")
+            guard let car = info[SISUsedCarImageService.InfoKeys.usedCar.rawValue] as? SISUsedCar,
+                let image = info[SISUsedCarImageService.InfoKeys.image.rawValue] as? UIImage else {
+                    print("invalid info dictionary")
+                    return
+            }
+            for cell in self.tableView.visibleCells {
+                guard
+                    let cell = cell as? SISUsedCarTVCell else {
+                    continue
+                }
+                if self.cellCarMapping[cell] === car {
+                    print("got em")
+                    DispatchQueue.main.async {
+                        cell.configure(image: image)
+                    }
+                } else {
+                    print("no match")
+                }
+            }
+            print("----------")
+        })
     }
     
     // MARK: - Table View Helpers

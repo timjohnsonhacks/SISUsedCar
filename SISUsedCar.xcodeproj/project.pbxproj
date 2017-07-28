@@ -181,6 +181,7 @@
 		0B2B4C3A1F1E749E00F8648C = {
 			isa = PBXGroup;
 			children = (
+				0BFA12291F2B6B8300C8B85E /* Files Not in Use */,
 				0B2B4CD01F1FB0DD00F8648C /* Utilities */,
 				0BD25FB81F28D502007081E5 /* Views */,
 				0B2B4C7A1F1E74C500F8648C /* Model */,
@@ -240,7 +241,6 @@
 		0B2B4C771F1E74AB00F8648C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0B01A42C1F2112FD0041C0C9 /* Used Car Detail */,
 				0B8887EA1F27E16F00238C90 /* DetailSearch */,
 				0B2CA6321F2681D6007A92F9 /* Search Page  */,
 				0B2CA6331F2681DE007A92F9 /* Main Search */,
@@ -428,6 +428,14 @@
 				0BA52DD31F28F43900DE250B /* SISSmartScrollView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		0BFA12291F2B6B8300C8B85E /* Files Not in Use */ = {
+			isa = PBXGroup;
+			children = (
+				0B01A42C1F2112FD0041C0C9 /* Used Car Detail */,
+			);
+			name = "Files Not in Use";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

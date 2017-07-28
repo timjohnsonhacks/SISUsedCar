@@ -37,11 +37,13 @@ extension SISUsedCarVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SISUsedCarTVCell
         cell.resetImageView()
- 
+     
         let car: SISUsedCar
+        let activePage: Int
         switch searchController.isActive {
         case true:
             // filtered search
+            activePage = filteredContentActivePage
             let index = mappedIndex(
                 forPageIndex: filteredContentActivePage,
                 itemsPerPage: filteredContentItemsPerPage,
@@ -57,6 +59,7 @@ extension SISUsedCarVC: UITableViewDataSource {
         
         case false:
             // general, unfiltered search
+            activePage = allContentActivePage
             let index = mappedIndex(
                 forPageIndex: allContentActivePage,
                 itemsPerPage: allContentItemsPerPage,
@@ -78,7 +81,8 @@ extension SISUsedCarVC: UITableViewDataSource {
             } else {
                 if mainImage.downloadAttemptFailed == false {
                     cell.showActivityIndicator()
-                    getMainImageForCar(car)
+                    print("page: \(activePage), (requesting image for cell at: \(indexPath)")
+                    getMainImageForCar(car, cell: cell)
                     
                 } else {
                     cell.showNoImageAvailable()

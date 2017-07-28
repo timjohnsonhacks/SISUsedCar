@@ -11,7 +11,7 @@ import Foundation
 let defaultString = "default"
 let defaultInt = -1
 
-public class SISUsedCar {
+public class SISUsedCar: NSObject {
     
     public var id: Int = defaultInt
     public var slug: String = defaultString
@@ -22,7 +22,7 @@ public class SISUsedCar {
     public var trim: String = defaultString
     public var bodyStyle: String = defaultString
     public var price: Int = defaultInt
-    public var description: String = defaultString
+    public var longDescription: String = defaultString
     public var transmission: String = defaultString
     public var engine: String = defaultString
     public var mileage: Int = defaultInt
@@ -67,7 +67,7 @@ public class SISUsedCar {
         self.trim = trim
         self.bodyStyle = bodyStyle
         self.price = price
-        self.description = description
+        self.longDescription = description
         self.transmission = transmission
         self.engine = engine
         self.mileage = mileage
