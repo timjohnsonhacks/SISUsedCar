@@ -10,14 +10,19 @@ import UIKit
 
 extension SISUsedCarVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        // update filtered content
         if let text = searchController.searchBar.text {
             filterContentForSearchText(text)
+        }
+        // update the search page controller
+        if searchController.isActive == true {
+            configureSearchPage(forFiltered: true)
         }
     }
     
     func filterContentForSearchText(_ searchText: String) {
         var filteredCars = [FilteredCar]()
-        for car in content {
+        for car in allContent {
             let searchWords = words(forText: searchText)
             let carName = car.yearMakeModel
             var attributedFullName = NSMutableAttributedString(string: carName)

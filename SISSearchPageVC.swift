@@ -10,21 +10,20 @@ import UIKit
 
 class SISSearchPageVC: UIViewController {
 
-    let totalItemCount: Int
-    let itemsPerSection: Int
-    let buttonSize: CGSize
-    weak var delegate: SISSearchPageButtonDelegate?
-    weak var searchStack: SISSearchPageButtonStack!
-    var lastSelectedTitleNumber: Int?
+    private var totalItemCount: Int
+    private var itemsPerPage: Int
+    private var buttonSize: CGSize
+    private weak var delegate: SISSearchPageButtonDelegate?
+    private weak var searchStack: SISSearchPageButtonStack!
+    private(set) public var lastSelectedPageNumber: Int?
     
-    weak var buttonContainer: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollViewWidth: NSLayoutConstraint!
     
-    init(totalItemCount: Int, itemsPerSection: Int, buttonSize: CGSize, delegate: SISSearchPageButtonDelegate) {
+    init(totalItemCount: Int, itemsPerPage: Int, buttonSize: CGSize, delegate: SISSearchPageButtonDelegate) {
         self.totalItemCount = totalItemCount
-        self.itemsPerSection = itemsPerSection
+        self.itemsPerPage = itemsPerPage
         self.buttonSize = buttonSize
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
@@ -37,23 +36,17 @@ class SISSearchPageVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.showsHorizontalScrollIndicator = false
-        
-        // create button view / setup scroll view
-        let totalSections = totalItemCount / itemsPerSection + 1
-        let ss = SISSearchPageButtonStack(
-            totalSections: totalSections,
-            buttonSize: buttonSize,
-            spacing: 2.0,
-            color_1: SISGlobalConstants.calmBlue,
-            color_2: .white,
-            borderWidth: 2.0,
-            delegate: delegate!)
-        scrollView.addSubview(ss)
-        searchStack = ss
-        scrollViewHeight.constant = ss.bounds.height
+        configure(
+            totalItemCount: totalItemCount,
+            itemsPerPage: itemsPerPage)
+        scrollViewWidth.constant = 0.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        configureLayout()
+    }
+    
+    private func configureLayout() {
         if view.bounds.size.width < searchStack.naturalFrame.size.width {
             
             scrollViewWidth.constant = view.bounds.size.width
@@ -71,12 +64,38 @@ class SISSearchPageVC: UIViewController {
         }
     }
     
-    func giveButtonSelectedAppearance(titleNumber: Int) {
-        if let lastSelectedTitleIndex = lastSelectedTitleNumber {
-            searchStack.buttons[lastSelectedTitleIndex].isSelected = false
+    public func giveButtonSelectedAppearance(pageNumber: Int) {
+        if totalItemCount == 0 {
+            return
         }
-        searchStack.buttons[titleNumber].isSelected = true
-        lastSelectedTitleNumber = titleNumber
+        if let lastSelectedPageNumber = lastSelectedPageNumber {
+            searchStack.buttons[lastSelectedPageNumber].isSelected = false
+        }
+        searchStack.buttons[pageNumber].isSelected = true
+        lastSelectedPageNumber = pageNumber
+    }
+    
+    public func configure(totalItemCount: Int, itemsPerPage: Int) {
+        searchStack?.removeFromSuperview()
+        lastSelectedPageNumber = nil
+        // create button view / setup scroll view
+        let totalSections = totalItemCount == 0 ? 0 : (totalItemCount - 1) / itemsPerPage + 1
+        let ss = SISSearchPageButtonStack(
+            totalSections: totalSections,
+            buttonSize: buttonSize,
+            spacing: 2.0,
+            color_1: SISGlobalConstants.calmBlue,
+            color_2: .white,
+            borderWidth: 2.0,
+            delegate: delegate!)
+        scrollView.addSubview(ss)
+        scrollViewHeight.constant = ss.bounds.height
+        searchStack = ss
+        self.totalItemCount = totalItemCount
+        self.itemsPerPage = itemsPerPage
+        
+        // layout
+        configureLayout()
     }
 }
 

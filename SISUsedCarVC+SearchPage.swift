@@ -12,36 +12,61 @@ import UIKit
 
 extension SISUsedCarVC: SISSearchPageButtonDelegate {
     
-    func didTapButtonWith(titleNumber: Int) {
-        if titleNumber == searchPageChildVc.lastSelectedTitleNumber! { return }
-
-        shouldFetchImage = false
+    func didTapButtonWith(pageNumber: Int) {
+        if pageNumber == searchPageChild?.lastSelectedPageNumber {
+            return
+        }
+        // table view updates
         tableView.beginUpdates()
-        activeContentIndex = titleNumber
-        let insertPaths = allPathsForActiveContentIndex(titleNumber)
-        let deletePaths = allPathsForActiveContentIndex(searchPageChildVc.lastSelectedTitleNumber!)
+        
+        tableView.contentOffset = .zero
+        
+        let insertPaths = indexPaths(forPageIndex: pageNumber)
+        let currentPage = searchController.isActive == true ? filteredContentActivePage : allContentActivePage
+        let deletePaths = indexPaths(forPageIndex: currentPage)
         tableView.insertRows(
             at: insertPaths,
-            with: titleNumber > searchPageChildVc.lastSelectedTitleNumber! ? .right : .left)
-        tableView.deleteRows(at: deletePaths, with: .fade)
+            with: pageNumber > currentPage ? .right : .left)
+        tableView.deleteRows(
+            at: deletePaths,
+            with: .fade)
+        
+        switch searchController.isActive {
+        case true:
+            filteredContentActivePage = pageNumber
+            
+        case false:
+            allContentActivePage = pageNumber
+        }
+        
         tableView.endUpdates()
         
-        searchPageChildVc.giveButtonSelectedAppearance(titleNumber: titleNumber)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-//            let scrollPath = IndexPath(row: 0, section: 0)
-//            self.tableView.scrollToRow(at: scrollPath, at: .top, animated: true)
-        })
+        // update selected state of search page child
+        searchPageChild?.giveButtonSelectedAppearance(pageNumber: pageNumber)
     }
     
-    func allPathsForActiveContentIndex(_ aci: Int) -> [IndexPath] {
+    private func indexPaths(forPageIndex page: Int) -> [IndexPath] {
+        let itemsPerPage: Int
+        let totalItemCount: Int
+        switch searchController.isActive {
+        case true:
+            // filtered search
+            itemsPerPage = filteredContentItemsPerPage
+            totalItemCount = filteredContent.count
+            
+        case false:
+            // general, unfiltered search
+            itemsPerPage = allContentItemsPerPage
+            totalItemCount = allContent.count
+        }
+        let rowCount = numberOfRows(
+            forPageIndex: page,
+            itemsPerPage: itemsPerPage,
+            totalItemCount: totalItemCount)
         var paths = [IndexPath]()
-        for i in 0..<numberOfRowsForActiveContentIndex(aci) {
-            paths.append(
-                IndexPath(
-                    row: i,
-                    section: 0)
-            )
+        for i in 0..<rowCount {
+            let path = IndexPath(row: i, section: 0)
+            paths.append(path)
         }
         return paths
     }
@@ -49,18 +74,26 @@ extension SISUsedCarVC: SISSearchPageButtonDelegate {
 
 extension SISUsedCarVC: UISearchControllerDelegate {
     func willDismissSearchController(_ searchController: UISearchController) {
-        searchPageChildVc.view.isHidden = false
-        configureTableFooterViewFrame(isShowing: true)
+        // will show general, unfiltered search following dismissal
+        configureSearchPage(forFiltered: false)
     }
     
     func willPresentSearchController(_ searchController: UISearchController) {
-        searchPageChildVc.view.isHidden = true
-        configureTableFooterViewFrame(isShowing: false)
+        // will show iltered search following dismissal
+        configureSearchPage(forFiltered: true)
     }
 }
 
 extension SISUsedCarVC: UISearchBarDelegate {
+    // methods used to facillitate restoration of search bar text following detail scene presentation and dismissal
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchBarRestorationText = searchText
+    }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBarRestorationText = nil
+        configureSearchPage(forFiltered: false)
+    }
 }
 
 

@@ -36,16 +36,16 @@ class SISUsedCarDetailLargeImageVC: UIViewController {
         super.viewDidLoad()
 
         // get all images
-        var userInfo: [String:Any] = [:]
-        imageService.GET_allImages(forUsedCar: usedCar, userInfo: &userInfo, completion: { (success, userInfo) in
-            guard let row = userInfo["order"] as? Int else {
-                return
-            }
-            let ip = IndexPath(row: row, section: 0)
-            DispatchQueue.main.async {
-                self.collectionView.reloadItems(at: [ip])
-            }
-        })
+//        let userInfo: [String:Any] = [:]
+//        imageService.GET_allImages(forUsedCar: usedCar, userInfo: userInfo, completion: { info in
+//            guard let row = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
+//                return
+//            }
+//            let ip = IndexPath(row: row, section: 0)
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadItems(at: [ip])
+//            }
+//        })
         
         // collection view config
         collectionView.dataSource = self
@@ -64,13 +64,41 @@ class SISUsedCarDetailLargeImageVC: UIViewController {
 extension SISUsedCarDetailLargeImageVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return usedCar.images.count
+        let count = usedCar.images.count
+        return count > 0 ? count : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let count = usedCar.images.count
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! SISUsedCarDetailCVCell
-        cell.imageView.image = usedCar.images[indexPath.row].image
-        cell.configureBorder(true)
+        cell.configureNotificationsForCar(
+            usedCar: usedCar,
+            imageIndex: indexPath.row)
+        if count > 0 {
+            guard usedCar.images.count - 1 >= indexPath.row else {
+                print("index out of range")
+                return cell
+            }
+            let container = usedCar.images[indexPath.row]
+            if let image = usedCar.images[indexPath.row].image {
+                cell.configureImage(image)
+                
+            } else if container.downloadAttemptFailed == false {
+                cell.showActivityIndicator()
+                imageService.GET_image(
+                    forUsedCar: usedCar,
+                    imageIndex: indexPath.row,
+                    userInfo: [:],
+                    completion: { _ in })
+                
+            } else {
+                cell.showNoImageAvailable()
+        
+            }
+            
+        } else {
+            cell.showNoImageAvailable()
+        }
         return cell
     }
 }
@@ -95,7 +123,8 @@ extension SISUsedCarDetailLargeImageVC: UICollectionViewDelegateFlowLayout {
         let containerAspectRatio: CGFloat = containerSize.width / containerSize.height
         
         let imageAspectRatio: CGFloat
-        if let image = usedCar.images[indexPath.row].image {
+        if usedCar.images.count - 1 >= indexPath.row,
+            let image = usedCar.images[indexPath.row].image {
             imageAspectRatio = image.size.width / image.size.height
         } else {
             imageAspectRatio = SISGlobalConstants.defaultAspectRatio

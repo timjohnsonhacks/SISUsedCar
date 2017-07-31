@@ -9,49 +9,40 @@
 import UIKit
 
 class SISUsedCarVC: UIViewController {
-
-    let cellID = "SISUsedCarTVCell"
-    let dataService = SISUsedCarDataService()
-    let imageService = SISUsedCarImageService()
     
     typealias FilteredCar = (car: SISUsedCar, attributedString: NSMutableAttributedString, score: Int)
-    var filteredContent = [FilteredCar]()
-    var shouldFetchImage: Bool = true
-    var content = [SISUsedCar]() {
-        didSet {
-            /* mapping depends on content, so configure mapping when content is set */
-            var newMapping: [Int:IndexPath] = [:]
-            var row: Int = 0
-            for cont in content {
-                let key: Int = cont.id
-                let value = IndexPath(row: row, section: 0)
-                newMapping[key] = value
-                row += 1
-            }
-            mapping = newMapping
-        }
-    }
-    var mapping: [Int : IndexPath] = [:] /*  usedCar.id : indexPath ; for cell updating */
-    let itemsPerSection: Int = 10
-    var activeContentIndex: Int = 0
-    let searchPageButtonSize = CGSize(width: 44.0, height: 44.0)
-    var selectedCar: SISUsedCar?
-    weak var searchPageChildVc: SISSearchPageVC!
+    
+    // associated views and controllers
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchPageContainer: UIView!
+    weak var searchPageChild: SISSearchPageVC?
     var searchController: UISearchController!
+    
+    // keyboard management
+    @IBOutlet weak var keyboardConstraint: NSLayoutConstraint!
+
+    // general constants
+    let cellID = "SISUsedCarTVCell"
+    let searchPageButtonSize = CGSize(width: 44.0, height: 44.0)
     let highlightedAttributes: [String : Any] = [NSForegroundColorAttributeName : UIColor.yellow,
                                                  NSFontAttributeName : UIFont.boldSystemFont(ofSize: 17)]
     
-    var activeContentStartIndex: Int {
-        return activeContentIndex * itemsPerSection
-    }
-    var activeContentEndIndex: Int {
-        return (activeContentIndex + 1) * itemsPerSection - 1
-    }
-    var activeContent: [SISUsedCar] {
-        return Array(content[activeContentStartIndex...activeContentEndIndex])
-    }
+    // networking
+    let dataService = SISUsedCarDataService()
+    let imageService = SISUsedCarImageService()
     
-    @IBOutlet weak var tableView: UITableView!
+    // general, unfiltered search
+    var allContent = [SISUsedCar]()
+    var allContentActivePage: Int = 0
+    let allContentItemsPerPage: Int = 10
+    
+    // filtered search
+    var filteredContent = [FilteredCar]()
+    var filteredContentActivePage: Int = 0
+    let filteredContentItemsPerPage: Int = 10
+    
+    // search bar restoration
+    var searchBarRestorationText: String?
     
     // MARK: - View Life Cycle
     
@@ -59,7 +50,7 @@ class SISUsedCarVC: UIViewController {
         super.viewDidLoad()
         
         // vc config
-        title = "Used Cars"
+        title = "Used Auto"
         
         // table view configuration
         tableView.dataSource = self
@@ -77,131 +68,133 @@ class SISUsedCarVC: UIViewController {
         sc.dimsBackgroundDuringPresentation = false
         sc.hidesNavigationBarDuringPresentation = true
         tableView.tableHeaderView = sc.searchBar
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        // initial car download
-        if content.count == 0 {
-            getAll()
-        }
-    }
-    
-    func getAll() {
-        dataService.GET_all(completion: { (cars, _) in
-            
-            if let cars = cars {
-                self.content = cars
-
-                DispatchQueue.main.async {
-                    self.setupSearchPageStackTableFooter()
-                    self.tableView.reloadData()
-                }
-            }
-        })
-    }
-    
-    func setupSearchPageStackTableFooter() {
-        // add search page vc's view to footer
-        let childVC = SISSearchPageVC(
-            totalItemCount: content.count,
-            itemsPerSection: itemsPerSection,
-            buttonSize: searchPageButtonSize,
-            delegate: self)
-        addChildViewController(childVC)
-        let container = UIView()
-        container.addBoundsFillingSubview(childVC.view)
-        tableView.tableFooterView = container
-        configureTableFooterViewFrame(isShowing: true)
-        childVC.didMove(toParentViewController: self)
-        searchPageChildVc = childVC
-        childVC.giveButtonSelectedAppearance(titleNumber: activeContentIndex)
-    }
-    
-    func getMainImageForCar(_ car: SISUsedCar, indexPath: IndexPath, requestContentIndex: Int) {
-        let userInfo: [String:Any] = ["indexPath" : indexPath,
-                                      "requestContentIndex" : requestContentIndex]
         
-        imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { (success, userInfo) in
-            guard let ip = userInfo["indexPath"] as? IndexPath,
-                let requestContentIndex = userInfo["requestContentIndex"] as? Int else {
-                return
-            }
-            
-            if self.activeContentIndex == requestContentIndex {
+        // keyboard notification config
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow(notification:)),
+            name: .UIKeyboardWillShow,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide(notification:)),
+            name: .UIKeyboardWillHide,
+            object: nil)
+
+        // initial networking
+        dataService.GET_all(completion: { (cars, _) in
+            if let cars = cars {
+                self.allContent = cars
                 DispatchQueue.main.async {
-                    self.tableView.reloadRows(at: [ip], with: .none)
-                }
-            }
- 
-            if success == false {
-                print("image download not successful for car: \(car.shortDescription)")
-                if let mainImageUrl = car.images.first?.fullPath {
-                    print("main image path: \(mainImageUrl)")
-                } else {
-                    print("no main image url")
+                    self.tableView.reloadData()
+                    
+                    // search page child config
+                    let childVC = SISSearchPageVC(
+                        totalItemCount: self.allContent.count,
+                        itemsPerPage: self.allContentItemsPerPage,
+                        buttonSize: self.searchPageButtonSize,
+                        delegate: self)
+                    self.addChildViewController(childVC)
+                    self.searchPageContainer.addBoundsFillingSubview(childVC.view)
+                    childVC.didMove(toParentViewController: self)
+                    self.searchPageChild = childVC
+                    childVC.giveButtonSelectedAppearance(pageNumber: self.allContentActivePage)
                 }
             }
         })
     }
-    
-    func fetchAllMainImages() {
-        for car in content {
-            guard let ip = mapping[car.id] else {
-                continue
-            }
-            let userInfo: [String:Any] = ["indexPath" : ip]
-            
-            imageService.GET_mainImage(forUsedCar: car, userInfo: userInfo, completion: { (success, userInfo) in
-                guard let ip = userInfo["indexPath"] as? IndexPath else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    self.tableView.reloadRows(at: [ip], with: .none)
-                }
-                if success == false {
-                    print("image download not successful for car: \(car.shortDescription)")
-                    if let mainImageUrl = car.images.first?.fullPath {
-                        print("main image path: \(mainImageUrl)")
-                    } else {
-                        print("no main image url")
-                    }
-                }
-            })
+        
+    override func viewDidAppear(_ animated: Bool) {
+        // search bar restoration
+        if let text = searchBarRestorationText {
+            searchController.searchBar.text = text
         }
+        // configure search bar
+        configureSearchPage(forFiltered: false)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetail" {
-            searchController.isActive = false
-            let detailVC = segue.destination as! SISUsedCarDetailVC
-            detailVC.usedCar = selectedCar!
-        }
+    // MARK: - Networking
+    
+    func getMainImageForCar(_ car: SISUsedCar) {
+        imageService.GET_mainImage(
+            forUsedCar: car,
+            userInfo: [:],
+            completion: { _ in })
     }
     
-    func numberOfRowsForActiveContentIndex(_ aci: Int) -> Int {
-        switch searchController.isActive {
-        case false:
-            if aci * (itemsPerSection + 1) < content.count {
-                return itemsPerSection
-            } else {
-                return content.count - aci * itemsPerSection
-            }
-            
+    // MARK: - Table View Helpers
+    
+    func numberOfRows(forPageIndex pageIndex: Int, itemsPerPage: Int, totalItemCount totalCount: Int) -> Int {
+        let itemCount: Int
+        if (pageIndex + 1) * itemsPerPage <= totalCount {
+            itemCount = itemsPerPage
+        } else {
+            itemCount = totalCount - pageIndex * itemsPerPage
+        }
+        return itemCount
+    }
+    
+    func mappedIndex(forPageIndex pageIndex: Int, itemsPerPage: Int, indexPath: IndexPath) -> Int {
+        return pageIndex * itemsPerPage + indexPath.row
+    }
+    
+    // MARK: - Search Page Convenience
+    func configureSearchPage(forFiltered filtered: Bool) {
+        switch filtered {
         case true:
-            return filteredContent.count
+            searchPageChild?.configure(
+                totalItemCount: filteredContent.count,
+                itemsPerPage: filteredContentItemsPerPage)
+            searchPageChild?.giveButtonSelectedAppearance(pageNumber: 0)
+            filteredContentActivePage = 0
+            
+        case false:
+            searchPageChild?.configure(
+                totalItemCount: allContent.count,
+                itemsPerPage: allContentItemsPerPage)
+            searchPageChild?.giveButtonSelectedAppearance(pageNumber: allContentActivePage)
         }
     }
     
-    func configureTableFooterViewFrame(isShowing: Bool) {
-        switch isShowing {
-        case true:
-             let rect = CGRect(
-                origin: .zero,
-                size: CGSize(width: tableView.bounds.size.width, height: 70))
-             tableView.tableFooterView?.frame = rect
-        case false:
-            tableView.tableFooterView?.frame = .zero
+    // MARK: - Keyboard / View Layout Management
+    func keyboardWillShow(notification: Notification) {
+        guard
+            let finishRect = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect,
+            let animationCurveConstant = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber,
+            let animationDuration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
+                return
         }
+        let vertDispl: CGFloat = finishRect.height
+        keyboardConstraint.constant = vertDispl
+        
+        let animationOption = UIViewAnimationOptions(rawValue: UInt(animationCurveConstant))
+        UIView.animate(
+            withDuration: TimeInterval(animationDuration),
+            delay: 0.0,
+            options: animationOption,
+            animations: {
+                self.view.layoutIfNeeded()
+        },
+            completion: nil)
+    }
+    
+    func keyboardWillHide(notification: Notification) {
+        guard
+            let animationCurveConstant = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber,
+            let animationDuration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber else {
+                return
+        }
+        keyboardConstraint.constant = 0.0
+        let animationOption = UIViewAnimationOptions(rawValue: UInt(animationCurveConstant))
+        UIView.animate(
+            withDuration: TimeInterval(animationDuration),
+            delay: 0.0,
+            options: animationOption,
+            animations: {
+                self.view.layoutIfNeeded()
+        },
+            completion: nil)
     }
 }
 

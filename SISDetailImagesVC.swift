@@ -38,9 +38,9 @@ class SISDetailImagesVC: UIViewController {
         super.viewDidLoad()
         
         // get all images
-        var userInfo: [String:Any] = [:]
-        imageService.GET_allImages(forUsedCar: usedCar, userInfo: &userInfo, completion: { (success, userInfo) in
-            guard let row = userInfo["order"] as? Int else {
+        let userInfo: [String:Any] = [:]
+        imageService.GET_allImages(forUsedCar: usedCar, userInfo: userInfo, completion: { info in
+            guard let row = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
                 return
             }
             let ip = IndexPath(row: row, section: 0)
@@ -104,9 +104,9 @@ extension SISDetailImagesVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageCollection.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! SISUsedCarDetailCVCell
-        cell.imageView.layer.borderColor = UIColor.black.cgColor
-        cell.imageView.layer.borderWidth = 2.0
-        cell.imageView.image = usedCar.images[indexPath.row].image
+//        cell.imageView.layer.borderColor = UIColor.black.cgColor
+//        cell.imageView.layer.borderWidth = 2.0
+//        cell.imageView.image = usedCar.images[indexPath.row].image
         return cell
     }
 }
