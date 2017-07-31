@@ -83,9 +83,25 @@ class SISUsedCarDetailCVCell: UICollectionViewCell {
     }
     
     @objc private func didDownloadSupplementaryImage(notification: Notification) {
-        print("did download supplementary image")
-    }
+        guard let info = notification.userInfo as? [String:Any],
+            let notificationIndex = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
+                return
+        }
+        
+        if notificationIndex == imageIndex {
+            if let image = info[SISUsedCarImageService.InfoKeys.image.rawValue] as? UIImage {
+                DispatchQueue.main.async {
+                    self.configureImage(image)
+                }
+                
+            } else {
+                DispatchQueue.main.async {
+                    self.showNoImageAvailable()
+                }
 
+            }
+        }
+    }
 }
 
 

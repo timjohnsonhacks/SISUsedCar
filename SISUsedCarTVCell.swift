@@ -20,20 +20,6 @@ class SISUsedCarTVCell: UITableViewCell {
     @IBOutlet private weak var mileageContainer: UIView!
     
     private weak var gradient: CAGradientLayer!
-    
-    public var car: SISUsedCar! {
-        willSet {
-            NotificationCenter.default.removeObserver(self)
-        }
-        
-        didSet {
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(didDownloadMainImage(notification:)),
-                name: Notification.Name.didDownloadMainImage,
-                object: car)
-        }
-    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -70,9 +56,21 @@ class SISUsedCarTVCell: UITableViewCell {
     
     // MARK: - Notifications
     
+    public func configureNotificationsForCar(usedCar: SISUsedCar) {
+        NotificationCenter.default.removeObserver(self)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didDownloadMainImage(notification:)),
+            name: Notification.Name.didDownloadMainImage,
+            object: usedCar)
+    }
+    
     @objc private func didDownloadMainImage(notification: Notification) {
-        print("did download main image")
-        if let main = car.images[0].image {
+        guard let info = notification.userInfo as? [String : Any] else {
+            return
+        }
+        if let main = info[SISUsedCarImageService.InfoKeys.image.rawValue] as? UIImage {
             DispatchQueue.main.async {
                 self.downloadingImageView.configureImage(main)
             }
@@ -82,14 +80,10 @@ class SISUsedCarTVCell: UITableViewCell {
                 self.downloadingImageView.showNoImageAvailable()
             }
         }
-        guard let info = notification.userInfo as? [String:Any],
-            let success = info["success"] as? Bool else {
-                print("could not decompose info dictionary")
-                return
-        }
-        print("success: \(success)")
     }
 
+    // MARK: - Configuration
+    
     public func configure(yearMakeModel: String, isSold: Bool, price: String, mileage: String) {
         yearMakeModelLabel.text = yearMakeModel
         priceLabel.text = price

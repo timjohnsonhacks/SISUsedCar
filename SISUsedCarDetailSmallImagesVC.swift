@@ -34,18 +34,6 @@ class SISUsedCarDetailSmallImagesVC: UIViewController, DetailSmallImageProtocol 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // get all images
-//        let userInfo: [String:Any] = [:]
-//        imageService.GET_allImages(forUsedCar: usedCar, userInfo: userInfo, completion: { info in
-//            guard let row = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
-//                return
-//            }
-//            let ip = IndexPath(row: row, section: 0)
-//            DispatchQueue.main.async {
-//                self.collectionView.reloadItems(at: [ip])
-//            }
-//        })
-        
         // collection view config
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -90,19 +78,33 @@ extension SISUsedCarDetailSmallImagesVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let count = usedCar.images.count
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! SISUsedCarDetailCVCell
+        cell.configureNotificationsForCar(
+            usedCar: usedCar,
+            imageIndex: indexPath.row)
         if count > 0 {
+            guard usedCar.images.count - 1 >= indexPath.row else {
+                return cell
+            }
+            let container = usedCar.images[indexPath.row]
             if let image = usedCar.images[indexPath.row].image {
                 cell.configureImage(image)
                 
-            } else {
+            } else if container.downloadAttemptFailed == false {
                 cell.showActivityIndicator()
+                imageService.GET_image(
+                    forUsedCar: usedCar,
+                    imageIndex: indexPath.row,
+                    userInfo: [:],
+                    completion: { _ in })
+                
+            } else {
+                cell.showNoImageAvailable()
+                
             }
-            cell.configureBorder(false)
             
         } else {
             cell.showNoImageAvailable()
         }
-
         return cell
     }
 }

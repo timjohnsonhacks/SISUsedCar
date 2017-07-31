@@ -34,18 +34,6 @@ class SISUsedCarDetailLargeImageVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // get all images
-//        let userInfo: [String:Any] = [:]
-//        imageService.GET_allImages(forUsedCar: usedCar, userInfo: userInfo, completion: { info in
-//            guard let row = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
-//                return
-//            }
-//            let ip = IndexPath(row: row, section: 0)
-//            DispatchQueue.main.async {
-//                self.collectionView.reloadItems(at: [ip])
-//            }
-//        })
         
         // collection view config
         collectionView.dataSource = self
@@ -174,3 +162,10 @@ extension SISUsedCarDetailLargeImageVC: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
     }
 }
+
+
+
+
+
+
+
