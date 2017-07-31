@@ -71,12 +71,33 @@ extension SISUsedCarDetailLargeImageVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let count = usedCar.images.count
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! SISUsedCarDetailCVCell
+        cell.configureNotificationsForCar(
+            usedCar: usedCar,
+            imageIndex: indexPath.row)
         if count > 0 {
-            cell.imageView.image = usedCar.images[indexPath.row].image
-            cell.configureBorder(true)
+            guard usedCar.images.count - 1 >= indexPath.row else {
+                print("index out of range")
+                return cell
+            }
+            let container = usedCar.images[indexPath.row]
+            if let image = usedCar.images[indexPath.row].image {
+                cell.configureImage(image)
+                
+            } else if container.downloadAttemptFailed == false {
+                cell.showActivityIndicator()
+                imageService.GET_image(
+                    forUsedCar: usedCar,
+                    imageIndex: indexPath.row,
+                    userInfo: [:],
+                    completion: { _ in })
+                
+            } else {
+                cell.showNoImageAvailable()
+        
+            }
             
         } else {
-            cell.imageView.backgroundColor = UIColor.red
+            cell.showNoImageAvailable()
         }
         return cell
     }

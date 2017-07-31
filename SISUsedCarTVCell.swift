@@ -46,6 +46,9 @@ class SISUsedCarTVCell: UITableViewCell {
         isSoldLabel.font = UIFont.boldSystemFont(ofSize: 15)
         isSoldLabel.textColor = UIColor.white
         
+        downloadingImageView.layer.masksToBounds = true
+        downloadingImageView.layer.cornerRadius = 8.0
+        
         let containers = [priceContainer, mileageContainer]
         for cont in containers {
             cont?.layer.borderColor = UIColor.black.cgColor

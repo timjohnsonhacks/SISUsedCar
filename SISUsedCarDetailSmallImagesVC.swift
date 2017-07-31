@@ -91,11 +91,16 @@ extension SISUsedCarDetailSmallImagesVC: UICollectionViewDataSource {
         let count = usedCar.images.count
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! SISUsedCarDetailCVCell
         if count > 0 {
-            cell.imageView.image = usedCar.images[indexPath.row].image
+            if let image = usedCar.images[indexPath.row].image {
+                cell.configureImage(image)
+                
+            } else {
+                cell.showActivityIndicator()
+            }
             cell.configureBorder(false)
             
         } else {
-            cell.imageView.backgroundColor = UIColor.red
+            cell.showNoImageAvailable()
         }
 
         return cell

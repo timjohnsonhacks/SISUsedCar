@@ -104,9 +104,9 @@ extension SISDetailImagesVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageCollection.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! SISUsedCarDetailCVCell
-        cell.imageView.layer.borderColor = UIColor.black.cgColor
-        cell.imageView.layer.borderWidth = 2.0
-        cell.imageView.image = usedCar.images[indexPath.row].image
+//        cell.imageView.layer.borderColor = UIColor.black.cgColor
+//        cell.imageView.layer.borderWidth = 2.0
+//        cell.imageView.image = usedCar.images[indexPath.row].image
         return cell
     }
 }

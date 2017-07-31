@@ -10,6 +10,7 @@ import UIKit
 
 extension Notification.Name {
     static let didDownloadMainImage = Notification.Name("did download main image")
+    static let didDownloadSupplementaryImage = Notification.Name("did download supplementary image")
 }
 
 public class SISUsedCarImageService {
@@ -24,14 +25,14 @@ public class SISUsedCarImageService {
     
     public func GET_mainImage(forUsedCar usedCar: SISUsedCar, userInfo: [String:Any], completion: @escaping([String:Any]) -> Void ) {
         /* downloads main image and sets appropriate image on passed-in used car. Returns success and passed-in user info. Clients should provide user info to satisfy their own mapping needs */
-        if let imageContainer = usedCar.images.first, imageContainer.image == nil {
+//        if let imageContainer = usedCar.images.first, imageContainer.image == nil {
             GET_image(
                 forUsedCar: usedCar,
                 imageIndex: 0,
                 userInfo: userInfo,
                 completion: completion
             )
-        }
+//        }
     }
     
     public func GET_allImages(forUsedCar usedCar: SISUsedCar, userInfo: [String:Any], completion: @escaping ([String : Any]) -> Void) {
@@ -48,7 +49,7 @@ public class SISUsedCarImageService {
         }
     }
     
-    private func GET_image(forUsedCar usedCar: SISUsedCar, imageIndex: Int, userInfo: [String:Any], completion: @escaping([String : Any]) -> Void) {
+    public func GET_image(forUsedCar usedCar: SISUsedCar, imageIndex: Int, userInfo: [String:Any], completion: @escaping([String : Any]) -> Void) {
         /* downloads the image at the specified index and sets on passed-in used car. Returns dictionary of info for use by the client */
         // make sure passed in index is a valid image index
         let limit = usedCar.images.count
@@ -78,13 +79,20 @@ public class SISUsedCarImageService {
                 returnDict[InfoKeys.success.rawValue] = false
             }
             
+            // notifications
             if imageIndex == 0 {
                 NotificationCenter.default.post(
                     name: Notification.Name.didDownloadMainImage,
                     object: usedCar,
                     userInfo: returnDict)
+            } else {
+                NotificationCenter.default.post(
+                    name: Notification.Name.didDownloadSupplementaryImage,
+                    object: usedCar,
+                    userInfo: returnDict)
             }
   
+            // completion
             completion(returnDict)
         })
     

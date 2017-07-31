@@ -10,17 +10,29 @@ import UIKit
 
 class SISUsedCarDetailCVCell: UICollectionViewCell {
     
-    weak var imageView: UIImageView!
+    weak var downloadImageView: SISDownloadImageView!
+    private var imageIndex: Int!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         
+        commonInit()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func commonInit() {
         /* create views programatically. Xib is useless because it gives you no access to the contentView, which is the superview for normally displayed content */
-        let iv = UIImageView(image: nil)
-        contentView.addBoundsFillingSubview(iv)
-        imageView = iv
-        imageView.contentMode = .scaleAspectFit
-
+        let dv = SISDownloadImageView(frame: .zero)
+        contentView.addBoundsFillingSubview(dv)
+        downloadImageView = dv
         
         layoutMargins = .zero
     }
@@ -28,20 +40,60 @@ class SISUsedCarDetailCVCell: UICollectionViewCell {
     func configureBorder(_ border: Bool) {
         switch border {
         case true:
-            imageView.layer.masksToBounds = true
-            imageView.layer.cornerRadius = 8.0
-            imageView.layer.borderColor = UIColor.darkGray.cgColor
-            imageView.layer.borderWidth = 2.0
+            downloadImageView.layer.masksToBounds = true
+            downloadImageView.layer.cornerRadius = 8.0
+            downloadImageView.layer.borderColor = UIColor.darkGray.cgColor
+            downloadImageView.layer.borderWidth = 2.0
             
         case false:
-            imageView.layer.masksToBounds = false
-            imageView.layer.cornerRadius = 0.0
-            imageView.layer.borderColor = UIColor.clear.cgColor
-            imageView.layer.borderWidth = 0.0
+            downloadImageView.layer.masksToBounds = false
+            downloadImageView.layer.cornerRadius = 0.0
+            downloadImageView.layer.borderColor = UIColor.clear.cgColor
+            downloadImageView.layer.borderWidth = 0.0
         }
     }
-
-    required init?(coder: NSCoder) {
-        fatalError()
+    
+    public func configureImage(_ image: UIImage) {
+        downloadImageView.configureImage(image)
     }
+    
+    public func showActivityIndicator() {
+        downloadImageView.showActivityIndicator()
+    }
+    
+    public func showNoImageAvailable() {
+        downloadImageView.showNoImageAvailable()
+    }
+    
+    public func reset() {
+        downloadImageView.reset()
+    }
+    
+    // MARK: - Notifications
+    
+    public func configureNotificationsForCar(usedCar: SISUsedCar, imageIndex: Int) {
+        NotificationCenter.default.removeObserver(self)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didDownloadSupplementaryImage(notification:)),
+            name: Notification.Name.didDownloadSupplementaryImage,
+            object: usedCar)
+        self.imageIndex = imageIndex
+    }
+    
+    @objc private func didDownloadSupplementaryImage(notification: Notification) {
+        print("did download supplementary image")
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
