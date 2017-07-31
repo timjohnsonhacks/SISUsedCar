@@ -39,11 +39,9 @@ extension SISUsedCarVC: UITableViewDataSource {
         cell.reset()
      
         let car: SISUsedCar
-        let activePage: Int
         switch searchController.isActive {
         case true:
             // filtered search
-            activePage = filteredContentActivePage
             let index = mappedIndex(
                 forPageIndex: filteredContentActivePage,
                 itemsPerPage: filteredContentItemsPerPage,
@@ -59,7 +57,6 @@ extension SISUsedCarVC: UITableViewDataSource {
         
         case false:
             // general, unfiltered search
-            activePage = allContentActivePage
             let index = mappedIndex(
                 forPageIndex: allContentActivePage,
                 itemsPerPage: allContentItemsPerPage,
@@ -73,11 +70,10 @@ extension SISUsedCarVC: UITableViewDataSource {
                 mileage: car.mileage.commaDelimitedRepresentation())
         }
         
-        cell.car = car
+        cell.configureNotificationsForCar(usedCar: car)
 
         /* if there is an image, show it. If the download has not yet been attempted, attempt it. If the download has already been attempted and failed, show the error view in the cell */
         guard let container = car.images.first else {
-            print("first image container does not exist: \(indexPath)")
             cell.showNoImageAvailable()
             return cell
         }
@@ -88,7 +84,6 @@ extension SISUsedCarVC: UITableViewDataSource {
         } else {
             if container.downloadAttemptFailed == false {
                 cell.showActivityIndicator()
-                print("page: \(activePage), (requesting image for cell at: \(indexPath)")
                 getMainImageForCar(car)
                 
             } else {

@@ -8,16 +8,15 @@
 
 import UIKit
 
-protocol DetailImagesMasterProtocol {
-    func largeImageCollectionViewOffsetDidUpdate(percentageTranslation: CGFloat)
-    func userDidTapSmallImageCollectionView(indexPath: IndexPath)
+protocol DetailImagesMaster {
+    func didSelectImage(indexPath: IndexPath)
 }
 
-protocol DetailSmallImageProtocol {
-    func updateCollectionViewOffset(percentageTranslation: CGFloat)
+protocol DependentDetailImages {
+    func updateCollectionView(indexPath: IndexPath)
 }
 
-class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
+class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
     
     @IBOutlet weak var contentContainer: UIView!
     @IBOutlet weak var yearMakeModelLabel: UILabel!
@@ -57,7 +56,7 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
         gradient = gbv
         
         // image child vc's
-        let largeImageVC = SISUsedCarDetailLargeImageVC(usedCar: usedCar, delegate: self)
+        let largeImageVC = SISUsedCarDetailLargeImageVC(usedCar: usedCar)
         let smallImagesVC = SISUsedCarDetailSmallImagesVC(usedCar: usedCar, delegate: self)
         addChildViewController(largeImageVC)
         addChildViewController(smallImagesVC)
@@ -185,12 +184,9 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMasterProtocol {
     }
     
     // MARK: - Detail Large Image Delegate
-    func largeImageCollectionViewOffsetDidUpdate(percentageTranslation: CGFloat) {
-        smallImagesChild.updateCollectionViewOffset(percentageTranslation: percentageTranslation)
-    }
     
-    func userDidTapSmallImageCollectionView(indexPath: IndexPath) {
-        largeImageChild.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    func didSelectImage(indexPath: IndexPath) {
+        largeImageChild.updateCollectionView(indexPath: indexPath)
     }
 }
 

@@ -10,6 +10,10 @@ import UIKit
 
 class SISUsedCarDetailCVCell: UICollectionViewCell {
     
+    enum Appearance {
+        case Default, Border, Selected
+    }
+    
     weak var downloadImageView: SISDownloadImageView!
     private var imageIndex: Int!
     
@@ -37,19 +41,23 @@ class SISUsedCarDetailCVCell: UICollectionViewCell {
         layoutMargins = .zero
     }
     
-    func configureBorder(_ border: Bool) {
-        switch border {
-        case true:
+    func configureAppearance(_ appearance: Appearance) {
+        switch appearance {
+        case .Default:
+            downloadImageView.layer.masksToBounds = true
+            downloadImageView.layer.cornerRadius = 4.0
+            downloadImageView.layer.borderColor = UIColor.clear.cgColor
+            downloadImageView.layer.borderWidth = 0.0
+        case .Border:
             downloadImageView.layer.masksToBounds = true
             downloadImageView.layer.cornerRadius = 8.0
             downloadImageView.layer.borderColor = UIColor.darkGray.cgColor
             downloadImageView.layer.borderWidth = 2.0
-            
-        case false:
-            downloadImageView.layer.masksToBounds = false
-            downloadImageView.layer.cornerRadius = 0.0
-            downloadImageView.layer.borderColor = UIColor.clear.cgColor
-            downloadImageView.layer.borderWidth = 0.0
+        case .Selected:
+            downloadImageView.layer.masksToBounds = true
+            downloadImageView.layer.cornerRadius = 4.0
+            downloadImageView.layer.borderColor = UIColor.yellow.cgColor
+            downloadImageView.layer.borderWidth = 2.0
         }
     }
     
@@ -83,9 +91,25 @@ class SISUsedCarDetailCVCell: UICollectionViewCell {
     }
     
     @objc private func didDownloadSupplementaryImage(notification: Notification) {
-        print("did download supplementary image")
-    }
+        guard let info = notification.userInfo as? [String:Any],
+            let notificationIndex = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
+                return
+        }
+        
+        if notificationIndex == imageIndex {
+            if let image = info[SISUsedCarImageService.InfoKeys.image.rawValue] as? UIImage {
+                DispatchQueue.main.async {
+                    self.configureImage(image)
+                }
+                
+            } else {
+                DispatchQueue.main.async {
+                    self.showNoImageAvailable()
+                }
 
+            }
+        }
+    }
 }
 
 

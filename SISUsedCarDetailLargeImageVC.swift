@@ -16,13 +16,13 @@ class SISUsedCarDetailLargeImageVC: UIViewController {
     let usedCar: SISUsedCar
     let imageService = SISUsedCarImageService()
     let cellReuseId = "SISUsedCarDetailCVCell"
-    let delegate: DetailImagesMasterProtocol
+    
+    var activeIndex: Int = 0
     
     // MARK: - Instantiation
     
-    init(usedCar: SISUsedCar, delegate: DetailImagesMasterProtocol) {
+    init(usedCar: SISUsedCar) {
         self.usedCar = usedCar
-        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,18 +34,6 @@ class SISUsedCarDetailLargeImageVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // get all images
-//        let userInfo: [String:Any] = [:]
-//        imageService.GET_allImages(forUsedCar: usedCar, userInfo: userInfo, completion: { info in
-//            guard let row = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
-//                return
-//            }
-//            let ip = IndexPath(row: row, section: 0)
-//            DispatchQueue.main.async {
-//                self.collectionView.reloadItems(at: [ip])
-//            }
-//        })
         
         // collection view config
         collectionView.dataSource = self
@@ -54,9 +42,24 @@ class SISUsedCarDetailLargeImageVC: UIViewController {
         collectionView.backgroundColor = UIColor.clear
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.isScrollEnabled = true
+        collectionView.isScrollEnabled = false
         let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.scrollDirection = .horizontal
+    }
+}
+
+// MARK: - Dependent Detail Images
+
+extension SISUsedCarDetailLargeImageVC: DependentDetailImages {
+    
+    func updateCollectionView(indexPath: IndexPath) {
+        if indexPath.row != activeIndex {
+            collectionView.scrollToItem(
+                at: indexPath,
+                at: .centeredHorizontally,
+                animated: true)
+            activeIndex = indexPath.row
+        }
     }
 }
 
@@ -71,6 +74,7 @@ extension SISUsedCarDetailLargeImageVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let count = usedCar.images.count
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! SISUsedCarDetailCVCell
+        cell.configureAppearance(.Border)
         cell.configureNotificationsForCar(
             usedCar: usedCar,
             imageIndex: indexPath.row)
@@ -100,17 +104,6 @@ extension SISUsedCarDetailLargeImageVC: UICollectionViewDataSource {
             cell.showNoImageAvailable()
         }
         return cell
-    }
-}
-
-// MARK: - Collection View Delegate
-extension SISUsedCarDetailLargeImageVC: UICollectionViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let insets = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, insetForSectionAt: 0)
-        let xOffset = collectionView.contentOffset.x - insets.left
-        let xRange = collectionView.contentSize.width - insets.left - insets.right
-        delegate.largeImageCollectionViewOffsetDidUpdate(percentageTranslation: xOffset / xRange)
     }
 }
 
@@ -174,3 +167,10 @@ extension SISUsedCarDetailLargeImageVC: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
     }
 }
+
+
+
+
+
+
+
