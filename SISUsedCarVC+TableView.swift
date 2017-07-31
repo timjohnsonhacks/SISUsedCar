@@ -71,22 +71,26 @@ extension SISUsedCarVC: UITableViewDataSource {
                 isSold: car.isSold,
                 price: "$ " + car.price.commaDelimitedRepresentation(),
                 mileage: car.mileage.commaDelimitedRepresentation())
+            cell.car = car
         }
 
         /* if there is an image, show it. If the download has not yet been attempted, attempt it. If the download has already been attempted and failed, show the error view in the cell */
-        if let mainImage = car.images.first {
-            if let mainImage = mainImage.image {
-                cell.configure(image: mainImage)
+        guard let container = car.images.first else {
+            print("first image container does not exist: \(indexPath)")
+            return cell
+        }
+        
+        if let mainImage = container.image {
+            cell.configure(image: mainImage)
+            
+        } else {
+            if container.downloadAttemptFailed == false {
+                cell.showActivityIndicator()
+                print("page: \(activePage), (requesting image for cell at: \(indexPath)")
+                getMainImageForCar(car)
                 
             } else {
-                if mainImage.downloadAttemptFailed == false {
-                    cell.showActivityIndicator()
-                    print("page: \(activePage), (requesting image for cell at: \(indexPath)")
-                    getMainImageForCar(car, cell: cell)
-                    
-                } else {
-                    cell.showNoImageAvailable()
-                }
+                cell.showNoImageAvailable()
             }
         }
         

@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let didDownloadMainImage = Notification.Name("did download main image")
+}
+
 public class SISUsedCarImageService {
     
     enum InfoKeys: String {
@@ -54,6 +58,7 @@ public class SISUsedCarImageService {
         
         let imageContainer = usedCar.images[imageIndex]
         guard let url = URL(string: imageContainer.fullPath) else {
+            print("no url for \(usedCar.yearMakeModel)")
             return
         }
         
@@ -73,6 +78,13 @@ public class SISUsedCarImageService {
                 returnDict[InfoKeys.success.rawValue] = false
             }
             
+            if imageIndex == 0 {
+                NotificationCenter.default.post(
+                    name: Notification.Name.didDownloadMainImage,
+                    object: usedCar,
+                    userInfo: returnDict)
+            }
+  
             completion(returnDict)
         })
     

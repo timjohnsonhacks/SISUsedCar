@@ -22,6 +22,20 @@ class SISUsedCarTVCell: UITableViewCell {
     weak var activityView: UIActivityIndicatorView?
     weak var gradient: CAGradientLayer!
     weak var noImageLabel: UILabel?
+    
+    var car: SISUsedCar! {
+        willSet {
+            NotificationCenter.default.removeObserver(self)
+        }
+        
+        didSet {
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(didDownloadMainImage(notification:)),
+                name: Notification.Name.didDownloadMainImage,
+                object: car)
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -54,6 +68,28 @@ class SISUsedCarTVCell: UITableViewCell {
         bv.layer.addSublayer(gl)
         backgroundView = bv
         gradient = gl
+    }
+    
+    // MARK: - Notifications
+    
+    @objc private func didDownloadMainImage(notification: Notification) {
+        print("did download main image")
+        if let main = car.images[0].image {
+            DispatchQueue.main.async {
+                self.configure(image: main)
+            }
+            return
+        } else {
+            DispatchQueue.main.async {
+                self.showNoImageAvailable()
+            }
+        }
+        guard let info = notification.userInfo as? [String:Any],
+            let success = info["success"] as? Bool else {
+                print("could not decompose info dictionary")
+                return
+        }
+        print("success: \(success)")
     }
 
     func configure(yearMakeModel: String, isSold: Bool, price: String, mileage: String) {
