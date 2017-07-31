@@ -8,18 +8,21 @@
 
 import UIKit
 
-class SISUsedCarDetailSmallImagesVC: UIViewController, DetailSmallImageProtocol {
+class SISUsedCarDetailSmallImagesVC: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    weak var touchView: UIView! /* controls swiping events for the collection view */
     
     let usedCar: SISUsedCar
     let imageService = SISUsedCarImageService()
     let cellReuseId = "SISUsedCarDetailCVCell"
-    let delegate: DetailImagesMasterProtocol
+    let delegate: DetailImagesMaster
+    
+    var activeIndex: Int = 0
     
     // MARK: - Instantiation
     
-    init(usedCar: SISUsedCar, delegate: DetailImagesMasterProtocol) {
+    init(usedCar: SISUsedCar, delegate: DetailImagesMaster) {
         self.usedCar = usedCar
         self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
@@ -42,31 +45,123 @@ class SISUsedCarDetailSmallImagesVC: UIViewController, DetailSmallImageProtocol 
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isScrollEnabled = false
-        collectionView.layer.borderColor = UIColor.darkGray.cgColor
-        collectionView.layer.borderWidth = 1.0
         let flowLayout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         flowLayout.scrollDirection = .horizontal
+        
+        // touch view
+        let tv = UIView(frame: .zero)
+        view.addBoundsFillingSubview(tv)
+        view.bringSubview(toFront: tv)
+        touchView = tv
+        
+        let pan = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(didPan(pan:)))
+        touchView.addGestureRecognizer(pan)
+        
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(didTap(tap:)))
+        touchView.addGestureRecognizer(tap)
     }
     
-    // MARK: - Detail Image Collection View Protocol
-    func updateCollectionViewOffset(percentageTranslation: CGFloat) {
-        let xOffset = offset(fromPercentageTranslation: percentageTranslation)
-        collectionView.contentOffset = CGPoint(x: xOffset, y: 0)
+    // MARK: - Gesture Recognizers
+    
+    @objc private func didPan(pan: UIPanGestureRecognizer) {
+        /* move the collection view laterally within defined bounds smaller than the default content area. Blank space will never be shown to the right or left of images in the collection view */
+        let translation = pan.translation(in: view)
+        let xDelta = translation.x * -4.0
+        let finalX = collectionView.contentOffset.x + xDelta
+        let left = leftRoom()
+        let right = rightRoom()
+        
+        if ( xDelta > 0.0 && xDelta < right ) ||
+            (xDelta < 0.0 && xDelta * -1.0 < left ) {
+            collectionView.contentOffset = CGPoint(
+                x: finalX,
+                y: collectionView.contentOffset.y)
+            
+        } else if xDelta > 0.0 && xDelta > right {
+            collectionView.contentOffset = CGPoint(
+                x: collectionView.contentOffset.x + right,
+                y: collectionView.contentOffset.y)
+            
+        } else if xDelta < 0 && xDelta * -1.0 > left {
+            collectionView.contentOffset = CGPoint(
+                x: collectionView.contentOffset.x - left,
+                y: collectionView.contentOffset.y)
+        }
+        
+        pan.setTranslation(.zero, in: view)
+        updateDependentOffset()
     }
     
-    func offset(fromPercentageTranslation percentage: CGFloat) -> CGFloat {
-        return xRange() * percentage
+    private func leftRoom() -> CGFloat {
+        return collectionView.contentOffset.x
     }
     
-    func percentageTranslation(fromOffset x: CGFloat) -> CGFloat {
-        return x / xRange()
+    private func rightRoom() -> CGFloat {
+        return collectionView.contentSize.width - collectionView.bounds.width - collectionView.contentOffset.x
     }
     
-    func xRange() -> CGFloat {
-        let insets = self.collectionView(collectionView, layout: collectionView.collectionViewLayout, insetForSectionAt: 0)
-        return collectionView.contentSize.width - insets.left - insets.right
+    private func updateDependentOffset() {
+        let maxRestrictedOffset = collectionView.contentSize.width - collectionView.bounds.width
+        let offsetPercent = collectionView.contentOffset.x / maxRestrictedOffset
+        let count = collectionView.numberOfItems(inSection: 0)
+        var index: Int = Int(floor( CGFloat(count) * offsetPercent ))
+        if index == count {
+            index -= 1
+        }
+        let ip = IndexPath(row: index, section: 0)
+        delegate.didSelectImage(indexPath: ip)
+        selectCell(index: index)
+    }
+    
+    private func selectCell(index: Int) {
+        let previousPath = IndexPath(row: self.activeIndex, section: 0)
+        if let previousCell = collectionView.cellForItem(at: previousPath) as? SISUsedCarDetailCVCell {
+            previousCell.configureAppearance(.Default)
+        }
+        let currentPath = IndexPath(row: index, section: 0)
+        if let currentCell = collectionView.cellForItem(at: currentPath) as? SISUsedCarDetailCVCell {
+            currentCell.configureAppearance(.Selected)
+        }
+        activeIndex = index
+    }
+    
+    @objc private func didTap(tap: UITapGestureRecognizer) {
+        /* use hit testing and recursion to find the tapped cell, if there is one. Report the tapped cell to the delegate */
+        let cvPoint = tap.location(in: collectionView)
+        let hitTestView = collectionView.hitTest(cvPoint, with: nil)
+        if var htv = hitTestView {
+            while true {
+                if let hitTestCell = htv as? SISUsedCarDetailCVCell {
+                    if let ip = collectionView.indexPath(for: hitTestCell) {
+                        // configure selected appearance and update state
+                        selectCell(index: ip.row)
+                        
+                        // call delegate
+                        delegate.didSelectImage(indexPath: ip)
+                    }
+                    return
+                }
+                
+                if htv === collectionView {
+                    return
+                    
+                } else {
+                    if let sv = htv.superview {
+                        htv = sv
+                    } else {
+                        return
+                    }
+                }
+            }
+        }
     }
 }
+
+// MARK: - Collection View Data Source
 
 extension SISUsedCarDetailSmallImagesVC: UICollectionViewDataSource {
     
@@ -78,6 +173,8 @@ extension SISUsedCarDetailSmallImagesVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let count = usedCar.images.count
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! SISUsedCarDetailCVCell
+        let appearance = indexPath.row == activeIndex ? SISUsedCarDetailCVCell.Appearance.Selected : SISUsedCarDetailCVCell.Appearance.Default
+        cell.configureAppearance(appearance)
         cell.configureNotificationsForCar(
             usedCar: usedCar,
             imageIndex: indexPath.row)
@@ -109,11 +206,7 @@ extension SISUsedCarDetailSmallImagesVC: UICollectionViewDataSource {
     }
 }
 
-extension SISUsedCarDetailSmallImagesVC: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate.userDidTapSmallImageCollectionView(indexPath: indexPath)
-    }
-}
+// MARK: - Collection View Delegate Flow Layout
 
 extension SISUsedCarDetailSmallImagesVC: UICollectionViewDelegateFlowLayout {
     
@@ -141,21 +234,10 @@ extension SISUsedCarDetailSmallImagesVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.5
+        return 16.0
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let leftCellSize = self.collectionView(collectionView,
-                                               layout: collectionView.collectionViewLayout,
-                                               sizeForItemAt: IndexPath(row: 0, section: 0))
-        let leftInset = (collectionView.bounds.size.width - leftCellSize.width) / 2.0
-        
-        let rightLimit = self.collectionView(collectionView, numberOfItemsInSection: 0) - 1
-        let rightCellSize = self.collectionView(collectionView,
-                                                layout: collectionView.collectionViewLayout,
-                                                sizeForItemAt: IndexPath(row: rightLimit, section: 0))
-        let rightInset = (collectionView.bounds.size.width - rightCellSize.width) / 2.0
-        
-        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: rightInset)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 }
