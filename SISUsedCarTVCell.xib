@@ -17,16 +17,9 @@
             <rect key="frame" x="0.0" y="0.0" width="535" height="211"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="535" height="210"/>
+                <rect key="frame" x="0.0" y="0.0" width="535" height="211"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cvz-0r-XM1">
-                        <rect key="frame" x="8" y="8" width="259" height="194.5"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="cvz-0r-XM1" secondAttribute="height" multiplier="773:580" id="b7M-Zb-sU3"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="is Sold" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PYQ-1J-MW1" customClass="CustomIsSoldLabel" customModule="SISUsedCar" customModuleProvider="target">
                         <rect key="frame" x="476" y="8" width="51" height="21"/>
                         <color key="backgroundColor" red="0.28314797266096203" green="0.035868790838650397" blue="0.28706518665158376" alpha="0.0" colorSpace="calibratedRGB"/>
@@ -35,22 +28,22 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year Make Model" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S7n-ym-wmb">
-                        <rect key="frame" x="277" y="75" width="250" height="21"/>
+                        <rect key="frame" x="287" y="75" width="240" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9rc-e0-6an">
-                        <rect key="frame" x="277" y="106" width="125" height="86.5"/>
+                        <rect key="frame" x="287" y="106" width="120" height="86.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNj-fx-d6n">
-                                <rect key="frame" x="47.5" y="62" width="31.5" height="14.5"/>
+                                <rect key="frame" x="44.5" y="62" width="31.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$$$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Naz-Gn-nA0">
-                                <rect key="frame" x="48.5" y="24.5" width="28.5" height="18"/>
+                                <rect key="frame" x="46.5" y="24.5" width="28.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -65,16 +58,16 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="faO-w0-acb">
-                        <rect key="frame" x="402" y="106" width="125" height="86.5"/>
+                        <rect key="frame" x="407" y="106" width="120" height="86.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mileage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="obK-1e-XDB">
-                                <rect key="frame" x="39.5" y="62" width="47.5" height="14.5"/>
+                                <rect key="frame" x="37" y="62" width="47.5" height="14.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="miles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YdK-br-0Zn">
-                                <rect key="frame" x="44.5" y="24.5" width="36" height="18"/>
+                                <rect key="frame" x="42" y="24.5" width="36" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -88,29 +81,36 @@
                             <constraint firstItem="YdK-br-0Zn" firstAttribute="centerX" secondItem="faO-w0-acb" secondAttribute="centerX" id="tG0-aS-IdY"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lR0-ya-Ldf" customClass="SISDownloadImageView" customModule="SISUsedCar" customModuleProvider="target">
+                        <rect key="frame" x="18" y="8" width="259" height="194.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="lR0-ya-Ldf" secondAttribute="height" multiplier="773:580" id="hjN-p8-5dr"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.059740461104971672" green="0.27186822761507101" blue="0.28492175716440427" alpha="0.0" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="S7n-ym-wmb" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-20" id="1cQ-VZ-zhh"/>
                     <constraint firstItem="faO-w0-acb" firstAttribute="leading" secondItem="9rc-e0-6an" secondAttribute="trailing" id="5tc-Uf-uyh"/>
                     <constraint firstItem="9rc-e0-6an" firstAttribute="top" secondItem="S7n-ym-wmb" secondAttribute="bottom" constant="10" id="Cft-zp-VwR"/>
+                    <constraint firstItem="S7n-ym-wmb" firstAttribute="leading" secondItem="lR0-ya-Ldf" secondAttribute="trailing" constant="10" id="DYy-fp-qwV"/>
                     <constraint firstItem="PYQ-1J-MW1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="DlY-Ww-e58"/>
                     <constraint firstAttribute="trailingMargin" secondItem="S7n-ym-wmb" secondAttribute="trailing" id="SlX-qV-kFf"/>
-                    <constraint firstItem="cvz-0r-XM1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Ssf-vG-r6v"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="lR0-ya-Ldf" secondAttribute="bottom" id="UQA-Oq-bRR"/>
                     <constraint firstItem="faO-w0-acb" firstAttribute="bottom" secondItem="9rc-e0-6an" secondAttribute="bottom" id="cLy-1a-WhU"/>
-                    <constraint firstItem="S7n-ym-wmb" firstAttribute="leading" secondItem="cvz-0r-XM1" secondAttribute="trailing" constant="10" id="eEh-WB-g0S"/>
+                    <constraint firstItem="lR0-ya-Ldf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="cue-9A-UuW"/>
                     <constraint firstItem="faO-w0-acb" firstAttribute="width" secondItem="9rc-e0-6an" secondAttribute="width" id="j5K-5q-sRu"/>
                     <constraint firstItem="9rc-e0-6an" firstAttribute="leading" secondItem="S7n-ym-wmb" secondAttribute="leading" id="kNs-gJ-W8Y"/>
-                    <constraint firstItem="cvz-0r-XM1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="ktQ-eq-jfi"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="cvz-0r-XM1" secondAttribute="bottom" id="m75-eA-UG6"/>
                     <constraint firstItem="faO-w0-acb" firstAttribute="trailing" secondItem="S7n-ym-wmb" secondAttribute="trailing" id="nZ7-WV-P1C"/>
                     <constraint firstAttribute="trailingMargin" secondItem="PYQ-1J-MW1" secondAttribute="trailing" id="pmm-vj-MFT"/>
+                    <constraint firstItem="lR0-ya-Ldf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="uSB-fj-HrY"/>
                     <constraint firstAttribute="bottomMargin" secondItem="9rc-e0-6an" secondAttribute="bottom" constant="10" id="wSQ-4F-yXi"/>
                     <constraint firstItem="faO-w0-acb" firstAttribute="top" secondItem="9rc-e0-6an" secondAttribute="top" id="zsl-Ts-hWZ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="carImageView" destination="cvz-0r-XM1" id="CzO-BS-bd7"/>
+                <outlet property="downloadingImageView" destination="lR0-ya-Ldf" id="cvE-zf-74E"/>
                 <outlet property="isSoldLabel" destination="PYQ-1J-MW1" id="XlV-Ar-pkC"/>
                 <outlet property="mileageContainer" destination="faO-w0-acb" id="ifJ-tC-19n"/>
                 <outlet property="mileageLabel" destination="YdK-br-0Zn" id="dgd-TW-Wjf"/>

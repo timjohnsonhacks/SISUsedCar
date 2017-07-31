@@ -11,19 +11,17 @@ import CoreGraphics
 
 class SISUsedCarTVCell: UITableViewCell {
     
-    @IBOutlet weak var carImageView: UIImageView!
-    @IBOutlet weak var yearMakeModelLabel: UILabel!
-    @IBOutlet weak var isSoldLabel: CustomIsSoldLabel!
-    @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var mileageLabel: UILabel!
-    @IBOutlet weak var priceContainer: UIView!
-    @IBOutlet weak var mileageContainer: UIView!
+    @IBOutlet private weak var downloadingImageView: SISDownloadImageView!
+    @IBOutlet private weak var yearMakeModelLabel: UILabel!
+    @IBOutlet private weak var isSoldLabel: CustomIsSoldLabel!
+    @IBOutlet private weak var priceLabel: UILabel!
+    @IBOutlet private weak var mileageLabel: UILabel!
+    @IBOutlet private weak var priceContainer: UIView!
+    @IBOutlet private weak var mileageContainer: UIView!
     
-    weak var activityView: UIActivityIndicatorView?
-    weak var gradient: CAGradientLayer!
-    weak var noImageLabel: UILabel?
+    private weak var gradient: CAGradientLayer!
     
-    var car: SISUsedCar! {
+    public var car: SISUsedCar! {
         willSet {
             NotificationCenter.default.removeObserver(self)
         }
@@ -39,9 +37,6 @@ class SISUsedCarTVCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        // car image view config
-        carImageView.contentMode = .scaleAspectFit
         
         // label config
         yearMakeModelLabel.numberOfLines = 0
@@ -76,12 +71,12 @@ class SISUsedCarTVCell: UITableViewCell {
         print("did download main image")
         if let main = car.images[0].image {
             DispatchQueue.main.async {
-                self.configure(image: main)
+                self.downloadingImageView.configureImage(main)
             }
             return
         } else {
             DispatchQueue.main.async {
-                self.showNoImageAvailable()
+                self.downloadingImageView.showNoImageAvailable()
             }
         }
         guard let info = notification.userInfo as? [String:Any],
@@ -92,61 +87,36 @@ class SISUsedCarTVCell: UITableViewCell {
         print("success: \(success)")
     }
 
-    func configure(yearMakeModel: String, isSold: Bool, price: String, mileage: String) {
+    public func configure(yearMakeModel: String, isSold: Bool, price: String, mileage: String) {
         yearMakeModelLabel.text = yearMakeModel
         priceLabel.text = price
         mileageLabel.text = mileage
         isSoldLabel.isSold = isSold
     }
     
-    func configureWithAttributedText(yearMakeModel: NSAttributedString, isSold: Bool, price: String, mileage: String) {
+    public func configureWithAttributedText(yearMakeModel: NSAttributedString, isSold: Bool, price: String, mileage: String) {
         yearMakeModelLabel.attributedText = yearMakeModel
         priceLabel.text = price
         mileageLabel.text = mileage
         isSoldLabel.isSold = isSold
     }
     
-    func configure(image: UIImage) {
-        activityView?.stopAnimating()
-        noImageLabel?.isHidden = true
-        carImageView.image = image
+    public func configureImage(_ image: UIImage) {
+        downloadingImageView.configureImage(image)
     }
     
-    func showActivityIndicator() {
-        if let activityView = activityView {
-            activityView.startAnimating()
-        } else {
-            let av = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-            av.hidesWhenStopped = true
-            carImageView.insertSubviewAboveWithMatchingFrame(av)
-            activityView = av
-            av.startAnimating()
-        }
+    public func showActivityIndicator() {
+        downloadingImageView.showActivityIndicator()
     }
     
-    func showNoImageAvailable() {
-        activityView?.stopAnimating()
-        
-        if let noImageLabel = noImageLabel {
-            noImageLabel.isHidden = false
-        } else {
-            let label = UILabel()
-            label.text = "No Image Available"
-            label.textColor = UIColor.white
-            label.font = UIFont.boldSystemFont(ofSize: 20.0)
-            label.numberOfLines = 0
-            label.lineBreakMode = .byWordWrapping
-            label.textAlignment = .center
-            carImageView.insertSubviewAboveWithMatchingFrame(label)
-            noImageLabel = label
-        }
+    public func showNoImageAvailable() {
+        downloadingImageView.showNoImageAvailable()
     }
     
-    func resetImageView() {
-        carImageView.image = nil
-        noImageLabel?.isHidden = true
-        activityView?.stopAnimating()
+    public func reset() {
+        downloadingImageView.reset()
     }
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()

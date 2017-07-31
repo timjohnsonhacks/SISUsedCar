@@ -36,7 +36,7 @@ extension SISUsedCarVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! SISUsedCarTVCell
-        cell.resetImageView()
+        cell.reset()
      
         let car: SISUsedCar
         let activePage: Int
@@ -83,7 +83,7 @@ extension SISUsedCarVC: UITableViewDataSource {
         }
         
         if let mainImage = container.image {
-            cell.configure(image: mainImage)
+            cell.configureImage(mainImage)
             
         } else {
             if container.downloadAttemptFailed == false {
