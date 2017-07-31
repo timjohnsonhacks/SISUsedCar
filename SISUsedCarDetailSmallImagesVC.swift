@@ -35,16 +35,16 @@ class SISUsedCarDetailSmallImagesVC: UIViewController, DetailSmallImageProtocol 
         super.viewDidLoad()
         
         // get all images
-        let userInfo: [String:Any] = [:]
-        imageService.GET_allImages(forUsedCar: usedCar, userInfo: userInfo, completion: { info in
-            guard let row = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
-                return
-            }
-            let ip = IndexPath(row: row, section: 0)
-            DispatchQueue.main.async {
-                self.collectionView.reloadItems(at: [ip])
-            }
-        })
+//        let userInfo: [String:Any] = [:]
+//        imageService.GET_allImages(forUsedCar: usedCar, userInfo: userInfo, completion: { info in
+//            guard let row = info[SISUsedCarImageService.InfoKeys.imageIndex.rawValue] as? Int else {
+//                return
+//            }
+//            let ip = IndexPath(row: row, section: 0)
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadItems(at: [ip])
+//            }
+//        })
         
         // collection view config
         collectionView.dataSource = self
@@ -83,13 +83,21 @@ class SISUsedCarDetailSmallImagesVC: UIViewController, DetailSmallImageProtocol 
 extension SISUsedCarDetailSmallImagesVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return usedCar.images.count
+        let count = usedCar.images.count
+        return count > 0 ? count : 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let count = usedCar.images.count
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseId, for: indexPath) as! SISUsedCarDetailCVCell
-        cell.imageView.image = usedCar.images[indexPath.row].image
-        cell.configureBorder(false)
+        if count > 0 {
+            cell.imageView.image = usedCar.images[indexPath.row].image
+            cell.configureBorder(false)
+            
+        } else {
+            cell.imageView.backgroundColor = UIColor.red
+        }
+
         return cell
     }
 }
@@ -106,7 +114,8 @@ extension SISUsedCarDetailSmallImagesVC: UICollectionViewDelegateFlowLayout {
         
         let containerSize = collectionView.bounds.size
         let imageAspectRatio: CGFloat
-        if let image = usedCar.images[indexPath.row].image {
+        if usedCar.images.count - 1 >= indexPath.row,
+            let image = usedCar.images[indexPath.row].image {
             imageAspectRatio = image.size.width / image.size.height
         } else {
             imageAspectRatio = SISGlobalConstants.defaultAspectRatio
