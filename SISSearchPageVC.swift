@@ -17,9 +17,14 @@ class SISSearchPageVC: UIViewController {
     private weak var searchStack: SISSearchPageButtonStack!
     private(set) public var lastSelectedPageNumber: Int?
     
+    var totalPages: Int {
+        return totalItemCount == 0 ? 0 : (totalItemCount - 1) / itemsPerPage + 1
+    }
+    
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var pageLabel: UILabel!
     
     init(totalItemCount: Int, itemsPerPage: Int, buttonSize: CGSize, delegate: SISSearchPageButtonDelegate) {
         self.totalItemCount = totalItemCount
@@ -40,6 +45,9 @@ class SISSearchPageVC: UIViewController {
             totalItemCount: totalItemCount,
             itemsPerPage: itemsPerPage)
         scrollViewWidth.constant = 0.0
+        pageLabel.textColor = SISGlobalConstants.calmBlue
+        pageLabel.font = UIFont.systemFont(ofSize: 17.0)
+        pageLabel.backgroundColor = .clear
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,10 +55,12 @@ class SISSearchPageVC: UIViewController {
     }
     
     private func configureLayout() {
-        if view.bounds.size.width < searchStack.naturalFrame.size.width {
+        // width and content size config
+        let totalWidthInset: CGFloat = 20.0
+        let naturalFrame = searchStack.naturalFrame
+        if view.bounds.size.width - totalWidthInset < searchStack.naturalFrame.size.width {
             
-            scrollViewWidth.constant = view.bounds.size.width
-            let naturalFrame = searchStack.naturalFrame
+            scrollViewWidth.constant = view.bounds.size.width - totalWidthInset
             searchStack.frame = searchStack.naturalFrame
             scrollView.contentSize = naturalFrame.size
             scrollView.isScrollEnabled = true
@@ -62,6 +72,9 @@ class SISSearchPageVC: UIViewController {
             scrollView.isScrollEnabled = false
             
         }
+        // height config
+        scrollViewHeight.constant = naturalFrame.height
+        
     }
     
     public func giveButtonSelectedAppearance(pageNumber: Int) {
@@ -73,15 +86,18 @@ class SISSearchPageVC: UIViewController {
         }
         searchStack.buttons[pageNumber].isSelected = true
         lastSelectedPageNumber = pageNumber
+        pageLabel.text = "Page \(pageNumber + 1) / \(totalPages)"
     }
     
     public func configure(totalItemCount: Int, itemsPerPage: Int) {
         searchStack?.removeFromSuperview()
         lastSelectedPageNumber = nil
         // create button view / setup scroll view
-        let totalSections = totalItemCount == 0 ? 0 : (totalItemCount - 1) / itemsPerPage + 1
+        self.totalItemCount = totalItemCount
+        self.itemsPerPage = itemsPerPage
+        
         let ss = SISSearchPageButtonStack(
-            totalSections: totalSections,
+            totalPages: totalPages,
             buttonSize: buttonSize,
             spacing: 2.0,
             color_1: SISGlobalConstants.calmBlue,
@@ -89,10 +105,7 @@ class SISSearchPageVC: UIViewController {
             borderWidth: 2.0,
             delegate: delegate!)
         scrollView.addSubview(ss)
-        scrollViewHeight.constant = ss.bounds.height
         searchStack = ss
-        self.totalItemCount = totalItemCount
-        self.itemsPerPage = itemsPerPage
         
         // layout
         configureLayout()

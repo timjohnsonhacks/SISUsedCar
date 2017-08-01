@@ -14,7 +14,6 @@ class SISUsedCarVC: UIViewController {
     
     // associated views and controllers
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchPageContainer: UIView!
     weak var searchPageChild: SISSearchPageVC?
     var searchController: UISearchController!
     
@@ -96,7 +95,7 @@ class SISUsedCarVC: UIViewController {
                         buttonSize: self.searchPageButtonSize,
                         delegate: self)
                     self.addChildViewController(childVC)
-                    self.searchPageContainer.addBoundsFillingSubview(childVC.view)
+                    self.tableView.tableFooterView = childVC.view
                     childVC.didMove(toParentViewController: self)
                     self.searchPageChild = childVC
                     childVC.giveButtonSelectedAppearance(pageNumber: self.allContentActivePage)

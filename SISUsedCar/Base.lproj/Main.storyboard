@@ -38,23 +38,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n2A-r2-HSz">
-                                <rect key="frame" x="0.0" y="64" width="375" height="543"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rrj-Gu-jUp">
-                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="YmC-6Q-uoB"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Rrj-Gu-jUp" firstAttribute="top" secondItem="n2A-r2-HSz" secondAttribute="bottom" id="FIx-v0-WH4"/>
-                            <constraint firstAttribute="trailing" secondItem="Rrj-Gu-jUp" secondAttribute="trailing" id="KKu-AN-3Db"/>
-                            <constraint firstItem="Rrj-Gu-jUp" firstAttribute="leading" secondItem="ObX-R0-wPF" secondAttribute="leading" id="Nf9-R1-8Ys"/>
-                            <constraint firstItem="2qY-AV-Z8D" firstAttribute="top" secondItem="Rrj-Gu-jUp" secondAttribute="bottom" id="idK-Ce-xOR"/>
+                            <constraint firstItem="2qY-AV-Z8D" firstAttribute="top" secondItem="n2A-r2-HSz" secondAttribute="bottom" id="PEO-x2-Z44"/>
                             <constraint firstItem="n2A-r2-HSz" firstAttribute="top" secondItem="jrw-iM-dlv" secondAttribute="bottom" id="ssq-xs-Mzu"/>
                             <constraint firstItem="n2A-r2-HSz" firstAttribute="leading" secondItem="ObX-R0-wPF" secondAttribute="leading" id="vtL-EG-6SO"/>
                             <constraint firstAttribute="trailing" secondItem="n2A-r2-HSz" secondAttribute="trailing" id="ztR-ac-vQC"/>
@@ -62,8 +52,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="LUg-Fn-7O0"/>
                     <connections>
-                        <outlet property="keyboardConstraint" destination="idK-Ce-xOR" id="iyZ-ZF-MZ5"/>
-                        <outlet property="searchPageContainer" destination="Rrj-Gu-jUp" id="S4C-rg-uGO"/>
+                        <outlet property="keyboardConstraint" destination="PEO-x2-Z44" id="u0v-qT-0B8"/>
                         <outlet property="tableView" destination="n2A-r2-HSz" id="rgU-sO-L0V"/>
                         <segue destination="o0x-HV-OOs" kind="show" identifier="showDetail" id="WEE-gP-Q7U"/>
                     </connections>
