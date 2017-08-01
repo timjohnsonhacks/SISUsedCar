@@ -281,7 +281,6 @@
 				0B2CA5FB1F223DB5007A92F9 /* Int+Custom.swift */,
 				0B2CA5FE1F22A830007A92F9 /* UIView+Custom.swift */,
 				0B2CA6001F24F551007A92F9 /* SISFadeView.swift */,
-				0B2CA6291F2623C0007A92F9 /* SISCustomLabel.swift */,
 				0B8887E81F279F7C00238C90 /* UIColor+Custom.swift */,
 				0B2CA5F11F221FB3007A92F9 /* UICollectionView+Custom.swift */,
 			);
@@ -319,6 +318,7 @@
 			children = (
 				0B2CA6251F2538B7007A92F9 /* SISDetailTextView.swift */,
 				0BD25FBD1F28E80D007081E5 /* SISDetailTextView.xib */,
+				0B2CA6291F2623C0007A92F9 /* SISCustomLabel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
