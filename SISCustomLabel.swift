@@ -24,8 +24,8 @@ class SISCustomLabel: UILabel {
 
     private func commonInit() {
         backgroundColor = .clear
-        layer.borderColor = UIColor.black.cgColor
-        layer.borderWidth = 1.0
+        numberOfLines = 0
+        lineBreakMode = .byWordWrapping
     }
     
     override func drawText(in rect: CGRect) {

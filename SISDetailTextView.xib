@@ -18,12 +18,24 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iob-0k-6gv">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="21" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="qju-Ui-osp">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="21"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="375" placeholderIntrinsicHeight="21" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="qju-Ui-osp">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="111.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKr-rP-XcJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="26.5"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Features" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZsV-5j-8IN">
+                                    <rect key="frame" x="0.0" y="42.5" width="375" height="26.5"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specifications" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wiR-1q-rUn">
+                                    <rect key="frame" x="0.0" y="85" width="375" height="26.5"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -49,6 +61,9 @@
             <nil key="simulatedStatusBarMetrics"/>
             <connections>
                 <outlet property="contentStack" destination="qju-Ui-osp" id="lnn-iR-ZJ4"/>
+                <outlet property="descriptionTitle" destination="QKr-rP-XcJ" id="HRy-SA-3hE"/>
+                <outlet property="featuresTitle" destination="ZsV-5j-8IN" id="kTt-9h-Pc5"/>
+                <outlet property="specificationsTitle" destination="wiR-1q-rUn" id="js4-fj-1rs"/>
             </connections>
             <point key="canvasLocation" x="47.5" y="-1.5"/>
         </view>

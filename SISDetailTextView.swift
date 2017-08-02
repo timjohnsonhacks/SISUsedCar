@@ -11,6 +11,9 @@ import UIKit
 class SISDetailTextView: UIView {
     
     @IBOutlet weak var contentStack: UIStackView!
+    @IBOutlet weak var descriptionTitle: UILabel!
+    @IBOutlet weak var featuresTitle: UILabel!
+    @IBOutlet weak var specificationsTitle: UILabel!
     
     override init(frame: CGRect) {
         fatalError()
@@ -21,10 +24,53 @@ class SISDetailTextView: UIView {
     }
     
     public func configure(usedCar: SISUsedCar) {
+        let carDetail = usedCar.detail
+        // description
+        let descriptionLabel = SISCustomLabel(frame: .zero)
+        descriptionLabel.text = carDetail.text
+        insertArrangedSubview(descriptionLabel, belowTitle: descriptionTitle)
+        
+        // features
+        let featureCount = carDetail.features.count
+        var first: String?
+        var second: String?
+        var featureViews = [UIView]()
+        for (i, feature) in carDetail.features.enumerated() {
+            if i % 2 == 0 {
+                first = feature
+            } else {
+                second = feature
+            }
+            if i % 2 == 1 || i == featureCount - 1 {
+                let checkPair = SISCheckPairLabel(frame: .zero)
+                checkPair.configure(leftText: first, rightText: second)
+                featureViews.append(checkPair)
+                first = nil
+                second = nil
+            }
+        }
+        if featureViews.count > 0 {
+            let featuresStack = UIStackView(arrangedSubviews: featureViews)
+            featuresStack.axis = .vertical
+            featuresStack.backgroundColor = .clear
+            insertArrangedSubview(featuresStack, belowTitle: featuresTitle)
+        }
+
+        // attributes
         let detailStack = UIStackView(arrangedSubviews: detailTextViews(usedCar: usedCar))
         detailStack.axis = .vertical
         detailStack.backgroundColor = .clear
-        contentStack.addArrangedSubview(detailStack)
+        insertArrangedSubview(detailStack, belowTitle: specificationsTitle)
+    }
+    
+    private func insertArrangedSubview(_ subview: UIView, belowTitle title: UILabel) {
+        var index = 0
+        for v in contentStack.arrangedSubviews {
+            if v === title {
+                contentStack.insertArrangedSubview(subview, at: index + 1)
+            }
+            index += 1
+        }
     }
     
     private func detailTextViews(usedCar: SISUsedCar) -> [UIView] {
@@ -53,38 +99,6 @@ class SISDetailTextView: UIView {
                 ("fuel type:", usedCar.fuelType),
                 ("condition:", "default"),
                 ("owners:", "default")]
-    }
-    
-    private func attributeView(name: String, value: String) -> UIView {
-        let view = UIView()
-//        let inset: CGFloat = 8.0
-//        let insets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
-        let nameLabel = SISCustomLabel(frame: .zero)
-        let valueLabel = SISCustomLabel(frame: .zero)
-
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 15)
-        valueLabel.font = UIFont.systemFont(ofSize: 15)
-        
-        let units = [(nameLabel, "name"), (valueLabel, "value")]
-        for (label, id) in units {
-            view.addSubview(label)
-            
-            label.textAlignment = .left
-            label.textColor = UIColor.black
-            label.lineBreakMode = .byWordWrapping
-            label.numberOfLines = 0
-            label.layer.borderColor = UIColor.black.cgColor
-            label.layer.borderWidth = 0.5
-            
-            label.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[\(id)]-0-|", options: [], metrics: nil, views: [id : label]))
-        }
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[name(==value)]-0-[value]-20-|", options: [], metrics: nil, views: ["name" : nameLabel, "value" : valueLabel]))
-        
-        nameLabel.text = name
-        valueLabel.text = value
-        
-        return view
     }
 }
 
