@@ -55,6 +55,9 @@ class SISSearchPageVC: UIViewController {
     }
     
     private func configureLayout() {
+        // page label appearance
+        pageLabel.isHidden = totalItemCount == 0 ? true : false
+        
         // width and content size config
         let totalWidthInset: CGFloat = 20.0
         let naturalFrame = searchStack.naturalFrame

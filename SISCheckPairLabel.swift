@@ -10,6 +10,7 @@ import UIKit
 
 class SISCheckPairLabel: UIView {
 
+    var stack: UIStackView!
     var leftLabel: SISCheckLabel!
     var rightLabel: SISCheckLabel!
     
@@ -25,11 +26,10 @@ class SISCheckPairLabel: UIView {
     private func commonInit() {
         leftLabel = newCheckLabel()
         rightLabel = newCheckLabel()
-        let stack = UIStackView(arrangedSubviews: [leftLabel, rightLabel])
+        stack = UIStackView(arrangedSubviews: [])
         stack.axis = .horizontal
         stack.distribution = .fillEqually
         stack.backgroundColor = .clear
-        addBoundsFillingSubview(stack)
     }
     
     private func newCheckLabel() -> SISCheckLabel {
@@ -40,15 +40,16 @@ class SISCheckPairLabel: UIView {
     public func configure(leftText: String?, rightText: String?) {
         if let leftText = leftText {
             leftLabel.textLabel.text = leftText
-        } else {
-            leftLabel.isHidden = true
+            stack.addArrangedSubview(leftLabel)
         }
         
         if let rightText = rightText {
             rightLabel.textLabel.text = rightText
-        } else {
-            rightLabel.isHidden = true
+            stack.addArrangedSubview(rightLabel)
+        }
+        
+        if stack.arrangedSubviews.count > 0 {
+            addBoundsFillingSubview(stack)
         }
     }
-
 }

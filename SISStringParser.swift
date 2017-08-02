@@ -8,9 +8,10 @@
 
 import Foundation
 
-class SISStringParser {
+public class SISStringParser {
     
-    static func matches(searchText: String) -> (fullName: String?, features: [String], text: String?) {
+    public static func matches(searchText: String) -> (fullName: String?, features: [String], text: String?) {
+        print("search text: \(searchText)")
         var startIndex: String.Index = searchText.startIndex
         var endIndex: String.Index = searchText.startIndex
         

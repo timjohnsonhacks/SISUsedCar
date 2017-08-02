@@ -64,6 +64,7 @@
 		0BF168B31F31FA1700D0AE8B /* SISCheckLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BF168B21F31FA1700D0AE8B /* SISCheckLabel.xib */; };
 		0BF168B51F31FA2500D0AE8B /* SISCheckLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF168B41F31FA2500D0AE8B /* SISCheckLabel.swift */; };
 		0BF168B71F320A9E00D0AE8B /* SISStringParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF168B61F320A9E00D0AE8B /* SISStringParser.swift */; };
+		0BF168B81F321FEA00D0AE8B /* SISStringParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF168B61F320A9E00D0AE8B /* SISStringParser.swift */; };
 		0BFA12281F2A179800C8B85E /* SISDownloadImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFA12271F2A179800C8B85E /* SISDownloadImageView.swift */; };
 /* End PBXBuildFile section */
 
@@ -701,6 +702,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BF168B81F321FEA00D0AE8B /* SISStringParser.swift in Sources */,
 				0B2B4D101F1FD5C500F8648C /* SISUsedCarDataService.swift in Sources */,
 				0B2CA62B1F262487007A92F9 /* SISCustomLabel.swift in Sources */,
 				0B2B4D111F1FD5C800F8648C /* SISUsedCarImageService.swift in Sources */,
