@@ -45,6 +45,7 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
         // view config
         edgesForExtendedLayout = []
         
+        // gradient
         let gl = CAGradientLayer()
         gl.startPoint = CGPoint(x: 0.0, y: 0.0)
         gl.endPoint = CGPoint(x: 1.0, y: 1.0)
@@ -99,6 +100,10 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
         sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(segmentedControlValueDidChange(sender:)), for: .valueChanged)
         navigationItem.titleView = sc
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     // MARK: - Segmented Control
