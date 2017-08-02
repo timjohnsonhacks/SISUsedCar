@@ -12,9 +12,33 @@ class SISDetailTextView: UIView {
     
     @IBOutlet weak var contentStack: UIStackView!
     
-    private var usedCar: SISUsedCar!
+    override init(frame: CGRect) {
+        fatalError()
+    }
     
-    var detailItems: [(String, String)] {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    public func configure(usedCar: SISUsedCar) {
+        let detailStack = UIStackView(arrangedSubviews: detailTextViews(usedCar: usedCar))
+        detailStack.axis = .vertical
+        detailStack.backgroundColor = .clear
+        contentStack.addArrangedSubview(detailStack)
+    }
+    
+    private func detailTextViews(usedCar: SISUsedCar) -> [UIView] {
+        var attributeViews = [UIView]()
+        for (name, value) in detailItems(usedCar: usedCar) {
+            let av = UINib(nibName: "SISFeatureLabel", bundle: nil).instantiate(withOwner: self, options: nil).first! as! SISFeatureLabel
+            av.nameLabel.text = name
+            av.valueLabel.text = value
+            attributeViews.append(av)
+        }
+        return attributeViews
+    }
+    
+    private func detailItems(usedCar: SISUsedCar) -> [(String, String)] {
         return [("price:", "$" + usedCar.price.commaDelimitedRepresentation()),
                 ("mileage:", usedCar.mileage.commaDelimitedRepresentation()),
                 ("body style:", usedCar.bodyStyle),
@@ -31,36 +55,12 @@ class SISDetailTextView: UIView {
                 ("owners:", "default")]
     }
     
-    override init(frame: CGRect) {
-        fatalError()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    func configure(usedCar: SISUsedCar) {
-        self.usedCar = usedCar
-        
-        for v in detailTextViews() {
-            contentStack.addArrangedSubview(v)
-        }
-    }
-    
-    private func detailTextViews() -> [UIView] {
-        var attributeViews = [UIView]()
-        for (name, value) in detailItems {
-            attributeViews.append(attributeView(name: name, value: value))
-        }
-        return attributeViews
-    }
-    
     private func attributeView(name: String, value: String) -> UIView {
         let view = UIView()
-        let inset: CGFloat = 8.0
-        let insets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
-        let nameLabel = SISCustomLabel(frame: .zero, insets: insets)
-        let valueLabel = SISCustomLabel(frame: .zero, insets: insets)
+//        let inset: CGFloat = 8.0
+//        let insets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+        let nameLabel = SISCustomLabel(frame: .zero)
+        let valueLabel = SISCustomLabel(frame: .zero)
 
         nameLabel.font = UIFont.boldSystemFont(ofSize: 15)
         valueLabel.font = UIFont.systemFont(ofSize: 15)

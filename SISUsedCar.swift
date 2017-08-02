@@ -48,6 +48,10 @@ public class SISUsedCar: NSObject {
         return "\(year) \(make) \(model), price: \(price), mileage: \(mileage), id: \(id) stock number: \(stockNumber)"
     }
     
+    public var detail: (fullName: String?, features: [String], text: String?) {
+        return matches(description: description)
+    }
+    
     var yearMakeModel: String {
         return "\(year) \(make) \(model)"
     }
@@ -88,6 +92,58 @@ public class SISUsedCar: NSObject {
         self.stockNumber = stockNumber
         
         self.images = images
+    }
+    
+    // MARK: - String Parsing
+    
+    private func matches(description: String) -> (fullName: String?, features: [String], text: String?) {
+        var startIndex: String.Index = description.startIndex
+        var endIndex: String.Index = description.startIndex
+        
+        var fullName: String?
+        while fullName == nil && endIndex < description.endIndex {
+            if let nextStart = subMatch(fullString: description, startIndex: endIndex, matchPhrase: " - ") {
+                fullName = description.substring(with: startIndex..<endIndex)
+                startIndex = nextStart
+                endIndex = nextStart
+            } else {
+                endIndex = description.index(after: endIndex)
+            }
+        }
+        
+        var features = [String]()
+        var text: String?
+        while endIndex < description.endIndex {
+            if let nextStart = subMatch(fullString: description, startIndex: endIndex, matchPhrase: " . ") {
+                text = description.substring(with: nextStart..<description.endIndex)
+                break
+            }
+            
+            if let nextStart = subMatch(fullString: description, startIndex: endIndex, matchPhrase: ", ") {
+                let feature = description.substring(with: startIndex..<endIndex)
+                features.append(feature)
+                startIndex = nextStart
+                endIndex = nextStart
+            } else {
+                endIndex = description.index(after: endIndex)
+            }
+        }
+        
+        
+        return (fullName, features, text)
+    }
+    
+    private func subMatch(fullString: String, startIndex: String.Index, matchPhrase: String) -> String.Index? {
+        let offsetIndex = fullString.index(startIndex, offsetBy: matchPhrase.characters.count)
+        guard offsetIndex < fullString.endIndex else {
+            return nil
+        }
+        let range = startIndex..<offsetIndex
+        if description.substring(with: range) == matchPhrase {
+            return offsetIndex
+        } else {
+            return nil
+        }
     }
 }
 

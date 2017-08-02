@@ -58,6 +58,8 @@
 		0BD25FBA1F28D529007081E5 /* SISGradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD25FB91F28D529007081E5 /* SISGradientBackgroundView.swift */; };
 		0BD25FBC1F28DC74007081E5 /* SISDetailImageLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD25FBB1F28DC74007081E5 /* SISDetailImageLayoutView.swift */; };
 		0BD25FBE1F28E80D007081E5 /* SISDetailTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BD25FBD1F28E80D007081E5 /* SISDetailTextView.xib */; };
+		0BF168AB1F31F29900D0AE8B /* SISFeatureLabel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BF168AA1F31F29900D0AE8B /* SISFeatureLabel.xib */; };
+		0BF168AD1F31F2B000D0AE8B /* SISFeatureLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BF168AC1F31F2B000D0AE8B /* SISFeatureLabel.swift */; };
 		0BFA12281F2A179800C8B85E /* SISDownloadImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BFA12271F2A179800C8B85E /* SISDownloadImageView.swift */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +134,8 @@
 		0BD25FB91F28D529007081E5 /* SISGradientBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISGradientBackgroundView.swift; sourceTree = "<group>"; };
 		0BD25FBB1F28DC74007081E5 /* SISDetailImageLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISDetailImageLayoutView.swift; sourceTree = "<group>"; };
 		0BD25FBD1F28E80D007081E5 /* SISDetailTextView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISDetailTextView.xib; sourceTree = "<group>"; };
+		0BF168AA1F31F29900D0AE8B /* SISFeatureLabel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SISFeatureLabel.xib; sourceTree = "<group>"; };
+		0BF168AC1F31F2B000D0AE8B /* SISFeatureLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISFeatureLabel.swift; sourceTree = "<group>"; };
 		0BFA12271F2A179800C8B85E /* SISDownloadImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SISDownloadImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -319,6 +323,8 @@
 				0B2CA6251F2538B7007A92F9 /* SISDetailTextView.swift */,
 				0BD25FBD1F28E80D007081E5 /* SISDetailTextView.xib */,
 				0B2CA6291F2623C0007A92F9 /* SISCustomLabel.swift */,
+				0BF168AC1F31F2B000D0AE8B /* SISFeatureLabel.swift */,
+				0BF168AA1F31F29900D0AE8B /* SISFeatureLabel.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -588,6 +594,7 @@
 				0B2CA6311F268166007A92F9 /* SISSearchPageVC.xib in Resources */,
 				0B8887FD1F27E46300238C90 /* SISUsedCarDetailSmallImagesVC.xib in Resources */,
 				0B2B4C4C1F1E749F00F8648C /* Main.storyboard in Resources */,
+				0BF168AB1F31F29900D0AE8B /* SISFeatureLabel.xib in Resources */,
 				0BD25FBE1F28E80D007081E5 /* SISDetailTextView.xib in Resources */,
 				0B01A4301F2113340041C0C9 /* SISDetailImagesVC.xib in Resources */,
 			);
@@ -642,6 +649,7 @@
 				0B2B4C491F1E749F00F8648C /* ViewController.swift in Sources */,
 				0B2B4C471F1E749F00F8648C /* AppDelegate.swift in Sources */,
 				0BD25FBA1F28D529007081E5 /* SISGradientBackgroundView.swift in Sources */,
+				0BF168AD1F31F2B000D0AE8B /* SISFeatureLabel.swift in Sources */,
 				0B2CA5F21F221FB3007A92F9 /* UICollectionView+Custom.swift in Sources */,
 				0B8887F41F27E27C00238C90 /* SISUsedCarDetailMasterVC.swift in Sources */,
 				0B2B4D131F1FECAF00F8648C /* SISUsedCarDetailVC.swift in Sources */,

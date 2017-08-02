@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SISFeatureLabel" customModule="SISUsedCar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="397" height="138"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJQ-HI-jfc" customClass="SISCustomLabel" customModule="SISUsedCar" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="198.5" height="138"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rof-hY-TFu" customClass="SISCustomLabel" customModule="SISUsedCar" customModuleProvider="target">
+                    <rect key="frame" x="198.5" y="0.0" width="198.5" height="138"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Rof-hY-TFu" firstAttribute="width" secondItem="NJQ-HI-jfc" secondAttribute="width" id="EA8-YI-CcH"/>
+                <constraint firstItem="NJQ-HI-jfc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="N7P-kU-m0P"/>
+                <constraint firstItem="Rof-hY-TFu" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="R8c-de-nEH"/>
+                <constraint firstAttribute="trailing" secondItem="Rof-hY-TFu" secondAttribute="trailing" id="SOs-pK-N7V"/>
+                <constraint firstAttribute="bottom" secondItem="NJQ-HI-jfc" secondAttribute="bottom" id="WVX-yM-etU"/>
+                <constraint firstAttribute="bottom" secondItem="Rof-hY-TFu" secondAttribute="bottom" id="c06-7R-lvC"/>
+                <constraint firstItem="NJQ-HI-jfc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fnH-uQ-4Dx"/>
+                <constraint firstItem="Rof-hY-TFu" firstAttribute="leading" secondItem="NJQ-HI-jfc" secondAttribute="trailing" id="uQ7-jt-FUy"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="nameLabel" destination="NJQ-HI-jfc" id="QNI-Yw-wip"/>
+                <outlet property="valueLabel" destination="Rof-hY-TFu" id="IkC-Da-Dxy"/>
+            </connections>
+            <point key="canvasLocation" x="46.5" y="-211"/>
+        </view>
+    </objects>
+</document>

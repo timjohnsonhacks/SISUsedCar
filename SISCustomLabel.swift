@@ -10,15 +10,22 @@ import UIKit
 
 class SISCustomLabel: UILabel {
     
-    let insets: UIEdgeInsets
+    var insets: UIEdgeInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
     
-    init(frame: CGRect, insets: UIEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)) {
-        self.insets = insets
+    override init(frame: CGRect) {
         super.init(frame: frame)
+        commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError()
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+
+    private func commonInit() {
+        backgroundColor = .clear
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 1.0
     }
     
     override func drawText(in rect: CGRect) {
