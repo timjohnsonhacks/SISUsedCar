@@ -10,15 +10,14 @@ import UIKit
 
 class SISDetailTextView: UIView {
     
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var attributesContainer: UIView!
+    @IBOutlet weak var contentStack: UIStackView!
     
     private var usedCar: SISUsedCar!
     
     var detailItems: [(String, String)] {
         return [("price:", "$" + usedCar.price.commaDelimitedRepresentation()),
                 ("mileage:", usedCar.mileage.commaDelimitedRepresentation()),
-                ("body style:", "really really really long string to test cause I like really really really long strings"),
+                ("body style:", usedCar.bodyStyle),
                 ("engine:", usedCar.engine),
                 ("transmission:", usedCar.transmission),
                 ("drive train:", usedCar.driveTrain_1),
@@ -43,13 +42,9 @@ class SISDetailTextView: UIView {
     func configure(usedCar: SISUsedCar) {
         self.usedCar = usedCar
         
-        // subview config
-        descriptionLabel.text = usedCar.description
-        descriptionLabel.font = UIFont.systemFont(ofSize: 15.0)
-        descriptionLabel.lineBreakMode = .byWordWrapping
-        descriptionLabel.numberOfLines = 0
-        
-        attributesContainer.insertWidthFillingStackedViews(detailTextViews(), height: 25.0)
+        for v in detailTextViews() {
+            contentStack.addArrangedSubview(v)
+        }
     }
     
     private func detailTextViews() -> [UIView] {
@@ -62,10 +57,11 @@ class SISDetailTextView: UIView {
     
     private func attributeView(name: String, value: String) -> UIView {
         let view = UIView()
-        let insets = UIEdgeInsets(top: 3.0, left: 6.0, bottom: 3.0, right: 3.0)
+        let inset: CGFloat = 8.0
+        let insets = UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
         let nameLabel = SISCustomLabel(frame: .zero, insets: insets)
         let valueLabel = SISCustomLabel(frame: .zero, insets: insets)
-        
+
         nameLabel.font = UIFont.boldSystemFont(ofSize: 15)
         valueLabel.font = UIFont.systemFont(ofSize: 15)
         
@@ -89,27 +85,6 @@ class SISDetailTextView: UIView {
         valueLabel.text = value
         
         return view
-    }
-    
-    override func sizeThatFits(_ size: CGSize) -> CGSize {
-//        print("size passed to size that fits: \(size)")
-        if let sv = superview {
-//            print("super view size in sizeThatFits: \(sv.bounds.size)")
-            frame = CGRect(
-                x: 0.0,
-                y: 0.0,
-                width: sv.bounds.size.width,
-                height: 10000)
-            layoutIfNeeded()
-//            print("----- view frame: \(frame)")
-//            print("upper subview frame: \(descriptionLabel.frame)")
-//            print("lowest subview frame: \(attributesContainer.frame)")
-            return CGSize(
-                width: sv.bounds.size.width,
-                height: attributesContainer.frame.origin.y + 600)
-            
-        }
-        return super.sizeThatFits(size)
     }
 }
 

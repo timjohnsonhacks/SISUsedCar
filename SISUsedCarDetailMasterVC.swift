@@ -24,8 +24,7 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
     @IBOutlet weak var contactUsButton: UIButton!
     weak var gradient: SISGradientBackgroundView!
     weak var imageContainer: SISDetailImageLayoutView!
-    weak var detailContainer: UIScrollView!
-    weak var detailView: SISDetailTextView!
+    weak var detailContainer: SISDetailTextView!
     
     let usedCar: SISUsedCar
     var largeImageChild: SISUsedCarDetailLargeImageVC!
@@ -79,13 +78,8 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
         // detail text
         let dtc = UINib(nibName: "SISDetailTextView", bundle: nil).instantiate(withOwner: self, options: nil)[0] as! SISDetailTextView
         dtc.configure(usedCar: usedCar)
-        let sv = UIScrollView(frame: .zero)
-        sv.contentSize = .zero
-        sv.addSubview(dtc)
-        contentContainer.addBoundsFillingSubview(sv)
-        contentContainer.bringSubview(toFront: sv)
-        detailContainer = sv
-        detailView = dtc
+        contentContainer.addBoundsFillingSubview(dtc)
+        detailContainer = dtc
         detailContainer.isHidden = true
         
         // basic label config
@@ -105,17 +99,6 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
         sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(segmentedControlValueDidChange(sender:)), for: .valueChanged)
         navigationItem.titleView = sc
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        /* TEMPORARY FIX */
-        let rect = CGRect(
-            x: 0.0,
-            y: 0.0,
-            width: detailContainer.bounds.width,
-            height: 1000)
-        detailView.frame = rect
-        detailContainer.contentSize = rect.size
     }
     
     // MARK: - Segmented Control

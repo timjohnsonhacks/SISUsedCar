@@ -10,22 +10,25 @@ import UIKit
 
 class SISCustomLabel: UILabel {
     
-    var insets: UIEdgeInsets
-    let defaultInsets = UIEdgeInsets(top: 3.0, left: 6.0, bottom: 3.0, right: 6.0)
+    let insets: UIEdgeInsets
     
-    init(frame: CGRect, insets: UIEdgeInsets) {
+    init(frame: CGRect, insets: UIEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)) {
         self.insets = insets
         super.init(frame: frame)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        insets = defaultInsets
-        super.init(coder: aDecoder)
+        fatalError()
     }
     
     override func drawText(in rect: CGRect) {
         let drawRect = UIEdgeInsetsInsetRect(rect, insets)
         super.drawText(in: drawRect)
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        let oldSize = super.intrinsicContentSize
+        return CGSize(width: oldSize.width, height: oldSize.height + insets.top + insets.bottom)
     }
 
 }

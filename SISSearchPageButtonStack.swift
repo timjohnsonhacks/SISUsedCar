@@ -10,7 +10,7 @@ import UIKit
 
 class SISSearchPageButtonStack: UIStackView {
 
-    let totalSections: Int
+    let totalPages: Int
     let buttonSize: CGSize
     let color_1: UIColor
     let color_2: UIColor
@@ -20,12 +20,12 @@ class SISSearchPageButtonStack: UIStackView {
         return CGRect(
                 x: 0.0,
                 y: 0.0,
-                width: (buttonSize.width + spacing) * CGFloat(totalSections),
+                width: (buttonSize.width + spacing) * CGFloat(totalPages),
                 height: buttonSize.height)
     }
     
-    init(totalSections: Int, buttonSize: CGSize, spacing: CGFloat, color_1: UIColor = .black, color_2: UIColor = .white, borderWidth: CGFloat, delegate: SISSearchPageButtonDelegate) {
-        self.totalSections = totalSections
+    init(totalPages: Int, buttonSize: CGSize, spacing: CGFloat, color_1: UIColor = .black, color_2: UIColor = .white, borderWidth: CGFloat, delegate: SISSearchPageButtonDelegate) {
+        self.totalPages = totalPages
         self.buttonSize = buttonSize
         self.color_1 = color_1
         self.color_2 = color_2
@@ -37,7 +37,7 @@ class SISSearchPageButtonStack: UIStackView {
         axis = .horizontal
         distribution = .fillEqually
         
-        for i in 0..<totalSections {
+        for i in 0..<totalPages {
             let newButton = SISSearchPageButton(
                 color_1: color_1,
                 color_2: color_2,
