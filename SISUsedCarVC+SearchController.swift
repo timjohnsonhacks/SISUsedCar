@@ -12,11 +12,6 @@ extension SISUsedCarVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         // update filtered content
         if let text = searchController.searchBar.text {
-            if text == "" {
-                filteredContent.removeAll()
-                tableView.reloadData()
-                return
-            }
             filterContentForSearchText(text)
         }
         // update the search page controller
