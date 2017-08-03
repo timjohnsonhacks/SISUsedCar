@@ -168,8 +168,10 @@ class SISUsedCarVC: UIViewController {
     }
     
     // MARK: - Networking
-    /* 
-    * I don't see this being used anywhere.
+    /*
+    * This code doesn't seem to be used in this file. It's best to keep them in the file where they're being used
+    * and mark them as private or fileprivate. That way they aren't exposed. This helps to curate good coding style
+    * and forces you to think how you want your code to be accessed throughout the app.
     */
     func getMainImageForCar(_ car: SISUsedCar) {
         imageService.GET_mainImage(
@@ -178,6 +180,9 @@ class SISUsedCarVC: UIViewController {
             completion: { _ in })
     }
     
+    /*
+    * Ditto from the above comment.
+    */
     // MARK: - Table View Helpers
     
     func numberOfRows(forPageIndex pageIndex: Int, itemsPerPage: Int, totalItemCount totalCount: Int) -> Int {
