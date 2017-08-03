@@ -16,20 +16,52 @@ class SISUsedCarVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchPageContainer: UIView!
     weak var searchPageChild: SISSearchPageVC?
+    
+    /* Using `!` is bad practice in general. Its best to remove the `!` here and instantiate the searchController in init*/
     var searchController: UISearchController!
     
     // keyboard management
     @IBOutlet weak var keyboardConstraint: NSLayoutConstraint!
 
+    /* 
+    * Personally, I like to put constants in a Constants struct outside of the class, at the top of the file, that is only
+    * accessible to the file. Something like
+    *
+    * private struct Constants {
+    *     static let cellID = "SISUsedCarTVCell"
+    *     ...
+    *     ...
+    * }
+    * Obviously this is my preference, but I think it cleans up the code a bit and makes it nice
+    */
+    
     // general constants
     let cellID = "SISUsedCarTVCell"
     let searchPageButtonSize = CGSize(width: 44.0, height: 44.0)
     let highlightedAttributes: [String : Any] = [NSForegroundColorAttributeName : UIColor.yellow,
                                                  NSFontAttributeName : UIFont.boldSystemFont(ofSize: 17)]
     
+    /* 
+    * I like what you're going for here. Keeping the network services and image services their own individual entity.
+    * I think a better practice is actually only having one instance of a network service. This keeps all of the networking
+    * being handled by one object, which is better for following the flow of data through one object, as opposed to multiple.
+    * This allows for easier debugging, easier thread management, etc. I don't suggest using a singleton, but I do think its
+    * worth using a single instance throughout the application that is passed around where you need it. I recommend the same
+    * for the image service.
+    */
+    
     // networking
     let dataService = SISUsedCarDataService()
     let imageService = SISUsedCarImageService()
+    
+    /* 
+    * I think that the naming here could be a bit better. AllContent creates the assumption that there are going to be
+    * multiple kinds of content, whereas clearly there are only cars in use. It might be better to change the name from 
+    * `allContent` to `cars`. It is easier to understand what you are getting when using the variable later. 
+    */
+    
+    /*
+    */
     
     // general, unfiltered search
     var allContent = [SISUsedCar]()
@@ -46,6 +78,12 @@ class SISUsedCarVC: UIViewController {
     
     // MARK: - View Life Cycle
     
+    /*
+    * A lot is going on here in `viewDidLoad()`. I recommend stubbing out some bits of logic into their own functions.
+    * Moving the notification observer setup into its own method would make sense, as well as the initial fetch from
+    * the data service. This cleans up the code a bit and doesn't make `viewDidLoad()` as overwhelming.
+    */
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,8 +93,19 @@ class SISUsedCarVC: UIViewController {
         // table view configuration
         tableView.dataSource = self
         tableView.delegate = self
+        
+        /* You have this string in a constant above */
         let cellNib = UINib(nibName: "SISUsedCarTVCell", bundle: nil)
+        
         tableView.register(cellNib, forCellReuseIdentifier: cellID)
+        
+        /* 
+        * `sc` is a bad name here. If I'm a developer working on this later on, and I have to use sc, I have no idea
+        * what it is or what its purpose is base on that name.
+        * 
+        * Also, you can just assign the searchController directly, instead of assigned the object `sc` to it, and then
+        * refer solely to it as `searchController`
+        */
         
         // search controller config
         let sc = UISearchController(searchResultsController: nil)
@@ -69,6 +118,10 @@ class SISUsedCarVC: UIViewController {
         sc.hidesNavigationBarDuringPresentation = true
         tableView.tableHeaderView = sc.searchBar
         
+        /*
+        * Make sure you remove the notification observer on `deinit`. If you don't do that then the SISUsedCarVC will
+        * hang around in memory becuase the NotificationCenter will be holding on to it
+        */
         // keyboard notification config
         NotificationCenter.default.addObserver(
             self,
@@ -115,7 +168,9 @@ class SISUsedCarVC: UIViewController {
     }
     
     // MARK: - Networking
-    
+    /* 
+    * I don't see this being used anywhere.
+    */
     func getMainImageForCar(_ car: SISUsedCar) {
         imageService.GET_mainImage(
             forUsedCar: car,
