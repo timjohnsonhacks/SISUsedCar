@@ -63,6 +63,13 @@ extension SISUsedCarVC: UITableViewDataSource {
                 indexPath: indexPath)
             car = allContent[index]
 
+            /*
+            * Instead of calling configure with yearMakeModel, isSold, price, and mileage, its better for the cell
+            * to just have a `car` property, and upon setting that `car` property, setting up all the UI as needed. Then,
+            * if the UI of the cell needs to change, the interface doesn't necessarily need to change. You can essentially
+            * move all of the below logic to the cell and out of the ViewController. This is a more modular approach, 
+            * allows for testability, and is cleaner.
+            */
             cell.configure(
                 yearMakeModel: car.yearMakeModel,
                 isSold: car.isSold,
