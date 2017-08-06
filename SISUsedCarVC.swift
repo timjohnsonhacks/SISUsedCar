@@ -15,6 +15,14 @@ class SISUsedCarVC: UIViewController {
     // associated views and controllers
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchPageContainer: UIView!
+    
+    /*
+    * I really don't even think you need an SISSearchPageVC. It seems like a lot of overkill just to manage some page buttons
+    * and the page being tapped. Its simpler to just have a view that manages some buttons at the bottom of this view
+    * controller, and letting this view controller manage what page it is on / updating the table view when a button is 
+    * tapped.
+    */
+    
     weak var searchPageChild: SISSearchPageVC?
     
     /*
