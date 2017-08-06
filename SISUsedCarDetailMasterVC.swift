@@ -24,6 +24,13 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
     @IBOutlet weak var contactUsButton: UIButton!
     weak var gradient: SISGradientBackgroundView!
     weak var imageContainer: SISDetailImageLayoutView!
+    
+    /*
+    * You have a lot of logic designed around how to swap between the different containers. It's probably best to have
+    * a separate view controller just displaying all of the details, and having an animated transition between the two, 
+    * as opposed to manipulating the view here to display the container.
+    */
+    
     weak var detailContainer: SISDetailTextView!
     
     let usedCar: SISUsedCar
@@ -66,6 +73,12 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
         let smallImagesVC = SISUsedCarDetailSmallImagesVC(usedCar: usedCar, delegate: self)
         addChildViewController(largeImageVC)
         addChildViewController(smallImagesVC)
+        
+        /*
+        * I think this container is also relatively unnecessary. You should be able to simply layout the views in the view
+        * controller view. It doesn't seem like there is very complicated setup, which is typically when a container view
+        * would come in handy.
+        */
         
         let dynamicContainer = SISDetailImageLayoutView(
             frame: .zero,
