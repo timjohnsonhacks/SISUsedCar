@@ -17,6 +17,12 @@ public class SISUsedCarDataService {
     
     public var task: URLSessionDataTask?
     public var predicate: String?
+    
+    /*
+    * You probably don't need to hold onto these as objects. The networking layer is typically just meant to pass data to
+    * and fro. Your get_all method simply needs to parse the JSON and pass the data along, no need to store the information.
+    */
+    
     public var results: [SISUsedCar]?
     public var errorMessage: String?
     
@@ -41,6 +47,11 @@ public class SISUsedCarDataService {
                 
                 var cars = [SISUsedCar]()
                 for dict in dictArray {
+                    
+                    /*
+                    * You don't really need to do this. If your model objects simply take in JSON, you can offload this kind of
+                    * logic into the model obejct, as opposed to doing it in the networking layer.
+                    */
                     
                     guard let id = dict["id"] as? Int,
                         let slug = dict["slug"] as? String,
