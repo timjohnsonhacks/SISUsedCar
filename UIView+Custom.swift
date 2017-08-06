@@ -8,6 +8,12 @@
 
 import UIKit
 
+/*
+* You should do some research into 3rd party libraries. You're doing a lot of things here that are nicely solved with a 
+* library called SnapKit. You can install it with cocoapods. I recommend doing some reading on cocoapods or carthage. 
+* Pretty much all other iOS engineers use them for external dependencies.
+*/
+
 extension UIView {
     
     func insertSubviewAboveWithMatchingFrame(_ view: UIView) {
