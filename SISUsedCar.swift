@@ -13,6 +13,11 @@ let defaultInt = -1
 
 public class SISUsedCar: NSObject {
     
+    /*
+    * Right now all of these properties are required. You should really try and figure out if all of them absolutely
+    * NEED to be required.
+    */
+    
     public var id: Int = defaultInt
     public var slug: String = defaultString
     public var userId: Int = defaultInt
@@ -59,6 +64,11 @@ public class SISUsedCar: NSObject {
     public init(images: [SISUsedCarImage]) {
         self.images = images
     }
+    
+    /*
+    * Instead of this kind of initialization, why not just initialize with a json dictionary, and parse it within the model.
+    * It can offload a lot of logic from elsewhere in the app to here.
+    */
     
     public init(id: Int, slug: String, userId: Int, year: String, make: String, model: String, trim: String, bodyStyle: String, price: Int, description: String, transmission: String, engine: String, mileage: Int, exteriorColor: String, driveTrain_1: String, driveTrain_2: String, vin: String, videoUrl: String, interiorColor: String, wheelBase: String, doorCount: Int, fuelType: String, isUsed: Bool, isSold: Bool, isDeleted: Bool, createdAt: String, updatedAt: String, stockNumber: String, images: [SISUsedCarImage]) {
         
