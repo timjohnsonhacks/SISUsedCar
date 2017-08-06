@@ -27,6 +27,12 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
     weak var detailContainer: SISDetailTextView!
     
     let usedCar: SISUsedCar
+    
+    /*
+    * You do a lot of using child view controllers to perform tasks that are really quite trivial and don't need the complexity of
+    * a UIViewController to solve. These 2 view controllers could easily be replaced with 2 collectionviews.
+    */
+    
     var largeImageChild: SISUsedCarDetailLargeImageVC!
     var smallImagesChild: SISUsedCarDetailSmallImagesVC!
     
@@ -102,6 +108,9 @@ class SISUsedCarDetailMasterVC: UIViewController, DetailImagesMaster {
         navigationItem.titleView = sc
     }
     
+    /*
+    * This is an unnecessary method here.
+    */
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
