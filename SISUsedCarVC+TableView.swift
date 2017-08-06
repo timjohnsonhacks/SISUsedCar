@@ -16,6 +16,12 @@ extension SISUsedCarVC: UITableViewDataSource {
         return 1
     }
     
+    /*
+    * So essentially the number of rows boils down to whether or not you are viewing the last page. If you are viewing
+    * the last page, then the number of rows will be `totalItems mod numberOfItemsPerPage`. If you aren't, then the
+    * number of rows will be the numberOfItemsPerPage. It's easier to just have a reference to whether or not the last
+    * page is being viewed, and then from there return the appropriate number of rows.
+    */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch searchController.isActive {
         case true:
