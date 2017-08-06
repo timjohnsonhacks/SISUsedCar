@@ -17,6 +17,13 @@ class SISUsedCarVC: UIViewController {
     @IBOutlet weak var searchPageContainer: UIView!
     weak var searchPageChild: SISSearchPageVC?
     
+    /*
+    * Honestly I don't really think that using a search controller is the best idea here. You already have a table view, which
+    * the searchController is useful for. The searchController has some wonky behavior also, you can see this with how you
+    * have to dismiss it when you push on the detail view controller. Its better to use a UISearchBar, and just manage
+    * the table view while listening to the delegate from the search bar.
+    */
+    
     /* Using `!` is bad practice in general. Its best to remove the `!` here and instantiate the searchController in init*/
     var searchController: UISearchController!
     
