@@ -21,6 +21,14 @@ extension SISUsedCarVC: SISSearchPageButtonDelegate {
         
         tableView.contentOffset = .zero
         
+        /*
+        * This is a lot more complicated than it needs to be. Essentially, the table view is always displaying the same
+        * number of rows, unless its the last page. So instead of figuring what index paths to insert and delete, you
+        * really should just be reloading the rows, and altering the data you want to show. The data you want to show is the
+        * cars you have for all the pages, in the range of the current page. So when you change the page, it's best to update
+        * the data, then simply call reload. Unless you want that animation - its a little more complicated, but not much.
+        */
+        
         let insertPaths = indexPaths(forPageIndex: pageNumber)
         let currentPage = searchController.isActive == true ? filteredContentActivePage : allContentActivePage
         let deletePaths = indexPaths(forPageIndex: currentPage)
