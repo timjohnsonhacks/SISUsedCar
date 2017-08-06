@@ -68,6 +68,20 @@ class SISUsedCarVC: UIViewController {
     var allContentActivePage: Int = 0
     let allContentItemsPerPage: Int = 10
     
+    /*
+    * I don't think you need this concept of the filtered content. This is creating a lot of points in your code where 
+    * you have to check if you are in the filtered state or not, and the only thing that seems to actually be different
+    * is what is being displayed, not really any other changes. A better solution is to just have one array hold on to
+    * the original content, while having a second array holding onto what is being displayed. Something like:
+    *
+    * var originalCars = [SISUsedCar]()
+    * var cars = [SISUsedCar]()
+    *
+    * With this, you only ever have to interact with the cars array. When you are searching, all you need to do is set
+    * the cars array to the original cars, filtered by the search text. When not searching, the cars array will just be
+    * the original cars. This will make the code cleaner and easier to follow.
+    */
+    
     // filtered search
     var filteredContent = [FilteredCar]()
     var filteredContentActivePage: Int = 0
@@ -199,6 +213,9 @@ class SISUsedCarVC: UIViewController {
         return pageIndex * itemsPerPage + indexPath.row
     }
     
+    /*
+    * Ditto above comment.
+    */
     // MARK: - Search Page Convenience
     func configureSearchPage(forFiltered filtered: Bool) {
         switch filtered {
